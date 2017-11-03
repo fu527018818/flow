@@ -14,7 +14,7 @@ function resolveApp(relativePath) {
 }
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: ["babel-polyfill",'./src/main.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -28,7 +28,18 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'jquery':'jquery'
+      'jquery':'jquery',
+      'lockr': 'lockr',
+      'src': path.resolve(__dirname, '../src'),
+      'api': path.resolve(__dirname, '../src/api'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/components'),
+      'directives': path.resolve(__dirname, '../src/directives'),
+      'pages': path.resolve(__dirname, '../src/pages'),
+      'router': path.resolve(__dirname, '../src/router'),
+      'store': path.resolve(__dirname, '../src/store'),
+      'utils': path.resolve(__dirname, '../src/utils'),
+      'static': path.resolve(__dirname, '../static')
     },
     symlinks: false
   },
@@ -42,7 +53,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
-      ls: "lockr"
+      ls: "lockr",
+      
     })
   ],
   module: {
