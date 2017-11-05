@@ -11,14 +11,15 @@
             background-color="#324157"
             text-color="#7a8ba6"
             active-text-color="#fff"
-            :router="false">
-            <el-menu-item index="1">工作台</el-menu-item>
-            <el-menu-item index="2">客户</el-menu-item>
-            <el-menu-item index="3">统计</el-menu-item>
-            <el-menu-item index="4">人事</el-menu-item>
-            <el-menu-item index="5">系统</el-menu-item>
-            <el-menu-item index="6" class="user-search"><i class="el-icon-search"></i></el-menu-item>
-            <el-submenu index="7" class="user-img">
+            :router="true"
+           >
+            <el-menu-item index="/main">工作台</el-menu-item>
+            <el-menu-item index="/user">客户</el-menu-item>
+            <el-menu-item index="/statistics">统计</el-menu-item>
+            <el-menu-item index="/personnel">人事</el-menu-item>
+            <el-menu-item index="/system">系统</el-menu-item>
+            <el-menu-item  :router="false" index="search"  class="user-search"><i class="el-icon-search"></i></el-menu-item>
+            <el-submenu  index="userHead"  class="user-img">
                 <template  slot="title">小伙子</template>
                 <el-menu-item index="7-1">修改资料</el-menu-item>
                 <el-menu-item index="7-2">使用帮助</el-menu-item>
@@ -45,13 +46,14 @@
 
 <script>
 export default {
+  props:['indexMenu'],
   components: {},
   name: 'MainNav',
   data () {
     return {
        menuCollapse: false,
-       activeIndex: '2',
-       activeIndex2: '3'
+       activeIndex:'/main',
+      //  activeIndex2: '3'
     }
   },
   methods: {
@@ -69,8 +71,33 @@ export default {
     //   }, ()=>{});
     },
     handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+        // console.log(key, keyPath);
+      },
+    menuType(index){
+        switch(index)
+{
+case 0:
+  this.activeIndex="/main"
+  break;
+case 1:
+  this.activeIndex="/user"
+  break;
+  case 2:
+  this.activeIndex="/statistics"
+  break;
+  case 3:
+  this.activeIndex="/personnel"
+  break;
+  case 4:
+  this.activeIndex="/system"
+  break;
+default:
+
+}
+    }
+  },
+  created (){
+   this.menuType(this.indexMenu)
   }
 }
 </script>
