@@ -23,14 +23,18 @@
                     <div class="loginBtn" @click="loginEnter">
                         <span>下一步</span>
                     </div>
+                   <!-- <el-button  class="loginBtn" @click="loginEnter" :loading="true"></el-button> -->
                 </form>
+                
             </div>
         </div>
         <div class="copyright">
             版权所有 (C) 厦门灵友信息科技有限公司
             <a href="javascript:void(0)">Copyright © 2014-2017</a>
         </div>
+        
     </div>
+     
 </template>
 
 <script>
