@@ -9,21 +9,19 @@ body,html{
     width: 100%;
     min-height: 100%;
     margin-bottom: -20px;
-    padding-bottom: 300px;
-    
 }
 .headline{
     width: 355px;
     height: auto;
     margin: 0 auto;
     text-align: center;
-    padding-top: 100px;
+    padding-top:7%;
 }
 .headline > .pwdHint{
     color: #6d6d6d;
     font-size: 16px;
-    margin-top: 19px;
-    margin-bottom: 42px;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 .loginBox{
     width: 355px;
@@ -86,7 +84,6 @@ body,html{
     width: 274px;
     height: 40px;
     line-height: 40px;
-    // background-color: #303643;
     background-color: #3e475a;
     border-radius: 5px 5px 5px 5px;
     margin: 0 auto 60px;
@@ -108,7 +105,7 @@ body,html{
     position: absolute;
     bottom: 0;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom:5px;
     font-size: 14px;
 	font-weight: normal;
 	font-style: normal;

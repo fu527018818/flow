@@ -1,6 +1,5 @@
 <template>
   <div class="main-header">
-      
       <div class="main-header-menus">
         <div class="main-logo"></div>
         <!-- 导航菜单 start left-->
@@ -10,8 +9,8 @@
             mode="horizontal"
             :unique-opened="true"
             @select="handleSelect"
-            background-color="#324157"
-            text-color="#7a8ba6"
+            background-color="rgba(72, 167, 255, 1)"
+            text-color="#ffffff"
             active-text-color="#fff"
             :router="true"
             v-show="isMenu"
@@ -19,8 +18,8 @@
             <el-menu-item index="/main">工作台</el-menu-item>
             <el-menu-item index="/user">客户</el-menu-item>
             <el-menu-item index="/statistics">统计</el-menu-item>
+            <el-menu-item index="/software">安防</el-menu-item>
             <el-menu-item index="/personnel">人事</el-menu-item>
-            <el-menu-item index="/system">系统</el-menu-item>
         </el-menu>
          <!-- 导航菜单 start right-->
          <el-menu
@@ -29,21 +28,23 @@
             mode="horizontal"
             :unique-opened="true"
             @select="handleSelect"
-            background-color="#324157"
-            text-color="#7a8ba6"
+            background-color="rgba(72, 167, 255, 1)"
+            text-color="#ffffff"
             active-text-color="#fff"
-            :router="true"
+            :router="false"
             v-show="isMenu"
            >
+           <el-menu-item index="0"><i class="iconfont icon-serach"></i></el-menu-item>
             <el-menu-item index="1">
-              <i class="el-icon-message"></i>
-              <el-badge :value="100" class="badge-item"></el-badge>
+              <el-badge :value="1233" class="item">
+                <i class="iconfont icon-message"></i>
+              </el-badge>
             </el-menu-item>
-            <el-menu-item index="2"><i class="el-icon-setting"></i></el-menu-item>
-            <el-submenu  index="userHead"  class="user-img">
-                <template  slot="title">小伙子</template>
-                <el-menu-item index="7-1">修改资料</el-menu-item>
-                <el-menu-item index="7-2">使用帮助</el-menu-item>
+            <el-menu-item index="3"><i class="iconfont icon-set"></i></el-menu-item>
+            <el-submenu  index="userHead" mode="horizontal"  class="user-img">
+                <template  slot="title">小伙子欢迎回来</template>
+                <el-menu-item index="3-1">修改资料</el-menu-item>
+                <el-menu-item index="3-2">使用帮助</el-menu-item>
                 <el-menu-item index="/">退出登录</el-menu-item>
             </el-submenu>
           </el-menu>
@@ -59,8 +60,8 @@
         </div> -->
       </div>
   </div>
+  
 </template>
-
 <script>
 export default {
   props: ["indexMenu"],
@@ -127,21 +128,21 @@ export default {
 /* 头部导航容器 */
 .main-header {
   position: relative;
-  width: 100vw;
-  height: 45px;
+  width: 100%;
+  height: 61px;
   z-index: 1;
-  background-color: #324157;
-  -webkit-box-shadow: 0 0 5px #222;
-  -moz-box-shadow: 0 0 5px #222;
-  box-shadow: 0 0 5px #222;
+  background-color: rgba(72, 167, 255, 1);
+  -webkit-box-shadow: 0 0 2px #c8bbbb;
+  -moz-box-shadow: 0 0 2px #c8bbbb;
+  box-shadow: 0 0 2px #c8bbbb;
   user-select: none;
 }
 /* 头部导航 > LOGO区域 */
 .main-logo {
   position: absolute;
-  left: 32px;
+  left: 25px;
   top: 50%;
-  line-height: 45px;
+  line-height: 61px;
   color: #fff;
   font-size: 25px;
   background: url("../assets/img/logo-.png");
@@ -150,19 +151,22 @@ export default {
   transform: translate(0, -50%);
   z-index: 10;
 }
-头部导航 > 功能区域
+/* 头部导航 > 功能区域 */
 .main-header-menus {
-  width: 100%;
-  position: absolute;
-  left: 240px;
-  height: 45px;
-  line-height: 45px;
+  height: 61px;
+  width: 1024px;
+  margin: 0 auto;
+  position: relative;
+}
+.main-header-menus .el-menu-item i{
+  color:#ffffff;
+  font-size: 18px;
 }
 .navList {
-  height: 45px;
-  line-height: 45px;
+  height: 61px;
+  line-height: 61px;
   display: inline-block;
-  padding-left: 240px;
+  padding-left:150px;
 }
 .navListRight{
   position: absolute;
@@ -170,18 +174,10 @@ export default {
   top: 0;
   display: inline-block;
 }
-.el-menu--horizontal .el-menu-item {
-  height: 45px;
-  line-height: 45px;
-}
 .el-menu--horizontal {
   border: none;
 }
-/* .user-img {
-  position: absolute;
-  right:0;
-  top: 0;
-} */
+
 .user-search {
   width: 68px;
   top: 0;
@@ -196,9 +192,6 @@ export default {
   color: #878d99;
   vertical-align: middle;
 }
-.user-search:hover {
-  background-color: rgb(40, 52, 70);
-}
 .user-img::before {
   content: "";
   background-image: url("../assets/img/default_head.png");
@@ -206,7 +199,7 @@ export default {
   position: absolute;
   width: 24px;
   height: 24px;
-  left: -15px;
+  left: 5px;
   top: 50%;
   transform: translate(0, -50%);
   -webkit-border-radius: 25px;
@@ -214,6 +207,7 @@ export default {
   border-radius: 20px;
   z-index: 999;
   cursor: pointer;
+  padding: 0;
 }
 .el-menu {
   -webkit-border-radius: 0;
@@ -223,60 +217,16 @@ export default {
   transition: 0.38s;
 }
 .el-menu-item.is-active {
-  border-bottom-color: rgba(83, 146, 255, 1) !important;
+  border: none!important;
+  background-color: rgba(57, 133, 204, 1)!important;
 }
 .user-img.el-submenu.is-active{
-    border-bottom-color:rgba(83, 146, 255, 1)!important;
+    border-bottom-color:rgba(57, 133, 204, 1)!important;
+}
+.el-menu--horizontal .el-menu-item{
+   border-bottom: none;
 }
 .el-menu-item:hover {
-  border-bottom-color: rgba(83, 146, 255, 1) !important;
+  background-color:rgba(57, 133, 204, 1)!important ;
 }
-/*搜索 start */
-.nav_search{
-    height:45px;
-    width: 100%;
-    position:absolute;
-    top: 0;
-    left:50%;
-    transform: translate(-50%,0);
-}
-.nav_search_Box{
-    width: 401px;
-    height: 100%;
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%,0);
-    overflow: hidden;
-}
-.nav_search_Box > input{
-    border: none;
-    outline: none;
-    background: #324157;
-    color: #fff;
-    height: 100%;
-    padding-left: 32px;
-}
-#nav_search_btn{
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background: url('../assets/img/search_btn.png') no-repeat;
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-    cursor: pointer;
-}
-#nav_search_close{
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background: url('../assets/img/index/searchClose.png');
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate(0,-50%);
-    cursor: pointer;
-} 
- /* 搜索 end */
 </style>

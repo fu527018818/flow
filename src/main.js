@@ -8,18 +8,30 @@ import router from './router'
 import Vuex from 'vuex'
 import store from './store/index'
 import ElementUI from 'element-ui'
+import JsEncrypt from 'jsencrypt/bin/jsencrypt'
+import VueSocketio from 'vue-socket.io';
+import socketio from 'socket.io-client';
+import storeSocket from './store'
 
-
-Vue.config.productionTip = false
-
-/* eslint-disable no-new */
+Vue.use(VueSocketio, socketio('http://182.61.32.66:2323'), storeSocket);
+Vue.config.productionTip = false;
+Vue.prototype.$jsEncrypt = JsEncrypt;
 Vue.use(ElementUI);
 Vue.use(Vuex);
+
 
 new Vue({
   el: '#app',
   store,
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  // sockets:{
+  //   connect: function(){
+  //     console.log('连接成功')
+  //   },
+  //   update_online_count(value){  
+  //       this.$store.dispatch('socketConnect')
+  //   }
+  // }
 })
