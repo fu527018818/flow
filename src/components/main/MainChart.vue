@@ -1,89 +1,101 @@
 <template>
     <div class="mainChart">
-        <div class="chart" id="#container" style="width:800px">
-
+        <div class="chart" id="#container" style="height:500px">
         </div>
     </div>
 </template>
 
 <script>
-    import Highcharts from 'highcharts'
+    import Highcharts from 'highcharts';
     export default {
         date (){
             return{
-
             }
         },
         methods:{
 
         },
         created(){
-            
+
         },
          mounted(){
+             var _self = this;
              Highcharts.setOptions({
                 global: {
                     useUTC: false
                 }
             });
+            // 添加数据 重新渲染
             function activeLastPointToolip(chart) {
                 var points = chart.series[0].points;
                 chart.tooltip.refresh(points[points.length -1]);
             }
+           //添加表格数据    
+           function addPointData(chart){
+                var series = chart.series[0],
+                    series1 = chart.series[1];
+                 _self.timer = setInterval(function () {
+                        var x = (new Date()).getTime(),
+                            y = Math.random()+5,
+                            y1 = Math.random()+10;
+                            series.addPoint([x, y], true, true);
+                            series1.addPoint([x, y1], true, true);
+                            activeLastPointToolip(chart)
+            }, 1000);
+           }
+            // 初始化 highcharts
             Highcharts.chart('#container',{
                 chart: {
                     zoomType: 'xy',
-                    // animation: Highcharts.svg, // don't animate in old IE
+                    animation:true,
+                    marginLeft:80,
+                    marginRight:50,
                     events: {
                         load: function () {
-                            // set up the updating of the chart each second
-                            var series = this.series[0],
-                                chart = this,
-                               series1 = this.series[1];
-                            setInterval(function () {
-                                var x = (new Date()).getTime(), // current time
-                                    y = Math.random(),
-                                    y1 = Math.random()+1;
-                                 series.addPoint([x, y], true, true);
-                                 series1.addPoint([x, y1], true, true);
-                                 activeLastPointToolip(chart)
-                            }, 1000);
+                               var  chart = this
+                              addPointData(chart)
                         }
                     }
+                }, //去掉水印
+                 credits: {
+                    enabled: false
                 },
                 title: {
-                    text: '营业额走势图'
+                    text: '营业额走势图',
+                    align:"left",
+                    x:30,
+                    y:30,
+                    margin:50,
+                    style:{
+                        fontSize:"18px",
+                        color:"#4d4d4d"
+                    }
                 },
                 xAxis: {
                     type: 'datetime',
-                    tickPixelInterval: 150
+                    tickPixelInterval:150
                 },
                 yAxis: [{
                     title: {
-                        text: '人'
+                        text: null
                     },
                     labels:{
-                       format:"{value}" 
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
+                       format:"{value}",
+                       align: 'left',
+                    }
                 },{
+                //  linkedTo: 0,  是否显示Y轴坐标
+                // gridLineWidth: 0,
                     labels:{
                         format: '{value}',
+                        align:'right',
+                         x: 0,
+                         y: 0,
                     },
                     title:{
-                        text:"元",
-                        align:"high"
+                        text:null
                     },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }],
-                    opposite: true
+                    opposite:true
                 }],
                 tooltip: {
                     formatter: function () {
@@ -93,25 +105,24 @@
                     }
                 },
                 legend: {
-                    // enabled: false
+                    enabled:true
                 },
                 exporting: {
-                    // enabled: false
+                    enabled: false
                 },
                 series: [{
                     name: '营业额',
                     type:'spline',
+                    color:"#48a7ff",
                     data: (function () {
-                        // generate an array of random data
                         var data = [],
                             time = (new Date()).getTime(),
                             i;
-                        for (i = -15; i <= 0; i += 1) {
+                        for (i = -10; i <= 0; i += 1) {
                            var cc = {
                                 x: time + i * 1000,
-                                y: Math.random()
+                                y: 0
                             }
-       
                             data.push(cc);
                         }
                         return data;
@@ -119,17 +130,17 @@
                 },{
                     name: '客流量',
                     type:'spline',
+                    color:"#ff6648",
                     data: (function () {
-                        // generate an array of random data
+           
                         var data = [],
                             time = (new Date()).getTime(),
                             i;
-                        for (i = -15; i <= 0; i += 1) {
+                        for (i = -10; i <= 0; i += 1) {
                            var cc = {
                                 x: time + i * 1000,
-                                y: Math.random()
+                                y:0
                             }
-       
                             data.push(cc);
                         }
                         return data;
@@ -138,6 +149,9 @@
             }, function(c) {
     activeLastPointToolip(c)
 })
+},
+beforeDestroy:function (){
+   clearInterval(this.timer);
 }
 }
 </script>
@@ -163,7 +177,6 @@
         padding: 30px 0 0 27px;
     }
     #container{
-        height:400px;
         position: relative;
     }
 </style>

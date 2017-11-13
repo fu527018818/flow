@@ -1,7 +1,13 @@
 <template>
     <!-- 页面头部导航 -->
-    <main-nav :indexMenu="1"></main-nav>
+    <div>
+        <main-nav :indexMenu="1"></main-nav>
+        <div>
+            
+        </div>
+    </div>
    
+    
 </template>
 
 <script>
@@ -16,7 +22,17 @@ export default {
         },
         methods:{
             
-        }
+        },
+       created(){
+           
+       },
+       mounted (){
+
+       },
+       beforeDestroy(){
+
+           
+       }
     }
 </script>
 

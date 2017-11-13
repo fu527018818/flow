@@ -48,16 +48,6 @@
                 <el-menu-item index="/">退出登录</el-menu-item>
             </el-submenu>
           </el-menu>
-        <!-- <div class="user-search"  @click="searchBtn" v-show="isSearch">
-        <i class="el-icon-search"></i>
-        </div>
-        <div class="nav_search" v-show="false">
-           <div class="nav_search_Box">
-              <span id="nav_search_btn"></span>
-              <input type="text" placeholder="请输入要查询的内容......">
-              <span id="nav_search_close"></span>
-            </div>
-        </div> -->
       </div>
   </div>
   
@@ -72,7 +62,6 @@ export default {
       menuCollapse: false,
       activeIndex: "/main",
       isMenu: true,
-      isSearch: true
       //  activeIndex2: '3'
     };
   },

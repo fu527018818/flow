@@ -16,7 +16,7 @@
             </el-col>
              <el-col :span="16">
                 <div class="grid-content bg-purple">
-                    <div class="shortcutBox">
+                    <div class="shortcutBox" v-show="false">
                         <div class="shortcutBtn">
                             <div class="tab">
                                今天
@@ -41,7 +41,8 @@
                         type="daterange"
                         range-separator="至"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期"
+                        v-show="false">
                     </el-date-picker>
                     <el-button type="primary" id="dataEntering">数据录入</el-button>
                 </div>
