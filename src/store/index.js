@@ -6,8 +6,11 @@ import  login from './modules/login/login'
 import websocket from './modules/websocket'
 
 Vue.use(Vuex);
+const state = {
 
+}
 export default new Vuex.Store({
+    state,
     actions,
     getters,
     modules:{

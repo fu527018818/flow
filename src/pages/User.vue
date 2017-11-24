@@ -1,9 +1,9 @@
 <template>
     <!-- 页面头部导航 -->
     <div>
-        <main-nav :indexMenu="1"></main-nav>
+        <main-nav :indexMenu="'/user'"></main-nav>
         <div>
-            
+            <li>hahahahhahha哈哈哈哈</li>
         </div>
     </div>
    

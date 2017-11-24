@@ -1,6 +1,6 @@
 <template>
     <!-- 页面头部导航 -->
-    <main-nav :indexMenu="4"></main-nav>
+    <main-nav :indexMenu="'/software'"></main-nav>
    
 </template>
 

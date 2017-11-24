@@ -1,9 +1,3 @@
-body,html{
-    background-color: #f7f7f7;
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
-}
 .main{
     position: relative;
     width: 100%;
@@ -80,16 +74,7 @@ body,html{
 	letter-spacing: 0.7px;
     color: #ef613d;
 }
-.loginBtn{
-    width: 274px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #3e475a;
-    border-radius: 5px 5px 5px 5px;
-    margin: 0 auto 60px;
-    
-    cursor: pointer;
-}
+
 .loginBtn span{
     font-family: ﻿MicrosoftYaHei;
 	font-size: 14px;
@@ -138,6 +123,7 @@ body,html{
 }
 #userHead >img{
     margin: 20px 0 42px;
+    border-radius: 50%;
 }
 /**
 *logo_pwd end

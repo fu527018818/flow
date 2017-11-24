@@ -20,10 +20,13 @@
             
         },
          mounted(){
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
              Highcharts.chart('#contain',options1.addOptions())
          }
-
-
 }
 </script>
 

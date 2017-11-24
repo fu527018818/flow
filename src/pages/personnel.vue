@@ -1,6 +1,6 @@
 <template>
     <!-- 页面头部导航 -->
-    <main-nav :indexMenu="3"></main-nav>
+    <main-nav :indexMenu="'/personnel'"></main-nav>
    
 </template>
 

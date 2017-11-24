@@ -20,43 +20,58 @@
                     <div class="error_tit" style=" visibility: hidden;">
                             账号错误请重试
                     </div>
-                    <div class="loginBtn" @click="loginEnter" :loading="true">
-                        <span>下一步</span>
-                    </div>
-                   <!-- <el-button  class="loginBtn" @click="loginEnter" :loading="true"></el-button> -->
+                     <el-button id="loginBtn"  type="info" :loading="loading" @click.prevent="loginEnter">下一步</el-button>
                 </form>
             </div>
         </div>
-        <div class="copyright">
-            版权所有 (C) 厦门灵友信息科技有限公司
-            <a href="javascript:void(0)">Copyright © 2014-2017</a>
-        </div>
+    <div class="copyright">
+        版权所有 (C) 厦门灵友信息科技有限公司
+        <a href="javascript:void(0)">Copyright © 2014-2017</a>
+    </div>
     </div>
      
 </template>
 
 <script>
+import path from '../api/path'
 export default {
   name: "loginAccount",
   data() {
-    return {};
+    return {
+        loading:false
+    };
   },
   methods: {
     loginEnter: function(e) {
-      e.stopPropagation;
+      this.loading = true;
       var regMobile = /^1[3857]{1}\d{9}$/;
       var $userId = $("#userId").val().trim();
       // 路由跳转
-    
-         this.$router.push({name:'loginPwd'})
-      //  console.log(this.$http.post())
       if (!regMobile.test($userId)) {
-        showTip("手机号码格式错误");
+        this.loading = false;
+        this.showTip("手机号码格式错误");
         return false;
       }
-
-      // 错误提示
-      function showTip(msg) {
+    //用户登录
+     this.$store.dispatch('userLogin',{'url':path.USER_ACC,userJson:{id:$userId}}).then(data=>{
+         this.loading = false;
+         console.log(data)
+         if(data.status=="200"&&!data.status==""){
+                ls.set('userId',$userId)
+               this.$router.push({name:'loginPwd'})
+               
+         }
+         else if(data.status=="400"&&dats.status==""){
+             this.showTip("账号错误");
+         }
+         else if(data.status=="401"&&data.status==""){
+             this.showTip("该用户被禁止登录");
+         }
+      });
+   
+      
+    },   // 错误提示
+ showTip(msg) {
         var $tip = $(".error_tit");
         $tip.text(msg);
         $tip.css({
@@ -70,17 +85,24 @@ export default {
           });
         }, 3000);
       }
-    }
   },
   created() {
-      this.$store.dispatch('userLogin','123');
-       let jse = new this.$jsEncrypt.JSEncrypt()
-       console.log(jse)
-  
+      if(ls.get('userId')){
+         this.$router.push({name:"loginPwd"})
+      }
   }
 };
 </script>
 
 <style scoped>
-@import "/static/css/login.css";
+@import "../assets/css/login.css";
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    #loginBtn{
+         width: 274px;
+         background-color: #3e475a;
+         margin: 0 auto 60px;
+    }
 </style>

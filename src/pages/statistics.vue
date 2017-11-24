@@ -1,6 +1,6 @@
 <template>
     <!-- 页面头部导航 -->
-    <main-nav :indexMenu="2"></main-nav>
+    <main-nav :indexMenu="'/statistics'"></main-nav>
    
 </template>
 

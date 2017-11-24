@@ -1,6 +1,6 @@
-import Qs from 'qs'
-import Vue from 'vue'
-import JsEncrypt from 'jsencrypt/bin/jsencrypt'
+import Qs from 'qs';
+import Vue from 'vue';
+import JsEncrypt from 'jsencrypt/bin/jsencrypt';
 
 export default{
       // 基础url前缀：baseURL 将自动加在 url 前面，除非 url 是一个绝对 URL。
@@ -11,12 +11,14 @@ export default{
       transformRequest: [
         function(data) {
           // 这里可以在发送请求之前对请求数据做处理，比如form-data格式化等，这里可以使用开头引入的Qs（这个模块在安装axios的时候就已经安装了，不需要另外安装）
+          console.log('发送请求的数据具体: %o',data)
           return Qs.stringify(data);
         }
       ],
     
       // 这里提前处理返回的数据
       transformResponse: [function (data) {
+        console.log('返回之前的数据具体: %o',data)
         return data;
       }],
     

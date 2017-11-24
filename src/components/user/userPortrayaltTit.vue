@@ -4,48 +4,19 @@
            <el-row>
             <el-col :span="8">
                 <div class="grid-content bg-purple">
-                   <el-form :inline="true" :model="formInline" id="selAreaForm">
-                    <el-form-item label="今日营收">
-                        <el-select v-model="formInline.region" id="selArea" placeholder="请选择门店">
+                   <el-form :inline="true"  id="selAreaForm">
+                    <el-form-item label="客户画像">
+                        <!-- <el-select v-model="formInline.region" id="selArea" placeholder="请选择门店">
                             <el-option label="湖里万达店" value="shanghai"></el-option>
                             <el-option label="仓山万达店" value="beijing"></el-option>
-                        </el-select>
+                        </el-select> -->
                     </el-form-item>
                     </el-form>
                 </div>
             </el-col>
              <el-col :span="16">
                 <div class="grid-content bg-purple">
-                    <!-- <div class="shortcutBox" v-show="false">
-                        <div class="shortcutBtn">
-                            <div class="tab">
-                               今天
-                            </div>
-                            <div>
-                                昨天
-                            </div>
-                            <div>
-                                近期
-                            </div>
-                            <div>
-                                本周
-                            </div>
-                            <div>
-                                本月
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <el-date-picker
-                        v-model="value6"
-                        type="daterange"
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        v-show="false">
-                    </el-date-picker>  -->
-                    <!-- 链接到数据录入-->
-                 <router-link :to="{name:'dataEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
+                        <!--  -->
                 </div>
             </el-col>
           </el-row>
@@ -57,18 +28,17 @@
                         <div>营业额</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18">dd55</el-col>
+                                <el-col :span="18">dd323232255</el-col>
                                 <el-col :span="6">
-                                    <span>元</span>
+                                    <span>万元</span>
                                 </el-col>
                             </el-row>
                         </div>
-                        <div>
+                        <!-- <div>
                             +8.9%<i class="iconfont icon-down"></i>
-                        </div>
+                        </div> -->
                     </div>
                 </el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
                 <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
                 <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
                 <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
@@ -84,11 +54,6 @@
     export default {
         data(){
             return {
-                value6:"",
-                 formInline: {
-        
-          region: ''
-            }
             }
         },
         created (){
@@ -150,12 +115,7 @@
     height: 80px;
     overflow: hidden;
 }
-#dataEntering{
-    position: absolute;
-    right:20px;
-    top: 50%;
-    transform: translate(0,-50%);
-}
+
 .shortcutBtn .tab{
     background-color: #48a7ff;
     color: #ffffff!important;
@@ -168,19 +128,19 @@
         position: relative;
         & > div:nth-child(1){
             font-family: MicrosoftYaHeiLight;
-            font-size: 12px;
+            font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
-            font-size:13px;
             letter-spacing: 0px;
             color: #4c4c4c;
-            padding-left: 10px;
-            padding-top:15px;
+            padding-left: 12px;
+            padding-top:12px;
         }
         & > div:nth-child(2){
             text-align: center;
             position: relative;
             margin-top:8px;
+            overflow: hidden;
             &  .numList div:nth-child(1){
                 font-family: MicrosoftYaHeiLight;
                 font-size: 40px;
@@ -189,6 +149,8 @@
                 letter-spacing: 0px;
                 color: #ff6648;
                 padding-left: 10px;
+                width: 180px;
+                overflow: hidden;
             }
             &  .numList div:nth-child(2){
                 font-family: MicrosoftYaHeiLight;
@@ -201,7 +163,7 @@
                 position: relative;
                 & > span{
                     position: absolute;
-                    right: 17px;
+                    right: 14px;
                     bottom: -2px;
                 }
             }

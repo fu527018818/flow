@@ -3,58 +3,83 @@
       <div class="main-header-menus">
         <div class="main-logo"></div>
         <!-- 导航菜单 start left-->
-          <el-menu
-            :default-active="activeIndex"
-            class="navList"
-            mode="horizontal"
-            :unique-opened="true"
-            @select="handleSelect"
-            background-color="rgba(72, 167, 255, 1)"
-            text-color="#ffffff"
-            active-text-color="#fff"
-            :router="true"
-            v-show="isMenu"
-           >
-            <el-menu-item index="/main">工作台</el-menu-item>
-            <el-menu-item index="/user">客户</el-menu-item>
-            <el-menu-item index="/statistics">统计</el-menu-item>
-            <el-menu-item index="/software">安防</el-menu-item>
-            <el-menu-item index="/personnel">人事</el-menu-item>
-        </el-menu>
-         <!-- 导航菜单 start right-->
-         <el-menu
-            :default-active="activeIndex"
-            class="navListRight"
-            mode="horizontal"
-            :unique-opened="true"
-            @select="handleSelect"
-            background-color="rgba(72, 167, 255, 1)"
-            text-color="#ffffff"
-            active-text-color="#fff"
-            :router="false"
-            v-show="isMenu"
-           >
-           <el-menu-item index="0"><i class="iconfont icon-serach"></i></el-menu-item>
-            <el-menu-item index="1">
-              <el-badge :value="1233" class="item">
-                <i class="iconfont icon-message"></i>
-              </el-badge>
-            </el-menu-item>
-            <el-menu-item index="3"><i class="iconfont icon-set"></i></el-menu-item>
-            <el-submenu  index="userHead" mode="horizontal"  class="user-img">
-                <template  slot="title">小伙子欢迎回来</template>
-                <el-menu-item index="3-1">修改资料</el-menu-item>
-                <el-menu-item index="3-2">使用帮助</el-menu-item>
-                <el-menu-item index="/">退出登录</el-menu-item>
-            </el-submenu>
-          </el-menu>
+        <transition name="fade">
+          <div class="menuBox"  v-show="isMenu">
+              <el-menu
+                :default-active="activeIndex"
+                class="navList"
+                mode="horizontal"
+                :unique-opened="true"
+                @select="handleSelect"
+                background-color="#4198ff "
+                text-color="#ffffff"
+                active-text-color="#fff"
+                :router="true"
+              >
+              <el-menu-item index="/main">
+                  工作台
+              </el-menu-item>
+               <el-submenu index="/user" class="itemDown">
+                <template slot="title">客户</template>
+                <el-menu-item index="/userPortrayal">客户画像</el-menu-item>
+                <el-menu-item index="/userDetails">客户详情</el-menu-item>
+              </el-submenu>
+              <el-menu-item index="/statistics">统计</el-menu-item>
+              <el-menu-item index="/software">安防</el-menu-item>
+              <el-menu-item index="/personnel">人事</el-menu-item>
+            </el-menu>
+            <!-- 导航菜单 start right-->
+            <el-menu
+                :default-active="activeIndex"
+                class="navListRight"
+                mode="horizontal"
+                :unique-opened="true"
+                @select="handleSelect"
+                background-color="#4198ff"
+                text-color="#ffffff"
+                active-text-color="#fff"
+                :router="false"
+              >
+              <el-menu-item index="serach"><i class="iconfont icon-serach"></i></el-menu-item>
+              <el-menu-item index="/message">
+                <el-badge :value="1233" class="item">
+                  <i class="iconfont icon-message"></i>
+                </el-badge>
+              </el-menu-item>
+              <el-menu-item index="/systemSet"><i class="iconfont icon-set"></i></el-menu-item>
+              <el-submenu  index="userHead"  class="user-img">
+                    <template  slot="title" class="123" index="3435434">小伙子欢迎回来</template>
+                    <el-menu-item index="/userHelp">修改资料</el-menu-item>
+                    <el-menu-item index="3-2">我的相册</el-menu-item>
+                    <el-menu-item index="3-3">我的门店</el-menu-item>
+                    <el-menu-item index="3-4">设置</el-menu-item>
+                    <el-menu-item index="/outSystem">退出登录</el-menu-item>
+              </el-submenu>
+              </el-menu>
+        </div>
+      </transition>
+      <transition name="slide-fade">
+          <el-row class="autocomplete" id="searchContentBox"  v-show="isSearch">
+              <el-col :span="10" :offset="7">
+                <i class="iconfont icon-serach" id="searchContentBtn"></i>
+                    <el-autocomplete
+                      class="inline-input searchContent"
+                      v-model="state1"
+                      :fetch-suggestions="querySearch"
+                      placeholder="请输入要查询的内容"
+                      @select="handleSelectSearch"
+                    >
+                    </el-autocomplete>
+                <i class="iconfont icon-close" id="closeSearchBtn" @click="closeSearchBtn"></i>
+              </el-col>
+          </el-row>
+         </transition>
       </div>
   </div>
-  
 </template>
 <script>
 export default {
-  props: ["indexMenu"],
+  props: ['indexMenu'],
   components: {},
   name: "MainNav",
   data() {
@@ -62,65 +87,121 @@ export default {
       menuCollapse: false,
       activeIndex: "/main",
       isMenu: true,
+      isSearch: false,
+      restaurants: [],
+      state1: ""
       //  activeIndex2: '3'
     };
   },
   methods: {
+    // 退出系统
     outSystem: function() {
-      //   this.$confirm('是否注销当前登录并退出？', '提示：', {
-      //     confirmButtonText: '确定',
-      //     cancelButtonText: '取消',
-      //     closeOnClickModal: false,
-      //     type: 'warning'
-      //   }).then(() => {
-      //     ls.rm('Token');
-      //     ls.rm('menus');
-      //     ls.rm('tabs');
-      //     this.$router.push('/PageLogin');
-      //   }, ()=>{});
+        this.$confirm('是否注销当前登录并退出？', '提示：', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              closeOnClickModal: false,
+              type: 'warning'
+        }).then(() => {
+          this.$store.commit('REMOVE_TOKEN');
+          this.$store.commit('ROMOVE_SECRET');
+          this.$router.push('/');
+        }, ()=>{});
+    },
+    closeSearchBtn(){
+        this.isSearch = false;
+        this.isMenu = true;
+        this.activeIndex = this.$route.path
     },
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // 搜索关闭时菜单指向当前路由
+       this.menuType(key);
     },
-    searchBtn() {
-      this.isMenu = false;
-      this.isSearch = false;
+    // 搜索选择
+    handleSelectSearch(item) {
+      // console.log(item);
     },
-    menuType(index) {
-      switch (index) {
-        case 0:
-          this.activeIndex = "/main";
-          break;
-        case 1:
-          this.activeIndex = "/user";
-          break;
-        case 2:
-          this.activeIndex = "/statistics";
-          break;
-        case 3:
-          this.activeIndex = "/personnel";
-          break;
-        case 4:
-          this.activeIndex = "/system";
-          break;
+    querySearch(queryString, cb) {
+      var restaurants = this.restaurants;
+      var results = queryString
+        ? restaurants.filter(this.createFilter(queryString))
+        : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return restaurant => {
+        return (
+          restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===0
+        );
+      };
+    },
+    loadAll() {
+      return [
+        { value: "三全鲜食（北新泾店）", address: "长宁区新渔路144号" },
+        { value: "Hot honey 首尔炸鸡（仙霞路）", address: "上海市长宁区淞虹路661号" },
+        { value: "新旺角茶餐厅", address: "上海市普陀区真北路988号创邑金沙谷6号楼113" }
+      ];
+    },
+    menuType(index){
+      console.log(index)
+      // 防止刷新时指向当前路由
+      switch(index){
+        case '/main':
+        this.activeIndex = "/main";
+        break;
+        case "serach":
+          this.isMenu = false;
+          this.isSearch = true;
+          this.activeIndex = "serach";
+        break;
+        case "/user":
+         this.activeIndex = "/user"; 
+        break;
+        case "/statistics":
+        this.activeIndex = "/statistics";
+        break;
+        case "/personnel":
+        this.activeIndex = "/personnel";
+        break;
+        case "/message":
+        this.activeIndex = "/message";
+        break;
+        case "outSystem":
+            this.outSystem();
+        break;
+        case "/userHelp":
+            this.activeIndex = "/userHelp";
+            this.$router.push({name:"helpSoftware"}); 
+        break;
+        case "/userPortrayal":
+            this.activeIndex = "/userPortrayal";
+        break;
+        case "/userDetails":
+            this.activeIndex = "/userDetails";
+        break;
         default:
+        this.activeIndex = "/main";
       }
     }
   },
   created() {
-    this.menuType(this.indexMenu);
+   this.menuType(this.indexMenu)
+  },
+  mounted() {
+    this.restaurants = this.loadAll();
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '../../static/variable.scss';
 /* 头部导航容器 */
 .main-header {
   position: relative;
   width: 100%;
   height: 61px;
   z-index: 1;
-  background-color: rgba(72, 167, 255, 1);
+  background-color:$globalColor;
   -webkit-box-shadow: 0 0 2px #c8bbbb;
   -moz-box-shadow: 0 0 2px #c8bbbb;
   box-shadow: 0 0 2px #c8bbbb;
@@ -148,20 +229,27 @@ export default {
   position: relative;
 }
 .main-header-menus .el-menu-item i{
-  color:#ffffff;
-  font-size: 18px;
+  color: #ffffff;
+  font-size: 20px;
+}
+.menuBox{
+  height:61px;
+  line-height: 61px;
 }
 .navList {
   height: 61px;
   line-height: 61px;
   display: inline-block;
-  padding-left:150px;
+  padding-left: 150px;
 }
-.navListRight{
+.navListRight {
   position: absolute;
   right: 0;
   top: 0;
   display: inline-block;
+     & .el-menu-item i{
+       font-size:18px;
+     }
 }
 .el-menu--horizontal {
   border: none;
@@ -206,16 +294,51 @@ export default {
   transition: 0.38s;
 }
 .el-menu-item.is-active {
-  border: none!important;
-  background-color: rgba(57, 133, 204, 1)!important;
+  border: none !important;
+  background-color:$navHoverColor!important;
 }
-.user-img.el-submenu.is-active{
-    border-bottom-color:rgba(57, 133, 204, 1)!important;
+.user-img.el-submenu.is-active {
+  border-bottom-color:$navHoverColor!important;
 }
-.el-menu--horizontal .el-menu-item{
-   border-bottom: none;
+.el-menu--horizontal .el-menu-item {
+  border-bottom: none;
 }
 .el-menu-item:hover {
-  background-color:rgba(57, 133, 204, 1)!important ;
+  background-color:$navHoverColor!important;
 }
+/* 搜索 start */
+#searchContentBox{
+  position:absolute;
+  top: 0;
+  width:100%;
+  height: 100%;
+  line-height: 61px;
+  & .el-col.el-col-10.el-col-offset-7{
+    position: relative;
+  }
+  & .searchContent{
+      width: 100%;
+  }
+  & #searchContentBtn{
+    color: #ffffff;
+    position: absolute;
+    font-size: 18px;
+    z-index: 5;
+    top:50%;
+    transform: translate(0,-50%);
+    cursor: pointer;
+  }
+  & #closeSearchBtn{
+      color: #ffffff;
+      position: absolute;
+      font-size: 18px;
+      z-index: 5;
+      top:50%;
+      right: 0;
+      transform: translate(0,-50%);
+      cursor: pointer;
+  }
+}
+/* 搜索 end */
+
 </style>
