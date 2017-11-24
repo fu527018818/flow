@@ -96,15 +96,17 @@ export default {
   methods: {
     // 退出系统
     outSystem: function() {
+      console.log(123)
         this.$confirm('是否注销当前登录并退出？', '提示：', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               closeOnClickModal: false,
               type: 'warning'
         }).then(() => {
-          this.$store.commit('REMOVE_TOKEN');
-          this.$store.commit('ROMOVE_SECRET');
-          this.$router.push('/');
+          console.log(123)
+            this.$store.commit('REMOVE_TOKEN');
+            this.$store.commit('ROMOVE_SECRET');
+            this.$router.push('/');
         }, ()=>{});
     },
     closeSearchBtn(){
@@ -166,7 +168,7 @@ export default {
         case "/message":
         this.activeIndex = "/message";
         break;
-        case "outSystem":
+        case "/outSystem":
             this.outSystem();
         break;
         case "/userHelp":

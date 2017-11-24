@@ -20,7 +20,7 @@
                     <div class="error_tit" style=" visibility: hidden;">
                             账号错误请重试
                     </div>
-                     <el-button id="loginBtn"  type="info" :loading="loading" @click.prevent="loginEnter">下一步</el-button>
+                     <el-button id="loginBtn"  type="info" :loading="loading" @click.enter="loginEnter">下一步</el-button>
                 </form>
             </div>
         </div>
@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     loginEnter: function(e) {
+      e.preventDefault();
       this.loading = true;
       var regMobile = /^1[3857]{1}\d{9}$/;
       var $userId = $("#userId").val().trim();

@@ -1,3 +1,4 @@
+// import Highcharts from 'highcharts';
 export function addOptions(){
     // main页图标option
     var options1
@@ -75,26 +76,36 @@ export function userOptionColumn(){
             type: 'column'
         },
         title: {
-            text: '高级响应式图表'
+            text: '客流量VS营业额走势图',
+            align:"left",
+            x:30,
+            y:30,
+            margin:50,
+            style:{
+                fontSize:"18px",
+                color:"#4d4d4d"
+            }
         },
-        subtitle: {
-            text: '请点击按钮查看坐标轴变化'
+        credits: {
+            enabled: false
+        },
+        legend:{
+        enabled:false
         },
         xAxis: {
-            categories: ['一月', '二月', '三月', '四月', '五月', '六月',
-                         '七月', '八月', '九月', '十月', '十一月', '十二月']
+            categories: ['0次','2-4次','5-10次','11-15次','≥15次']
         },
         yAxis: {
             labels: {
                 x: -15
             },
             title: {
-                text: '项目'
+                text:null
             }
         },
         series: [{
             name: '销售',
-            data: [434, 523, 345, 785, 565, 843, 726, 590, 665, 434, 312, 432]
+            data: [434, 523, 345, 785, 565]
         }],
         responsive: {
             rules: [{
@@ -131,72 +142,34 @@ export function userOptionPie (){
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false,
-            spacing : [100, 0 , 40, 0]
+            plotShadow: false
         },
         title: {
-            floating:true,
-            text: '圆心显示的标题'
+            text: '2014 某网站上各个浏览器的访问量占比'
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            headerFormat: '{series.name}<br>',
+            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
         },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
+                    enabled: false
                 },
-                point: {
-                    events: {
-                        mouseOver: function(e) {  // 鼠标滑过时动态更新标题
-                            // 标题更新函数，API 地址：https://api.hcharts.cn/highcharts#Chart.setTitle
-                            chart.setTitle({
-                                text: e.target.name+ '\t'+ e.target.y + ' %'
-                            });
-                        }
-                        //, 
-                        // click: function(e) { // 同样的可以在点击事件里处理
-                        //     chart.setTitle({
-                        //         text: e.point.name+ '\t'+ e.point.y + ' %'
-                        //     });
-                        // }
-                    }
-                },
+                showInLegend: true
             }
         },
         series: [{
             type: 'pie',
-            innerSize: '60%',
-            name: '市场份额',
+            innerSize: '70%',
+            name: '浏览器访问量占比',
             data: [
-                {name:'Firefox',   y: 45.0, url : 'http://bbs.hcharts.cn'},
-                ['IE',       26.8],
-                {
-                    name: 'Chrome',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true,
-                    url: 'http://www.hcharts.cn'
-                },
-                ['Safari',    8.5],
-                ['Opera',     6.2],
-                ['其他',   0.7]
+                {name:'Firefox', y: 45.0},
+                {name:'IE',  y:26.8}
             ]
         }]
-    }, function(c) {
-        // 环形图圆心
-        var centerY = c.series[0].center[1],
-            titleHeight = parseInt(c.title.styles.fontSize);
-        c.setTitle({
-            y:centerY + titleHeight/2
-        });
-        chart = c;
     }
 }
 export default {

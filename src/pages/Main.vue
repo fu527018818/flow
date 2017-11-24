@@ -16,7 +16,7 @@
                     <main-chart-b></main-chart-b>
                 </div>
             </div>
-            <!-- 提示公共 -->
+            <!-- 提示公告 -->
             <dialog-notice></dialog-notice>
         </div>
 </template>
