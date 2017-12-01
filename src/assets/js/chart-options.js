@@ -105,7 +105,8 @@ export function userOptionColumn(){
         },
         series: [{
             name: '销售',
-            data: [434, 523, 345, 785, 565]
+            data: [434, 523, 345, 785, 565],
+            color:"#4198ff"
         }],
         responsive: {
             rules: [{
@@ -142,14 +143,31 @@ export function userOptionPie (){
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false
+            plotShadow: false,
+            marginLeft:-200
         },
         title: {
-            text: '2014 某网站上各个浏览器的访问量占比'
+            text: '2014 某网站上各个浏览器的访问量占比',
+            align:"left",
+            x:30,
+            y:30,
+            margin:50,
+            style:{
+                fontSize:"18px",
+                color:"#4d4d4d"
+            }
+        },
+        credits: {
+            enabled: false
         },
         tooltip: {
             headerFormat: '{series.name}<br>',
             pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        legend: {
+            align: 'left',
+            verticalAlign: 'bottom',
+            x:80
         },
         plotOptions: {
             pie: {
@@ -166,8 +184,16 @@ export function userOptionPie (){
             innerSize: '70%',
             name: '浏览器访问量占比',
             data: [
-                {name:'Firefox', y: 45.0},
-                {name:'IE',  y:26.8}
+                {
+                    name:'新客', 
+                    y: 50.0,
+                    color:'#4198ff'
+                },
+                {
+                name:'老客', 
+                y:50.0,
+               color:"#ff6648"
+            }
             ]
         }]
     }

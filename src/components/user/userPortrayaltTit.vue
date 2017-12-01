@@ -6,10 +6,7 @@
                 <div class="grid-content bg-purple">
                    <el-form :inline="true"  id="selAreaForm">
                     <el-form-item label="客户画像">
-                        <!-- <el-select v-model="formInline.region" id="selArea" placeholder="请选择门店">
-                            <el-option label="湖里万达店" value="shanghai"></el-option>
-                            <el-option label="仓山万达店" value="beijing"></el-option>
-                        </el-select> -->
+
                     </el-form-item>
                     </el-form>
                 </div>

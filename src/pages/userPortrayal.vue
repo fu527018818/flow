@@ -17,14 +17,35 @@
                    </el-col>
                    <el-col :span="12">
                        <div class="grid-content">
+                           <div class="dataDisplay">
+                                <div>
+                                    <span class="dataName">新客：</span>
+                                    <span class="numDate">5</span>
+                                    <span class="dataUnit">人</span>
+                                </div>
+                                <div>
+                                     <span class="dataName">新客：</span>
+                                    <span class="numDate">5</span>
+                                    <span class="dataUnit">人</span>
+                                </div>
+                            </div>
                            <div class="chart" id="#contain3" style="height:100%"></div>
                        </div>
                    </el-col>
                    <el-col :span="12">
                        <div class="grid-content">
-                           <div id="ceshi">
-                               hahashahahqa
-                           </div>
+                           <div class="dataDisplay">
+                                <div>
+                                    <span class="dataName">男客：</span>
+                                    <span class="numDate">5232223</span>
+                                    <span class="dataUnit">人</span>
+                                </div>
+                                <div>
+                                    <span class="dataName">女客：</span>
+                                    <span class="numDate">5</span>
+                                    <span class="dataUnit">人</span>
+                                </div>
+                            </div>
                            <div class="chart" id="#contain4" style="height:100%"></div>
                        </div>
                    </el-col>
@@ -90,9 +111,51 @@
         height: 45px;
         background-color: #3987e6;
     }
-    #ceshi{
+    .dataDisplay{
         position: absolute;
-        top: 0;
+        right:40px;
+        top: 50%;
         z-index: 10;
+        transform: translate(0,-50%);
+        & > div{
+            font-family: MicrosoftYaHeiLight;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #4c4c4c;
+            height: 40px;
+            line-height: 40px;
+        }
+        .numDate{
+            display: inline-block;
+            text-align: center;
+            font-family: MicrosoftYaHeiLight;
+            font-size: 30px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 2px;
+            color: #4c4c4c;
+            width: 100px;
+            overflow: hidden;
+            height: 40px;
+            line-height: 40px;
+             padding-left: 48px;
+        }
+        .dataName{
+           position: absolute;
+
+        }
+        .dataUnit{
+            position: relative;
+            top: -6px;
+        }
+       & > div:nth-child(1){
+           margin-bottom: 20px;
+            
+       }
+       & > div:nth-child(2){
+           margin-top: 20px;
+       }
     }
 </style>

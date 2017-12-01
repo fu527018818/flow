@@ -22,7 +22,7 @@
                <el-submenu index="/user" class="itemDown">
                 <template slot="title">客户</template>
                 <el-menu-item index="/userPortrayal">客户画像</el-menu-item>
-                <el-menu-item index="/userDetails">客户详情</el-menu-item>
+                <el-menu-item index="/userManage">客户管理</el-menu-item>
               </el-submenu>
               <el-menu-item index="/statistics">统计</el-menu-item>
               <el-menu-item index="/software">安防</el-menu-item>
@@ -148,7 +148,7 @@ export default {
       console.log(index)
       // 防止刷新时指向当前路由
       switch(index){
-        case '/main':
+        case '/main': 
         this.activeIndex = "/main";
         break;
         case "serach":
@@ -177,6 +177,9 @@ export default {
         break;
         case "/userPortrayal":
             this.activeIndex = "/userPortrayal";
+        break;
+        case "/userManage":
+            this.activeIndex = "/userManage";
         break;
         case "/userDetails":
             this.activeIndex = "/userDetails";

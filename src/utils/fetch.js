@@ -12,6 +12,7 @@ ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
       var data = config.data;
+      console.log(data)
   function  official(){
         var checkUrl = config.url.split('/');
         var loginUrl = checkUrl[checkUrl.length-1];
@@ -56,7 +57,7 @@ service.interceptors.request.use(config => {
             }
             return newObj; //返回排好序的新对象
         }
-            config.data = obj;
+        config.data = obj;
     }
     // function test(){
     //   var obj = {} 

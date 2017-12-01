@@ -11,6 +11,8 @@ import dataEnter from '../pages/dataEnter.vue';
 import userHelp from '../pages/userHelp.vue';
 import userPortrayal from '../pages/userPortrayal.vue';
 import userDetails from '../pages/userDetails.vue';
+import userManage from '../pages/userManage.vue';
+
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -32,7 +34,13 @@ export const constantRouterMap = [
     path:"/userPortrayal",
     name:"userPortrayal",
     component:userPortrayal
-  },{
+  },
+  {
+    path:"/userManage",
+    name:"userManage",
+    component:userManage
+  },
+  {
       path:"/userDetails",
       name:"userDetails",
       component:userDetails
