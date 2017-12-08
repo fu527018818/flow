@@ -15,7 +15,7 @@
                 </a>
                 <form>
                     <div class="userIpt">
-                        <input id="userId" type="text" placeholder="账号" autocomplete="off">
+                        <input id="userId" v-focus type="text" placeholder="请输入您账号" autocomplete="off">
                     </div>
                     <div class="error_tit" style=" visibility: hidden;">
                             账号错误请重试
@@ -60,7 +60,6 @@ export default {
          if(data.status=="200"&&!data.status==""){
                 ls.set('userId',$userId)
                this.$router.push({name:'loginPwd'})
-               
          }
          else if(data.status=="400"&&dats.status==""){
              this.showTip("账号错误");
@@ -88,14 +87,17 @@ export default {
       }
   },
   created() {
-      if(ls.get('userId')){
-         this.$router.push({name:"loginPwd"})
-      }
+      
+  },
+  beforeCreate(){
+    //   if(ls.get('userId')&&!ls.get('userId')==""){
+    //      this.$router.push({name:"loginPwd"})
+    //   }
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @import "../assets/css/login.css";
     html,body{
         width: 100%;

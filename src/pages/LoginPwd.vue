@@ -15,7 +15,7 @@
                 </div>
                 <a id="userHead" class="userHead" href="javascript:void(0);">
                             <img :src="userimg" alt="">
-                        </a>
+                </a>
                 <form>
                     <div class="userIpt">
                         <input id="userPw" type="text" placeholder="密码" autocomplete="off">
@@ -46,7 +46,7 @@
         },
         computed:{
             userimg(){
-                return this.$store.state.login.userInfo.head_img || ls.get('userInfo').head_img
+                return this.$store.state.login.userInfo.avatar || ls.get('userInfo').avatar
             }
         },
         methods:{

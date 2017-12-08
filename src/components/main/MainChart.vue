@@ -41,7 +41,7 @@
                             series.addPoint([x, y], true, true);
                             series1.addPoint([x, y1], true, true);
                             activeLastPointToolip(chart)
-            }, 1000);
+            }, 5000);
            }
             // 初始化 highcharts
             Highcharts.chart('#container',{

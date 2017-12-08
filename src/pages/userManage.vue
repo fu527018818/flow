@@ -1,12 +1,13 @@
 <template>
     <div>
         <main-nav :indexMenu="'/userManage'"></main-nav>
+        <div class="contentBox">
         <div class="content">
             <div class="searchTop">
                 <div class="manageTit">
                     <div>客户管理</div>
                 </div>   
-                <!-- 表单条件筛选 -->
+                <!-- 表单条件筛选 stat-->
                 <el-collapse-transition>
                     <div class="searchCondition" v-show="show">
                         <el-row class="searchList">
@@ -106,6 +107,7 @@
                         </el-row>
                     </div>
                 </el-collapse-transition>
+                 <!-- 表单条件筛选 end-->
                 <!-- 选中条件溢出到下面I really don't understand that this product is really fuck -->
                  <div class="manageSearch">
                     <el-row>
@@ -187,6 +189,7 @@
                 </div> 
             </div>
         </div>
+        </div>
     </div>
 </template>
 
@@ -265,7 +268,6 @@
                            this.formatShowDate(getDate.getToday())
                      break;
                      case '昨天':
-                            console.log(123);
                            this.formatShowDate(getDate.getYesterdayDate())
                      break;
                      case '本周':
@@ -324,18 +326,24 @@
             
         },
         created (){
+            
            
         }
     }
 </script>
 
 <style scoped lang="scss">
+.contentBox{
+    width: 100%;
+    height: 100%;
     .content{
         width: 1024px;
         margin: 0 auto;
         height: 100%;
         margin-top: 6px;
     }
+}
+    
     .manageTit{
         height:77px;
         background-color: #ffffff;

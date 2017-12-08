@@ -34,7 +34,7 @@ module.exports = {
       'api': path.resolve(__dirname, '../src/api'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
-      'directives': path.resolve(__dirname, '../src/directives'),
+      'directives': path.resolve(__dirname, '../src/directive'),
       'pages': path.resolve(__dirname, '../src/pages'),
       'router': path.resolve(__dirname, '../src/router'),
       'store': path.resolve(__dirname, '../src/store'),

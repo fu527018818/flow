@@ -4,11 +4,10 @@
            <el-row>
             <el-col :span="8">
                 <div class="grid-content bg-purple">
-                   <el-form :inline="true" :model="formInline" id="selAreaForm">
+                   <el-form :inline="true" id="selAreaForm">
                     <el-form-item label="今日营收">
-                        <el-select v-model="formInline.region" id="selArea" placeholder="请选择门店">
-                            <el-option label="湖里万达店" value="shanghai"></el-option>
-                            <el-option label="仓山万达店" value="beijing"></el-option>
+                        <el-select  @change="changeShop" v-model="list_current" id="selArea" placeholder="请选择门店">
+                            <el-option v-for="item in shop_list" :key="item.id" :label="item.shop_name" :value="item.id"></el-option>
                         </el-select>
                     </el-form-item>
                     </el-form>
@@ -16,83 +15,172 @@
             </el-col>
              <el-col :span="16">
                 <div class="grid-content bg-purple">
-                    <!-- <div class="shortcutBox" v-show="false">
-                        <div class="shortcutBtn">
-                            <div class="tab">
-                               今天
-                            </div>
-                            <div>
-                                昨天
-                            </div>
-                            <div>
-                                近期
-                            </div>
-                            <div>
-                                本周
-                            </div>
-                            <div>
-                                本月
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <el-date-picker
-                        v-model="value6"
-                        type="daterange"
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        v-show="false">
-                    </el-date-picker>  -->
-                    <!-- 链接到数据录入-->
                  <router-link :to="{name:'dataEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
                 </div>
             </el-col>
           </el-row>
        </div>
-       <div class="dataListBox">
+       <div class="dataListBox" v-if="chart">
            <el-row :gutter="10" class="dataList">
-                <el-col :span="6">
+                <el-col :span="6" >
                     <div class="grid-content bg-purple">
-                        <div>营业额</div>
+                        <div>{{chart.turnover.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18">dd55</el-col>
+                                <el-col :span="18">{{chart.turnover.value}}</el-col>
                                 <el-col :span="6">
-                                    <span>元</span>
+                                    <span>{{chart.turnover.unit}}</span>
                                 </el-col>
                             </el-row>
                         </div>
+                        <div :class ="[chart.turnover.is_rise=='1'?'':'rise_down']">
+                            {{chart.turnover.compare_rate+'%'}}<i :class="['iconfont',chart.turnover.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                      <div id="marking" v-bind:style="'width:'+ chart.turnover.completion+'%'"></div>
+                    </div>  
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.turnover_rate.name}}</div>
                         <div>
-                            +8.9%<i class="iconfont icon-down"></i>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="profit">{{chart.turnover_rate.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.turnover_rate.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.turnover.is_rise=='1'?'':'rise_down']">
+                            {{chart.turnover_rate.compare_rate+'%'}}<i :class="['iconfont',chart.turnover_rate.is_rise=='1'?'icon-up':'icon-down']"></i>
                         </div>
                     </div>
                 </el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.operating_cost.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.operating_cost.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.operating_cost.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.operating_cost.is_rise=='1'?'':'rise_down']">
+                            {{chart.operating_cost.compare_rate+'%'}}<i :class="['iconfont',chart.operating_cost.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.expenditure.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.expenditure.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.expenditure.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.expenditure.is_rise=='1'?'':'rise_down']">
+                            {{chart.expenditure.compare_rate+'%'}}<i :class="['iconfont',chart.expenditure.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.passenger.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.passenger.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.passenger.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.passenger.is_rise=='1'?'':'rise_down']">
+                            {{chart.passenger.compare_rate+'%'}}<i :class="['iconfont',chart.passenger.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.volume.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.volume.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.volume.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.volume.is_rise=='1'?'':'rise_down']">
+                            {{chart.volume.compare_rate+'%'}}<i :class="['iconfont',chart.volume.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.volume_rate.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.volume_rate.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.volume_rate.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.volume_rate.is_rise=='1'?'':'rise_down']">
+                            {{chart.volume_rate.compare_rate+'%'}}<i :class="['iconfont',chart.volume_rate.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.unit_price.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18" class="col_rest">{{chart.unit_price.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.unit_price.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div :class ="[chart.unit_price.is_rise=='1'?'':'rise_down']">
+                            {{chart.unit_price.compare_rate+'%'}}<i :class="['iconfont',chart.unit_price.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        </div>
+                    </div>
+                </el-col>
             </el-row>
        </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
     export default {
         data(){
             return {
                 value6:"",
-                 formInline: {
-        
-          region: ''
+                list_current:""
             }
+        },
+        computed:{
+            ...mapGetters([
+                'shop_list',  //店铺列表
+                'shop_list_current'
+           ]),
+           ...mapState({
+               chart:state => state.main.chart== ''? false:state.main.chart   //初始化时数据为空，异步加载的数据
+           })
+        },
+        methods:{
+            changeShop(val){
+                 this.$store.dispatch('cut_shop_list_current',val);
             }
         },
         created (){
-            // console.log(this.value6)
+            this.list_current = this.shop_list_current
         }
     }
 </script>
@@ -133,7 +221,6 @@
         display: flex;
         & div{
             flex-grow:1;
-            font-family: ﻿MicrosoftYaHei;
             font-size: 12px;
             font-weight: normal;
             font-style: normal;
@@ -148,7 +235,6 @@
 }
 .grid-content.bg-purple{
     height: 80px;
-    overflow: hidden;
 }
 #dataEntering{
     position: absolute;
@@ -162,36 +248,40 @@
 }
 .dataListBox .dataList{
     padding: 0 13px;
+    & > div:nth-child(1){
+        position: relative;
+    }
     & .grid-content.bg-purple{
         border: solid 1px #d3dde0;
         height: 128px;
         position: relative;
         & > div:nth-child(1){
-            font-family: MicrosoftYaHeiLight;
-            font-size: 12px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-size:13px;
+            font-size:14px;
             letter-spacing: 0px;
             color: #4c4c4c;
-            padding-left: 10px;
-            padding-top:15px;
+            padding-left: 12px;
+            padding-top:12px;
         }
         & > div:nth-child(2){
             text-align: center;
             position: relative;
             margin-top:8px;
             &  .numList div:nth-child(1){
-                font-family: MicrosoftYaHeiLight;
                 font-size: 40px;
                 font-weight: normal;
                 font-stretch: normal;
                 letter-spacing: 0px;
                 color: #ff6648;
                 padding-left: 10px;
+                overflow: hidden;
+                &.profit{
+                   color: #4198ff;
+                }
+                &.col_rest{
+                     color: #4d4d4d;
+                }
             }
             &  .numList div:nth-child(2){
-                font-family: MicrosoftYaHeiLight;
                 font-size: 13px;
                 height: 45px;
                 font-weight: normal;
@@ -203,24 +293,31 @@
                     position: absolute;
                     right: 17px;
                     bottom: -2px;
+                    font-size: 16px;
                 }
             }
         }
          & > div:nth-child(3){
-             font-family: MicrosoftYaHei;
             font-size: 12px;
-            font-weight: normal;
-            font-stretch: normal;
             line-height: 26px;
             letter-spacing: 0px;
             color: #ff6648;
             position: absolute;
             bottom:10px;
             right:10px;
+            &.rise_down{
+                color: #00c853;
+            }
          }
     }
     & div:nth-child(5),& div:nth-child(6), & div:nth-child(7), & div:nth-child(8){
         margin-top: 20px;
+    }
+    & #marking{
+        height: 2px;
+        position: absolute;
+        top: -1px;
+        background-color: #ff6648;
     }
 }
 </style>

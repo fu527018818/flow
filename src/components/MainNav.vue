@@ -106,6 +106,7 @@ export default {
           console.log(123)
             this.$store.commit('REMOVE_TOKEN');
             this.$store.commit('ROMOVE_SECRET');
+            this.$store.commit('ROMOVE_SHOP_LIST')
             this.$router.push('/');
         }, ()=>{});
     },
@@ -182,7 +183,7 @@ export default {
             this.activeIndex = "/userManage";
         break;
         case "/userDetails":
-            this.activeIndex = "/userDetails";
+            this.activeIndex = "/userManage";
         break;
         default:
         this.activeIndex = "/main";
@@ -200,6 +201,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../../static/variable.scss';
+
 /* 头部导航容器 */
 .main-header {
   position: relative;

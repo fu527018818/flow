@@ -1,5 +1,5 @@
 // import Highcharts from 'highcharts';
-export function addOptions(){
+export function addOptions(titledata,date,turnover,volume){
     // main页图标option
     var options1
    return options1 = {
@@ -10,7 +10,7 @@ export function addOptions(){
                 marginRight:50,
             },
             title: {
-                text: '客流量VS营业额走势图',
+                text:'hahaha',
                 align:"left",
                 x:30,
                 y:30,
@@ -28,8 +28,9 @@ export function addOptions(){
                              '06:00', '07:00', '08:00', '09:00', '10:00', '11:00','12:00',
                              '13:00', '14:00', '15:00', '16:00', '17:00',
                              '18:00', '19:00', '20:00', '21:00', '22:00', '23:00','24:00'],
+                             minTickInterval:2
                 }],
-            yAxis: [{ // Primary yAxis
+            yAxis: [{ 
                 labels: {
                     format: '{value}',
                     style: {
@@ -49,7 +50,7 @@ export function addOptions(){
                 visible:false
             }],
             tooltip: {
-                shared: true
+                shared: true,
             },
             series: [{
                 name: '营业额',
@@ -57,13 +58,14 @@ export function addOptions(){
                 color:"#48a7ff",
                 yAxis: 1,
                 data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
-                    49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6]
+                    49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,12,12,12,21,21]
                 
             }, {
-                name: '降雨量',
+                name: '成交量',
                 type: 'spline',
                 color:"#ff6648",
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
+                    49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,12,12,12,21,21],
 
             }]
     }

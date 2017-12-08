@@ -11,8 +11,8 @@ HEvVFmSALSI7u/MLrHHHYBggTi2iisDRAn0wjRMzsm1+prFPjV4tFSe1+HPeH0Dv
 ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
-      var data = config.data;
-      console.log(data)
+  var data = config.data;
+  console.log(data)
   function  official(){
         var checkUrl = config.url.split('/');
         var loginUrl = checkUrl[checkUrl.length-1];
@@ -26,7 +26,6 @@ service.interceptors.request.use(config => {
               obj.params  = encrypt.encrypt(JSON.stringify(data));
           }else{
             // 判断登录成功后
-              data  = objKeySort(data);
               if(!store.getters.token==""||ls.get('token')&&!store.getters.userInfo==""||ls.get('secret')){
                           //优先在vuex里面取值防止localstange被清除  
                   var keyAccept =  CryptoJS.enc.Utf8.parse( store.getters.secret.accept||ls.get('secret').accept);
@@ -38,7 +37,7 @@ service.interceptors.request.use(config => {
                       return str
                   }
                 obj.params = encrypt();
-                obj.sign = CryptoJS.MD5(JSON.stringify(data)).toString();
+                obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
                 obj.id= ls.get('userId');
                 obj.token = store.getters.token||ls.get('token');
               }
@@ -46,16 +45,15 @@ service.interceptors.request.use(config => {
           //排序算法a-z;
           function objKeySort(arys) { 
             //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
-            var newkey = Object.keys(arys).sort();　　 
-            //console.log('newkey='+newkey);
-            var newObj = {}; //创建一个新的对象，用于存放排好序的键值对
+            var newkey = Object.keys(arys).sort();
+            var newObj = ''; //创建一个新的对象，用于存放排好序的键值对
             for(var i = 0; i < newkey.length; i++) {
-                //遍历newkey数组
-                newObj[newkey[i]] = arys[newkey[i]]; 
+              //遍历newkey数组  拼接成 a='12'&b={}& 如果是对象或者数组的时候转换JSON
+              newObj += newkey[i] + '=' +(typeof arys[newkey[i]]=="object"?JSON.stringify(arys[newkey[i]]):arys[newkey[i]]) + '&';
+                // newObj[newkey[i]] = arys[newkey[i]]; 
                 //向新创建的对象中按照排好的顺序依次增加键值对
-  
             }
-            return newObj; //返回排好序的新对象
+            return newObj.slice(0,newObj.length-1); //返回排好序的新对象
         }
         config.data = obj;
     }
@@ -78,16 +76,19 @@ service.interceptors.request.use(config => {
   service.interceptors.response.use(
     response => {
       //登录之后返回数据进行解密
-        if(!store.getters.token==""||ls.get('token')&&!store.getters.userInfo==""||ls.get('secret')){
-            //aes解密
-            var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
-              var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{
-                  mode: CryptoJS.mode.ECB
+        var checkUrl = response.config.url.split('/');
+        var loginUrl = checkUrl[checkUrl.length-1];
+        if(!(loginUrl=="id")&&!(loginUrl=="login")){
+                 //aes解密
+                
+                var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
+                var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{
+                    mode: CryptoJS.mode.ECB
                 })
-            var data = JSON.parse(str.toString(CryptoJS.enc.Utf8));
-            store.commit('SET_TOKEN',data.token)
-            response.data = data;
-      }
+              var data = JSON.parse(str.toString(CryptoJS.enc.Utf8));
+              store.commit('SET_TOKEN',data.token)
+              response.data = data;
+        }
       console.log('返回前数据对象response: %o',response)
       return response
     },

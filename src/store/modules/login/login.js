@@ -3,12 +3,17 @@ import  loginApi from '../../../api/global'
 const state = {
     token:"",
     userInfo:"",
-    secret:{}
+    secret:"",
+    shop_list:"" //登录后返回店铺列表
 }
 const mutations={
     [types.SET_TOKEN](state,token){
-        state.token = token;
-        ls.set('token',token);
+        if(token.length > 0 && typeof token =="string"){
+            state.token = token;
+            ls.set('token',token);
+        }else{
+            return
+        }
     },
     [types.REMOVE_TOKEN](state){
         state.token = "";
@@ -25,6 +30,14 @@ const mutations={
     [types.ROMOVE_SECRET](state){
         state.secret = {};
         ls.rm('secret')
+    },
+    [types.SET_SHOP_LIST](state,val){
+        state.shop_list = val;
+        ls.set('shop_list',val);
+    },
+    [types.ROMOVE_SHOP_LIST](state,val){
+        state.shop_list = [];
+        ls.rm('shop_list')
     }
 }
 const actions={
@@ -39,6 +52,8 @@ const actions={
                         //登录成功后进行存储
                         commit('SET_TOKEN',data.data.token);
                         commit('SET_SECRET',data.data.secret);
+                        commit('SET_SHOP_LIST',data.data.shop_list);
+                        commit('CUT_SHOP_LIST_CURRENT',data.data.shop_list[0].id)
                     }
                  }
                 resolve(data);

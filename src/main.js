@@ -12,13 +12,13 @@ import JsEncrypt from 'jsencrypt/bin/jsencrypt';
 import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 import storeSocket from './store'
+import './directive/directive'
+Vue.config.productionTip = false;
 
 Vue.use(VueSocketio, socketio('http://182.61.32.66:2323'), storeSocket);
-Vue.config.productionTip = false;
 Vue.prototype.$jsEncrypt = JsEncrypt;
 Vue.use(ElementUI);
 Vue.use(Vuex);
-
 
 new Vue({
   el: '#app',
