@@ -33,15 +33,11 @@
                 </el-col>
             </el-row>
         </div>
-        
     </div>
-    
-   
 </template>
 
 <script>
 import MainNav from '../components/MainNav';
-
 export default {
         name:"userHelp",
         components:{MainNav},
@@ -57,12 +53,12 @@ export default {
         },
         watch:{
             '$route':function(){
-                this.currentPath = this.$route.name
-                console.log(this.currentPath)
+                // this.currentPath = this.$route.name
+                // console.log(this.currentPath)
             }
         },
         created(){
-            console.log(this.$route.name)
+            // console.log(this.$route.name)
         }
 
     }

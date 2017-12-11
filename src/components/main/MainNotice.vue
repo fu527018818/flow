@@ -8,8 +8,8 @@
             </div>
         </el-col>
         <el-col :span="16" class="noticeContent" style="height:45px;">
-             <marquee>
-                 ●注意：年底防扒窃，注意保护客户财产安全！●注意：距离本月业绩业务还有啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊 
+             <marquee v-if="notice_title">
+                {{notice_title}}
             </marquee>
         </el-col>
         <el-col :span="4">
@@ -23,8 +23,33 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
     export default {
-        
+        data(){
+            return {
+
+            }
+        },
+        computed:{
+            ...mapState({
+                notice_title:state=>{
+                       if(state.main.notice_title==''){
+                           return false
+                       }else{
+                            var list ='';
+                           state.main.notice_title.forEach(function(item){
+                                 list += item.title +' ';
+                            })
+                            return list;
+                       }
+                        
+                   
+                }
+            })
+        },
+        created(){
+           
+        }
     }
 </script>
 

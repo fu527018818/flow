@@ -176,7 +176,8 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
         },
         methods:{
             changeShop(val){
-                 this.$store.dispatch('cut_shop_list_current',val);
+                this.$store.dispatch('cut_shop_list_current',val);
+                this.$emit('mainInit',val)
             }
         },
         created (){

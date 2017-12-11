@@ -1,194 +1,197 @@
 <template>
-    <div>
+    <div class="app">
         <main-nav :indexMenu="'/userManage'"></main-nav>
-        <div class="contentBox">
-        <div class="content">
-            <div class="searchTop">
-                <div class="manageTit">
-                    <div>客户管理</div>
-                </div>   
-                <!-- 表单条件筛选 stat-->
-                <el-collapse-transition>
-                    <div class="searchCondition" v-show="show">
-                        <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    性别
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                    <el-radio-group v-model="search.gender">
-                                        <el-radio :label="''">全选</el-radio>
-                                        <el-radio :label="'1'">男</el-radio>
-                                        <el-radio :label="'0'">女</el-radio>
-                                    </el-radio-group>
-                            </el-col>
-                        </el-row>
-                        <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    上次到店
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                    <el-radio-group v-model="search.date" @change="radioCheckDate">
-                                        <el-radio  :label="'今天'"></el-radio>
-                                        <el-radio  :label="'昨天'"></el-radio>
-                                        <el-radio  :label="'近七天'"></el-radio>
-                                        <el-radio  :label="'本周'"></el-radio>
-                                        <el-radio  :label="'上周'"></el-radio>
-                                        <el-radio :label="'本月'"></el-radio>
-                                        <el-radio  :label="'上月'"></el-radio> 
-                                    </el-radio-group>
-                                    <el-date-picker
-                                        v-model="search.last_visit"
-                                        type="daterange"
-                                        value-format="yyyy-MM-dd"
-                                        range-separator="至"
-                                        start-placeholder="开始日期"
-                                        end-placeholder="结束日期">
-                                    </el-date-picker>
-                            </el-col>
-                        </el-row>
-                        <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    所属人
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                    <el-radio-group v-model="search.service_user">
-                                        <el-radio label="">全选</el-radio>
-                                        <el-radio label="康师傅">康师傅</el-radio>
-                                        <el-radio label="周小浪">康师傅</el-radio>
-                                        <el-radio label="靳小弟">康师傅</el-radio>
-                                    </el-radio-group>
-                            </el-col>
-                        </el-row>
-                         <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    累计消费
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkAllBuy" @change="handleCheckAllChange">全选</el-checkbox>
-                                    <el-checkbox-group v-model="search.total_consumption" @change="handleCheckedChange">
-                                        <el-checkbox v-for="item in total_consumptionValue"  :label="item"  :key="item">{{item == 10000?item+'元以上':item + '元'}}</el-checkbox>
-                                    </el-checkbox-group> 
-                            </el-col>
-                        </el-row>
-                        <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    消费次数
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                    <el-checkbox :indeterminate="isIndeterminate_1" v-model="checkAllNum" @change="handleCheckAllNumChange">全选</el-checkbox>
-                                    <el-checkbox-group v-model="search.consumption_sequence" @change="handleCheckedNumChange">
-                                        <el-checkbox v-for="item in consumption_sequenceValue" :key="item" :label="item">{{item ==">10"? item +'次以上': item +"次"}}</el-checkbox>
-                                    </el-checkbox-group>
-                            </el-col>
-                        </el-row>
-                        <el-row class="searchList">
-                            <el-col :span="3">
-                                <div class="searchName">
-                                    是否是会员
-                                </div>
-                            </el-col>
-                            <el-col :span="21">
-                                    <el-radio-group v-model="search.is_user">
-                                        <el-radio :label="''"> 全选</el-radio>
-                                        <el-radio :label="'1'">是</el-radio>
-                                        <el-radio :label="'0'">否</el-radio>
-                                    </el-radio-group>
-                            </el-col>
-                        </el-row>
+        <div class="contentBox" v-slim-scroll>
+            <div class="contentBox_child">
+                <div class="content">
+                    <div class="searchTop">
+                        <div class="manageTit">
+                            <div>客户管理</div>
+                        </div>   
+                        <!-- 表单条件筛选 stat-->
+                        <el-collapse-transition>
+                            <div class="searchCondition" v-show="show">
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            性别
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                            <el-radio-group v-model="search.gender">
+                                                <el-radio :label="''">全选</el-radio>
+                                                <el-radio :label="'1'">男</el-radio>
+                                                <el-radio :label="'0'">女</el-radio>
+                                            </el-radio-group>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            上次到店
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                            <el-radio-group v-model="search.date" @change="radioCheckDate">
+                                                <el-radio  :label="'今天'"></el-radio>
+                                                <el-radio  :label="'昨天'"></el-radio>
+                                                <el-radio  :label="'近七天'"></el-radio>
+                                                <el-radio  :label="'本周'"></el-radio>
+                                                <el-radio  :label="'上周'"></el-radio>
+                                                <el-radio :label="'本月'"></el-radio>
+                                                <el-radio  :label="'上月'"></el-radio> 
+                                            </el-radio-group>
+                                            <el-date-picker
+                                                v-model="search.last_visit"
+                                                type="daterange"
+                                                value-format="yyyy-MM-dd"
+                                                range-separator="至"
+                                                start-placeholder="开始日期"
+                                                end-placeholder="结束日期">
+                                            </el-date-picker>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            所属人
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                            <el-radio-group v-model="search.service_user">
+                                                <el-radio label="">全选</el-radio>
+                                                <el-radio label="康师傅">康师傅</el-radio>
+                                                <el-radio label="周小浪">康师傅</el-radio>
+                                                <el-radio label="靳小弟">康师傅</el-radio>
+                                            </el-radio-group>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            累计消费
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAllBuy" @change="handleCheckAllChange">全选</el-checkbox>
+                                            <el-checkbox-group v-model="search.total_consumption" @change="handleCheckedChange">
+                                                <el-checkbox v-for="item in total_consumptionValue"  :label="item"  :key="item">{{item == 10000?item+'元以上':item + '元'}}</el-checkbox>
+                                            </el-checkbox-group> 
+                                    </el-col>
+                                </el-row>
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            消费次数
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                            <el-checkbox :indeterminate="isIndeterminate_1" v-model="checkAllNum" @change="handleCheckAllNumChange">全选</el-checkbox>
+                                            <el-checkbox-group v-model="search.consumption_sequence" @change="handleCheckedNumChange">
+                                                <el-checkbox v-for="item in consumption_sequenceValue" :key="item" :label="item">{{item ==">10"? item +'次以上': item +"次"}}</el-checkbox>
+                                            </el-checkbox-group>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="searchList">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            是否是会员
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="21">
+                                            <el-radio-group v-model="search.is_user">
+                                                <el-radio :label="''"> 全选</el-radio>
+                                                <el-radio :label="'1'">是</el-radio>
+                                                <el-radio :label="'0'">否</el-radio>
+                                            </el-radio-group>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-collapse-transition>
+                        <!-- 表单条件筛选 end-->
+                        <!-- 选中条件溢出到下面I really don't understand that this product is really fuck -->
+                        <div class="manageSearch">
+                            <el-row>
+                                <el-col :span="3">
+                                    <div class="conditionTit">
+                                        筛选条件：
+                                    </div>
+                                </el-col> 
+                                <!-- 标签 -->
+                                <el-col :span="15">  
+                                        <div class="conditionTag">
+                                            <el-tag 
+                                            type="info" closable
+                                            :disable-transitions="false"
+                                            v-if="!search.gender==''&&search.gender.length > 0"
+                                            @close="handleClose(search.gender,'search.gender')"
+                                            >
+                                            <span>性别：{{search.gender==1?'男':'女'}}</span>    
+                                            </el-tag>
+                                            <el-tag 
+                                            type="info"
+                                            closable 
+                                            v-if="!search.date==''&&search.date.length > 0"
+                                            @close="handleClose(search.date,'search.date')"
+                                            >
+                                                <span>上次到店：{{search.date}}</span>    
+                                            </el-tag>
+                                            <el-tag 
+                                            type="info"
+                                            closable
+                                            v-if="!search.service_user==''&&search.service_user.length > 0"
+                                            @close="handleClose(search.service_user,'search.service_user')"
+                                            >
+                                                <span>所属人：{{search.service_user}}</span>    
+                                            </el-tag>
+                                            <el-tag
+                                            type="info" 
+                                            closable 
+                                            v-if="!search.is_user==''&&search.is_user.length > 0"
+                                            @close="handleClose(search.is_user,'search.is_user')"
+                                            >
+                                                <span>会员：{{search.is_user==1?'是':'否'}}</span>    
+                                            </el-tag>
+                                            <el-tag 
+                                            type="info" 
+                                            closable 
+                                            v-if="search.total_consumption.length > 0 && typeof search.total_consumption =='object'"
+                                            @close="handleClose(search.total_consumption,'search.total_consumption')"
+                                            >
+                                            累计消费： <span  v-for='item in search.total_consumption' :key="item">{{item + '元/'}}</span>    
+                                            </el-tag>
+                                            <el-tag
+                                            type="info"closable v-if="search.consumption_sequence.length > 0 && typeof search.consumption_sequence =='object'"
+                                            @close="handleClose(search.consumption_sequence,'search.consumption_sequence')"
+                                            >
+                                            累计消费： <span  v-for='item in search.consumption_sequence' :key="item">{{ item + '次/'}}</span>    
+                                            </el-tag>
+                                        </div>
+                                </el-col>
+                                <el-col :span="6">
+                                    <div class="searchBtn">
+                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[show?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <el-button type="primary" @click="submitBtn">
+                                            筛选
+                                        </el-button>
+                                        <el-button type="primary" @click="closeSearch">
+                                            清空
+                                        </el-button>
+                                    </div>
+                                </el-col> 
+                            </el-row>
+                            <div>
+                            </div>
+                        </div>
                     </div>
-                </el-collapse-transition>
-                 <!-- 表单条件筛选 end-->
-                <!-- 选中条件溢出到下面I really don't understand that this product is really fuck -->
-                 <div class="manageSearch">
-                    <el-row>
-                        <el-col :span="3">
-                            <div class="conditionTit">
-                                筛选条件：
-                            </div>
-                        </el-col> 
-                        <!-- 标签 -->
-                        <el-col :span="15">  
-                                <div class="conditionTag">
-                                    <el-tag 
-                                    type="info" closable
-                                    :disable-transitions="false"
-                                     v-if="!search.gender==''&&search.gender.length > 0"
-                                     @close="handleClose(search.gender,'search.gender')"
-                                     >
-                                    <span>性别：{{search.gender==1?'男':'女'}}</span>    
-                                    </el-tag>
-                                     <el-tag 
-                                     type="info"
-                                      closable 
-                                      v-if="!search.date==''&&search.date.length > 0"
-                                      @close="handleClose(search.date,'search.date')"
-                                      >
-                                        <span>上次到店：{{search.date}}</span>    
-                                    </el-tag>
-                                    <el-tag 
-                                    type="info"
-                                    closable
-                                    v-if="!search.service_user==''&&search.service_user.length > 0"
-                                    @close="handleClose(search.service_user,'search.service_user')"
-                                    >
-                                        <span>所属人：{{search.service_user}}</span>    
-                                    </el-tag>
-                                    <el-tag
-                                     type="info" 
-                                     closable 
-                                     v-if="!search.is_user==''&&search.is_user.length > 0"
-                                      @close="handleClose(search.is_user,'search.is_user')"
-                                     >
-                                        <span>会员：{{search.is_user==1?'是':'否'}}</span>    
-                                    </el-tag>
-                                    <el-tag 
-                                    type="info" 
-                                    closable 
-                                    v-if="search.total_consumption.length > 0 && typeof search.total_consumption =='object'"
-                                     @close="handleClose(search.total_consumption,'search.total_consumption')"
-                                    >
-                                       累计消费： <span  v-for='item in search.total_consumption' :key="item">{{item + '元/'}}</span>    
-                                    </el-tag>
-                                    <el-tag
-                                    type="info"closable v-if="search.consumption_sequence.length > 0 && typeof search.consumption_sequence =='object'"
-                                    @close="handleClose(search.consumption_sequence,'search.consumption_sequence')"
-                                    >
-                                       累计消费： <span  v-for='item in search.consumption_sequence' :key="item">{{ item + '次/'}}</span>    
-                                    </el-tag>
-                                </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="searchBtn">
-                                <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[show?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
-                                <el-button type="primary" @click="submitBtn">
-                                    筛选
-                                </el-button>
-                                <el-button type="primary" @click="closeSearch">
-                                    清空
-                                </el-button>
-                            </div>
-                        </el-col> 
-                    </el-row>
-                    <div>
+                    <div class="manageTable">
+                        <div class="tableBox">
+                            <user-manage-table></user-manage-table>
+                        </div> 
                     </div>
                 </div>
+                 <div class="contentFooter"></div>
             </div>
-            <div class="manageTable">
-                <div class="tableBox">
-                    <user-manage-table></user-manage-table>
-                </div> 
-            </div>
-        </div>
         </div>
     </div>
 </template>
@@ -333,17 +336,6 @@
 </script>
 
 <style scoped lang="scss">
-.contentBox{
-    width: 100%;
-    height: 100%;
-    .content{
-        width: 1024px;
-        margin: 0 auto;
-        height: 100%;
-        margin-top: 6px;
-    }
-}
-    
     .manageTit{
         height:77px;
         background-color: #ffffff;

@@ -10,17 +10,17 @@ import loginPwd from '../pages/LoginPwd.vue';
 import main from '../pages/Main.vue';
 import user from '../pages/User.vue';
 import personnel from '../pages/personnel.vue';
-import statistics from '../pages/statistics.vue';
+import statistics from '../pages/statistics/statistics.vue'
 import software from '../pages/software.vue';
 import dataEnter from '../pages/dataEnter.vue';
 import userHelp from '../pages/userHelp.vue';
 import userPortrayal from '../pages/userPortrayal.vue';
 import userDetails from '../pages/userDetails.vue';
 import userManage from '../pages/userManage.vue';
-
+import statisyicsTurnover   from '../pages/statistics/turnover.vue';
 Vue.use(Router)
 /* 异步加载组件模块 */
-// const _import = require('./asynLoader');
+const _import = require('./asynLoader');
 /*常用路由表 */
 export const constantRouterMap = [
   {
@@ -54,11 +54,11 @@ export const constantRouterMap = [
     name: "userDetails",
     component: userDetails,
     children: [
-      { path: "/userDetails/consume", name: "userDetailsConsume", component: require('../components/user/userDetailsConsume') },
-      { path: "/userDetails/info", name: "userDetailsInfo", component: require('../components/user/userDetailsInfo') },
-      { path: "/userDetails/portrait", name: "userDetailsPortrait", component: require('../components/user/userDetailsPortrait') },
-      { path: "/userDetails/promotion", name: "userDetailsPromotion", component: require('../components/user/userDetailsPromotion') },
-      { path: "/userDetails/serve", name: "userDetailsServe", component: require('../components/user/userDetailsServe') },
+      { path: "/userDetails/consume", name: "userDetailsConsume", component: _import('components/user/userDetailsConsume') },
+      { path: "/userDetails/info", name: "userDetailsInfo", component: _import('components/user/userDetailsInfo') },
+      { path: "/userDetails/portrait", name: "userDetailsPortrait", component: _import('../components/user/userDetailsPortrait') },
+      { path: "/userDetails/promotion", name: "userDetailsPromotion", component: _import('../components/user/userDetailsPromotion') },
+      { path: "/userDetails/serve", name: "userDetailsServe", component: _import('../components/user/userDetailsServe') },
     ]
   },
   {
@@ -69,7 +69,12 @@ export const constantRouterMap = [
     path: "/statistics",
     name: "statistics",
     component: statistics
-  }, {
+  },
+  {
+    path: "/statistics/turnover",
+    name: "turnover",
+    component: statisyicsTurnover
+  },{
     path: "/software",
     name: "software",
     component: software
@@ -83,10 +88,10 @@ export const constantRouterMap = [
     name: "userHelp",
     component: userHelp,
     children: [
-      { path: "/helpSoftware", name: "helpSoftware", component: require('../components/userHelp/helpSoftware') },
-      { path: "/helpDoc", name: "helpDoc", component: require('../components/userHelp/helpDoc') },
-      { path: "/helpBrowser", name: "helpBrowser", component: require('../components/userHelp/helpBrowser') },
-      { path: "/helpRelation", name: "helpRelation", component: require('../components/userHelp/helpRelation') }
+      { path: "/helpSoftware", name: "helpSoftware", component: _import('components/userHelp/helpSoftware') },
+      { path: "/helpDoc", name: "helpDoc", component: _import('components/userHelp/helpDoc') },
+      { path: "/helpBrowser", name: "helpBrowser", component: _import('components/userHelp/helpBrowser') },
+      { path: "/helpRelation", name: "helpRelation", component: _import('components/userHelp/helpRelation') }
     ]
   }
 ]

@@ -1,0 +1,24 @@
+.app{
+    width: 100%;
+    height: 100%;
+}
+.contentBox{
+    width: 100%;
+    background-color: #f2f2f2;
+    position: relative;
+}
+.contentBox_child{
+    width: 100%;
+    padding-bottom:60px;
+}
+.contentFooter{
+    height: 45px;
+    width: 100%;
+    background-color:#3987e6;
+}
+.content{
+    width:1024px;
+    margin: 0 auto;
+    padding-top: 6px;
+    position: relative;
+}

@@ -10,7 +10,7 @@ export function addOptions(titledata,date,turnover,volume){
                 marginRight:50,
             },
             title: {
-                text:'hahaha',
+                text:titledata,
                 align:"left",
                 x:30,
                 y:30,
@@ -24,10 +24,7 @@ export function addOptions(titledata,date,turnover,volume){
                 enabled: false
             },
             xAxis: [{
-                categories: ['01:00', '02:00', '03:00', '04:00', '05:00',
-                             '06:00', '07:00', '08:00', '09:00', '10:00', '11:00','12:00',
-                             '13:00', '14:00', '15:00', '16:00', '17:00',
-                             '18:00', '19:00', '20:00', '21:00', '22:00', '23:00','24:00'],
+                categories:date,
                              minTickInterval:2
                 }],
             yAxis: [{ 
@@ -57,15 +54,13 @@ export function addOptions(titledata,date,turnover,volume){
                 type: 'column',
                 color:"#48a7ff",
                 yAxis: 1,
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
-                    49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,12,12,12,21,21]
+                data: turnover
                 
             }, {
                 name: '成交量',
                 type: 'spline',
                 color:"#ff6648",
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
-                    49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,12,12,12,21,21],
+                data: volume,
 
             }]
     }

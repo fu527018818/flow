@@ -19,12 +19,16 @@
               <el-menu-item index="/main">
                   工作台
               </el-menu-item>
-               <el-submenu index="/user" class="itemDown">
-                <template slot="title">客户</template>
-                <el-menu-item index="/userPortrayal">客户画像</el-menu-item>
-                <el-menu-item index="/userManage">客户管理</el-menu-item>
+              <el-submenu index="/user" class="itemDown">
+                  <template slot="title">客户</template>
+                  <el-menu-item index="/userPortrayal">客户画像</el-menu-item>
+                  <el-menu-item index="/userManage">客户管理</el-menu-item>
               </el-submenu>
-              <el-menu-item index="/statistics">统计</el-menu-item>
+              <el-submenu index="/statistics" class="itemDown">
+                  <template slot="title">统计</template>
+                  <el-menu-item index="/statistics/turnover">营业额</el-menu-item>
+                  <el-menu-item index="/userManage">客流</el-menu-item>
+              </el-submenu>
               <el-menu-item index="/software">安防</el-menu-item>
               <el-menu-item index="/personnel">人事</el-menu-item>
             </el-menu>

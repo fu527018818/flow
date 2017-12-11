@@ -1,57 +1,62 @@
 <template>
-    <div>
+    <div class="app">
         <main-nav :indexMenu="'/userPortrayal'"></main-nav>
-        <div class="content">
-           <user-portrayalt-tit></user-portrayalt-tit>
-           <div class="userChartBox">
-               <el-row class="userChart">
-                   <el-col :span="12">
-                       <div class="grid-content">
-                           <div class="chart" id="#contain1" style="height:100%"></div>
-                       </div>
-                   </el-col>
-                   <el-col :span="12">
-                       <div class="grid-content">
-                           <div class="chart" id="#contain2" style="height:100%"></div>
-                       </div>
-                   </el-col>
-                   <el-col :span="12">
-                       <div class="grid-content">
-                           <div class="dataDisplay">
-                                <div>
-                                    <span class="dataName">新客：</span>
-                                    <span class="numDate">5</span>
-                                    <span class="dataUnit">人</span>
+        <div class="contentBox" v-slim-scroll>
+             <div class="contentBox_child">
+                <div class="content">
+                    <user-portrayalt-tit></user-portrayalt-tit>
+                    <div class="userChartBox">
+                        <el-row class="userChart">
+                            <el-col :span="12">
+                                <div class="grid-content">
+                                    <div class="chart" id="#contain1" style="height:100%"></div>
                                 </div>
-                                <div>
-                                     <span class="dataName">新客：</span>
-                                    <span class="numDate">5</span>
-                                    <span class="dataUnit">人</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <div class="grid-content">
+                                    <div class="chart" id="#contain2" style="height:100%"></div>
                                 </div>
-                            </div>
-                           <div class="chart" id="#contain3" style="height:100%"></div>
-                       </div>
-                   </el-col>
-                   <el-col :span="12">
-                       <div class="grid-content">
-                           <div class="dataDisplay">
-                                <div>
-                                    <span class="dataName">男客：</span>
-                                    <span class="numDate">5232223</span>
-                                    <span class="dataUnit">人</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <div class="grid-content">
+                                    <div class="dataDisplay">
+                                            <div>
+                                                <span class="dataName">新客：</span>
+                                                <span class="numDate">5</span>
+                                                <span class="dataUnit">人</span>
+                                            </div>
+                                            <div>
+                                                <span class="dataName">新客：</span>
+                                                <span class="numDate">5</span>
+                                                <span class="dataUnit">人</span>
+                                            </div>
+                                        </div>
+                                    <div class="chart" id="#contain3" style="height:100%"></div>
                                 </div>
-                                <div>
-                                    <span class="dataName">女客：</span>
-                                    <span class="numDate">5</span>
-                                    <span class="dataUnit">人</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <div class="grid-content">
+                                    <div class="dataDisplay">
+                                            <div>
+                                                <span class="dataName">男客：</span>
+                                                <span class="numDate">5232223</span>
+                                                <span class="dataUnit">人</span>
+                                            </div>
+                                            <div>
+                                                <span class="dataName">女客：</span>
+                                                <span class="numDate">5</span>
+                                                <span class="dataUnit">人</span>
+                                            </div>
+                                        </div>
+                                    <div class="chart" id="#contain4" style="height:100%"></div>
                                 </div>
-                            </div>
-                           <div class="chart" id="#contain4" style="height:100%"></div>
-                       </div>
-                   </el-col>
-               </el-row>
-           </div>
-        </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+                <div class="contentFooter"></div>
+            </div>
+         </div>
         <div class="m_footer"></div>
     </div>
 </template>
@@ -79,12 +84,6 @@
 </script>
 
 <style scoped lang="scss">
-    .content{
-        width: 1024px;
-        margin: 0 auto;
-        height: 100%;
-        margin-top: 6px;
-    }
     .userChartBox{
         width: 100%;
         margin-top: 6px;

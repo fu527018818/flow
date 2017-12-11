@@ -3,6 +3,6 @@ export default {
     USER_PWD:"/user/login",
     MAIN_INIT:'/main',
     USER_INIT:'',
-    NOTIFICATION_REALTIME:'notification/realtime'
-
+    NOTIFICATION_REALTIME:'notification/realtime',
+    NOTICE_LISTS:'/notice/lists'
 }

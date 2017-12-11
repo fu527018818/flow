@@ -10,6 +10,7 @@ export default {
 }
 </script>
 <style>
+@import 'assets/css/global.scss';
 #app{
   width: 100%;
   height: 100%;

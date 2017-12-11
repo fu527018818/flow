@@ -16,6 +16,14 @@ export function mainInit(json){
         data:json
     })
 }
+/** 公告列表*/
+export function noticeList(json){
+    return fetch({
+        url:path.NOTICE_LISTS,
+        method:"post",
+        data:json
+    })
+}
 /**用户 */
 export function userInit(json){
         return fetch({
@@ -26,5 +34,6 @@ export function userInit(json){
 }
 export default{
     userLogin,
-    mainInit
+    mainInit,
+    noticeList
 }

@@ -11,8 +11,7 @@
                     【公告】关于过年期间防火防盗问题
                     <span style="float:right;padding-right:76px;">2017 02 03 14:23</span>
                     </template>
-                    <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                    <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                    <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
                 </el-collapse-item>
                 <el-collapse-item title="【公告】本周日公司组织团建活动" name="2">
                     <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
@@ -48,6 +47,12 @@
                 })
                 .catch(_ => {});
             }
+      },
+      created(){
+          this.$store.dispatch('notice_list',{shop_id:ls.get('shop_list_current'),Is_publish:1})
+          .then(res=>{
+              console.log(res)
+          })
       }
     }
 </script>

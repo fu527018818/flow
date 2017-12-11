@@ -13,17 +13,13 @@
             }
         },
         methods:{
-
-        },
-        created(){
-
-        },
-         mounted(){
-             var _self = this;
-             Highcharts.setOptions({
-                global: {
-                    useUTC: false
-                }
+        realTime(){
+                 var _self = this;
+                 clearInterval(this.timer);
+            Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    }
             });
             // 添加数据 重新渲染
             function activeLastPointToolip(chart) {
@@ -34,13 +30,24 @@
            function addPointData(chart){
                 var series = chart.series[0],
                     series1 = chart.series[1];
-                 _self.timer = setInterval(function () {
-                        var x = (new Date()).getTime(),
-                            y = Math.random()+5,
-                            y1 = Math.random()+10;
-                            series.addPoint([x, y], true, true);
-                            series1.addPoint([x, y1], true, true);
-                            activeLastPointToolip(chart)
+                    _self.timer = setInterval(function () {
+                        $.ajax({
+                            url:"http://dianliubao.api/notification/realtime",
+                            data:{shop_id:ls.get('shop_list_current')},
+                            type:"post",
+                            dataType:'json',
+                            success:function(res){
+                                var data = res.data;
+                                var x = (new Date()).getTime()
+                                series.addPoint([x,data.turnover*1], true, true);
+                                series1.addPoint([x,data.passenger*1], true, true);
+                                activeLastPointToolip(chart)
+                            },
+                            error:function(){
+
+                            }
+                        },false)
+                        
             }, 5000);
            }
             // 初始化 highcharts
@@ -132,7 +139,6 @@
                     type:'spline',
                     color:"#ff6648",
                     data: (function () {
-           
                         var data = [],
                             time = (new Date()).getTime(),
                             i;
@@ -146,9 +152,15 @@
                         return data;
                     }()) 
                 }]
-            }, function(c) {
-    activeLastPointToolip(c)
-})
+                }, function(c) {
+                    activeLastPointToolip(c)
+                })
+            }
+        },
+        created(){
+
+        },
+    mounted(){
 },
 beforeDestroy:function (){
    clearInterval(this.timer);

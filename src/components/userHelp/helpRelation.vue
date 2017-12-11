@@ -27,5 +27,5 @@
 </script>
 
 <style scoped lang="scss">
-     @import '../../assets/css/userhelp.scss'
+     @import '../../assets/css/userhelp.scss';
 </style>

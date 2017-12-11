@@ -2,7 +2,8 @@ import * as types from '../../mutation-types';
 import  loginApi from '../../../api/global';
 const state={
     graphic:"",
-    chart:""
+    chart:"",
+    notice_title:""
 }
 const getters={
     graphic:state=>state.main.graphic
@@ -22,8 +23,8 @@ const actions={
                             folw.y2 = []
                             for(var item in data){
                                 folw.dateX.push(data[item].name);
-                                folw.y1.push(data[item].data[0]);
-                                folw.y2.push(data[item].data[1]);
+                                folw.y1.push(data[item].data[0]*1);
+                                folw.y2.push(data[item].data[1]*1);
                             }
                             return folw
                         }
@@ -35,13 +36,26 @@ const actions={
                 reject(err)
             })
         })
+    },
+    notice_list({commit},data){
+        return new Promise((resolve,reject)=>{
+            loginApi.noticeList(data).then(res=>{
+                commit('SET_NOTICE_TITLE',res.data.lists)
+                resolve(res)
+            }).catch(err=>{
+                console.log(err)
+            })
+        })
     }
 }   
 const mutations={
     [types.SET_MAIN_VAL](states,data){
             states.chart = data.chart;
             states.graphic =data.graphic
-    }
+    },
+    [types.SET_NOTICE_TITLE](states,data){
+        states.notice_title = data
+    }   
 }
 export default{
     state,
