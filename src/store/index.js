@@ -4,6 +4,7 @@ import  login from './modules/login/login'
 import  main from './modules/main/main'
 import websocket from './modules/websocket'
 import * as types from './mutation-types'
+import getDate from '../assets/js/dateSelect'
 
 Vue.use(Vuex);
 const state = {
@@ -32,7 +33,29 @@ const getters={
 const actions ={
     cut_shop_list_current:({commit},shop_id)=>{
         commit('CUT_SHOP_LIST_CURRENT',shop_id)
+    },  /*切换时间 如 今天 昨天 近期切换*/
+    cut_date:({commit},val)=>{
+        return new Promise((resolve,reject)=>{
+            switch(val){
+                case 'today':
+                    resolve(getDate.getToday())
+                break;
+                case 'yesterday':
+                    resolve(getDate.getYesterdayDate())
+                break;
+                case 'recent':
+                    resolve(getDate.getRecentDate())
+                break;
+                case 'thisWeek':
+                     resolve(getDate.getWeekDate())
+                break;
+                case 'thisMonth':
+                    resolve(getDate.getMonthDate())
+                break;
+            }
+        })
     }
+    
 }
 export default new Vuex.Store({
     state,

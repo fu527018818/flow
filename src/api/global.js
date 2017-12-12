@@ -32,8 +32,16 @@ export function userInit(json){
             data:json
         })
 }
+export function statisticsTurnover(json){
+    return fetch({
+        url:path.STATISTICS_TURNOVER,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
-    noticeList
+    noticeList,
+    statisticsTurnover
 }

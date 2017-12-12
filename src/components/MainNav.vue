@@ -164,9 +164,6 @@ export default {
         case "/user":
          this.activeIndex = "/user"; 
         break;
-        case "/statistics":
-        this.activeIndex = "/statistics";
-        break;
         case "/personnel":
         this.activeIndex = "/personnel";
         break;
@@ -188,6 +185,9 @@ export default {
         break;
         case "/userDetails":
             this.activeIndex = "/userManage";
+        break;
+         case "/statistics/turnover":
+            this.activeIndex="/statistics/turnover";
         break;
         default:
         this.activeIndex = "/main";

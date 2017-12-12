@@ -116,5 +116,13 @@ export default {
         start:getLastMonthStartDate,
         end:getLastMonthEndDate
     }
-   }
+   },   // 近七天
+getRecentDate(){
+        var getCurrentDate = new Date(nowYear, nowMonth, nowDay);
+        var getRecentDate = new Date(nowYear, nowMonth, nowDay - 7);
+        return {
+            start:this.formatDate(getRecentDate),
+            end:this.formatDate(getCurrentDate)
+        }
+   } 
 }

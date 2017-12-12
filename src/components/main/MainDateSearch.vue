@@ -23,7 +23,7 @@
        <div class="dataListBox" v-if="chart">
            <el-row :gutter="10" class="dataList">
                 <el-col :span="6" >
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="toStatistics('turnover')">
                         <div>{{chart.turnover.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -178,6 +178,9 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
             changeShop(val){
                 this.$store.dispatch('cut_shop_list_current',val);
                 this.$emit('mainInit',val)
+            },
+            toStatistics(val){
+                this.$router.push({name:"turnover",params:{val}})
             }
         },
         created (){
@@ -195,7 +198,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
       -webkit-box-shadow: 0 0 1px #ccc;
       -moz-box-shadow: 0 0 1px #ccc;
       box-shadow: 0 0 1px #ccc;
-   }
+}
 .dateSearchBox{
     width: 100%;
     height: 80px;
@@ -242,6 +245,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
     right:20px;
     top: 50%;
     transform: translate(0,-50%);
+    padding: 10px 10px;
 }
 .shortcutBtn .tab{
     background-color: #48a7ff;
@@ -256,6 +260,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
         border: solid 1px #d3dde0;
         height: 128px;
         position: relative;
+        cursor: pointer;
         & > div:nth-child(1){
             font-size:14px;
             letter-spacing: 0px;

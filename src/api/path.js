@@ -4,5 +4,6 @@ export default {
     MAIN_INIT:'/main',
     USER_INIT:'',
     NOTIFICATION_REALTIME:'notification/realtime',
-    NOTICE_LISTS:'/notice/lists'
+    NOTICE_LISTS:'/notice/lists',
+    STATISTICS_TURNOVER:"/statistics/turnover"
 }

@@ -1,4 +1,4 @@
-// import Highcharts from 'highcharts';
+
 export function addOptions(titledata,date,turnover,volume){
     // main页图标option
     var options1
@@ -134,7 +134,7 @@ export function userOptionColumn(){
         }
     }  
 }
-// 圆型图
+// 客户页面 圆型图
 export function userOptionPie (){
     return {
         chart: {
@@ -195,8 +195,75 @@ export function userOptionPie (){
         }]
     }
 }
+export function statisticsSpline(name,dateX,datay1,datay2){
+    return {
+        chart: {
+            zoomType: 'xy',
+            animation:true,
+            marginLeft:80,
+            marginRight:50,
+            marginTop:50
+        },
+        title: {
+            text:'',
+            align:"left",
+            x:30,
+            y:30,
+            margin:50,
+            style:{
+                fontSize:"18px",
+                color:"#4d4d4d"
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: [{
+            categories:dateX
+            }],
+        yAxis: [{ 
+            labels: {
+                format: '{value}',
+                style: {
+                
+                }
+            },
+            title: {
+                text: null
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: null,
+                style: {
+                }
+            },
+            opposite: true,
+            visible:false
+        }],
+        tooltip: {
+            shared: true,
+        },
+        series: [{
+            name:name[0],
+            type: 'spline',
+            color:"#48a7ff",
+            yAxis: 1,
+            data:datay1
+            
+        }, {
+            name: name[1],
+            type: 'spline',
+            color:"#ff6648",
+            data:datay2,
+
+        }]
+}
+        
+    
+}
 export default {
     addOptions,
     userOptionColumn,
-    userOptionPie
+    userOptionPie,
+    statisticsSpline
 }

@@ -9,12 +9,12 @@
                         <el-row class="userChart">
                             <el-col :span="12">
                                 <div class="grid-content">
-                                    <div class="chart" id="#contain1" style="height:100%"></div>
+                                    <div class="chart" id="contain1" style="height:100%"></div>
                                 </div>
                             </el-col>
                             <el-col :span="12">
                                 <div class="grid-content">
-                                    <div class="chart" id="#contain2" style="height:100%"></div>
+                                    <div class="chart" id="contain2" style="height:100%"></div>
                                 </div>
                             </el-col>
                             <el-col :span="12">
@@ -31,7 +31,7 @@
                                                 <span class="dataUnit">人</span>
                                             </div>
                                         </div>
-                                    <div class="chart" id="#contain3" style="height:100%"></div>
+                                    <div class="chart" id="contain3" style="height:100%"></div>
                                 </div>
                             </el-col>
                             <el-col :span="12">
@@ -48,7 +48,7 @@
                                                 <span class="dataUnit">人</span>
                                             </div>
                                         </div>
-                                    <div class="chart" id="#contain4" style="height:100%"></div>
+                                    <div class="chart" id="contain4" style="height:100%"></div>
                                 </div>
                             </el-col>
                         </el-row>
@@ -60,7 +60,6 @@
         <div class="m_footer"></div>
     </div>
 </template>
-
 <script>
     import MainNav from '../components/MainNav';
     import UserPortrayaltTit from '../components/user/userPortrayaltTit.vue';
@@ -75,10 +74,11 @@
             }
         },
         mounted(){
-              Highcharts.chart('#contain1',userOptionColumn())
-              Highcharts.chart('#contain2',userOptionColumn())
-              Highcharts.chart('#contain3',userOptionPie())
-              Highcharts.chart('#contain4',userOptionPie())
+            console.log(Highcharts)
+              Highcharts.chart('contain1',userOptionColumn())
+              Highcharts.chart('contain2',userOptionColumn())
+              Highcharts.chart('contain3',userOptionPie())
+              Highcharts.chart('contain4',userOptionPie())
         }
     }
 </script>

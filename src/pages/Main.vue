@@ -66,14 +66,6 @@ export default {
         },
         mounted(){
             this.mainInit(this.$store.getters.shop_list_current||ls.get('shop_list_current'));
-            //  $('.contentBox').slimScroll({
-            //     width: '100%',
-            //     height: '100%',
-            //     color: 'red',
-            //     railColor: 'blue',
-            //     railVisible: true,
-            //     alwaysVisible: true
-            //     });
         }
     }
 </script>
