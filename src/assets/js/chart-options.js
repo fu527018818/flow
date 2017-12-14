@@ -25,7 +25,7 @@ export function addOptions(titledata,date,turnover,volume){
             },
             xAxis: [{
                 categories:date,
-                             minTickInterval:2
+                minTickInterval:2
                 }],
             yAxis: [{ 
                 labels: {
@@ -66,14 +66,14 @@ export function addOptions(titledata,date,turnover,volume){
     }
 
 }
-// 客户页面option 柱形
-export function userOptionColumn(){
+// 客户页面option 柱形 - 统计客流页
+export function userOptionColumn(tit,datex,y){
   return  {
         chart: {
             type: 'column'
         },
         title: {
-            text: '客流量VS营业额走势图',
+            text: tit,
             align:"left",
             x:30,
             y:30,
@@ -90,7 +90,7 @@ export function userOptionColumn(){
         enabled:false
         },
         xAxis: {
-            categories: ['0次','2-4次','5-10次','11-15次','≥15次']
+            categories:datex
         },
         yAxis: {
             labels: {
@@ -101,41 +101,41 @@ export function userOptionColumn(){
             }
         },
         series: [{
-            name: '销售',
-            data: [434, 523, 345, 785, 565],
+            name: '年龄',
+            data:y,
             color:"#4198ff"
         }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                // Make the labels less space demanding on mobile
-                chartOptions: {
-                    xAxis: {
-                        labels: {
-                            formatter: function () {
-                                return this.value.replace('月', '')
-                            }
-                        }
-                    },
-                    yAxis: {
-                        labels: {
-                            align: 'left',
-                            x: 0,
-                            y: -2
-                        },
-                        title: {
-                            text: ''
-                        }
-                    }
-                }
-            }]
-        }
+        // responsive: {
+        //     rules: [{
+        //         condition: {
+        //             maxWidth: 500
+        //         },
+        //         // Make the labels less space demanding on mobile
+        //         chartOptions: {
+        //             xAxis: {
+        //                 labels: {
+        //                     formatter: function () {
+        //                         return this.value.replace('月', '')
+        //                     }
+        //                 }
+        //             },
+        //             yAxis: {
+        //                 labels: {
+        //                     align: 'left',
+        //                     x: 0,
+        //                     y: -2
+        //                 },
+        //                 title: {
+        //                     text: ''
+        //                 }
+        //             }
+        //         }
+        //     }]
+        // }
     }  
 }
-// 客户页面 圆型图
-export function userOptionPie (){
+// 客户页面 圆型图 -统计客流页
+export function userOptionPie (tit,data){
     return {
         chart: {
             plotBackgroundColor: null,
@@ -144,7 +144,7 @@ export function userOptionPie (){
             marginLeft:-200
         },
         title: {
-            text: '2014 某网站上各个浏览器的访问量占比',
+            text: tit,
             align:"left",
             x:30,
             y:30,
@@ -168,7 +168,7 @@ export function userOptionPie (){
         },
         plotOptions: {
             pie: {
-                allowPointSelect: true,
+                // allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: false
@@ -179,19 +179,8 @@ export function userOptionPie (){
         series: [{
             type: 'pie',
             innerSize: '70%',
-            name: '浏览器访问量占比',
-            data: [
-                {
-                    name:'新客', 
-                    y: 50.0,
-                    color:'#4198ff'
-                },
-                {
-                name:'老客', 
-                y:50.0,
-               color:"#ff6648"
-            }
-            ]
+            name: '男女比例',
+            data:data
         }]
     }
 }
@@ -257,9 +246,53 @@ export function statisticsSpline(name,dateX,datay1,datay2){
             data:datay2,
 
         }]
+}   
 }
-        
-    
+export function passengerFunnel(){
+    return {
+        chart: {
+            type: 'pyramid',
+            marginRight: 100
+        },
+        title: {
+            text: '人流漏洞',
+            x: -50
+        },
+        plotOptions: {
+            series: {
+                reversed: false,
+                dataLabels: {
+                    enabled: false,
+                    format: '<b>{point.name}</b> ({point.y:,.0f})',
+                    // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                    softConnector: true
+                }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: '漏斗图',
+            data: [
+                {
+                 name:"总人流",
+                 y:2505,
+                 color:"#00c853",
+                },
+                {
+                    name:"客流量",
+                    y:38,
+                    color:"#ff6648"
+                },
+                {
+                    name:"成交量",
+                    y:934,
+                    color:"#4198ff"
+                },
+            ]
+        }]
+    }
 }
 export default {
     addOptions,

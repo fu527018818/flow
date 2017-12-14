@@ -39,7 +39,7 @@
                         <div>{{chart.turnover_count.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.turnover_count.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.turnover_count.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.turnover_count.unit}}</span>
                                 </el-col>
@@ -55,7 +55,7 @@
                         <div>{{chart.turnover_rate.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.turnover_rate.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.turnover_rate.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.turnover_rate.unit}}</span>
                                 </el-col>
@@ -71,7 +71,7 @@
                         <div>{{chart.unit_price.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.unit_price.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.unit_price.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.unit_price.unit}}</span>
                                 </el-col>
@@ -87,7 +87,7 @@
                         <div>{{chart.joint_rate.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.joint_rate.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.joint_rate.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.joint_rate.unit}}</span>
                                 </el-col>
@@ -103,7 +103,7 @@
                         <div>{{chart.new_guest_contribution.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.new_guest_contribution.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.new_guest_contribution.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.new_guest_contribution.unit}}</span>
                                 </el-col>
@@ -119,7 +119,7 @@
                         <div>{{chart.old_guest_contribution.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="profit">{{chart.old_guest_contribution.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.old_guest_contribution.value}}</el-col>
                                 <el-col :span="6">
                                     <span>{{chart.old_guest_contribution.unit}}</span>
                                 </el-col>
@@ -142,93 +142,16 @@ export default {
   },
   computed: {},
   created() {
-    console.log(this.chart);
-    console.log(this.chart);
+      
   },
   watch: {
     chart: function(val) {
-      console.log(val);
+        // console.log(val);
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.dataListBox .dataList {
-  padding: 0 13px;
-  & > div:nth-child(1) {
-    position: relative;
-  }
-  & .grid-content.bg-purple {
-    border: solid 1px #d3dde0;
-    height: 128px;
-    position: relative;
-    & > div:nth-child(1) {
-      font-size: 14px;
-      letter-spacing: 0px;
-      color: #4c4c4c;
-      padding-left: 12px;
-      padding-top: 12px;
-    }
-    & > div:nth-child(2) {
-      text-align: center;
-      position: relative;
-      margin-top: 8px;
-      & .numList div:nth-child(1) {
-        font-size: 40px;
-        font-weight: normal;
-        font-stretch: normal;
-        letter-spacing: 0px;
-        color: #ff6648;
-        padding-left: 10px;
-        overflow: hidden;
-        &.profit {
-          color: #4198ff;
-        }
-        &.col_rest {
-          color: #4d4d4d;
-        }
-      }
-      & .numList div:nth-child(2) {
-        font-size: 13px;
-        height: 45px;
-        font-weight: normal;
-        font-stretch: normal;
-        letter-spacing: 0px;
-        color: #4c4c4c;
-        position: relative;
-        & > span {
-          position: absolute;
-          right: 17px;
-          bottom: -2px;
-          font-size: 16px;
-        }
-      }
-    }
-    & > div:nth-child(3) {
-      font-size: 12px;
-      line-height: 26px;
-      letter-spacing: 0px;
-      color: #ff6648;
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      &.rise_down {
-        color: #00c853;
-      }
-    }
-  }
-  & div:nth-child(5),
-  & div:nth-child(6),
-  & div:nth-child(7),
-  & div:nth-child(8) {
-    margin-top: 20px;
-  }
-  & #marking {
-    height: 2px;
-    position: absolute;
-    top: -1px;
-    background-color: #ff6648;
-  }
-}
+@import '../../../assets/css/chartlist.scss';
 </style>

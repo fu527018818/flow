@@ -27,7 +27,10 @@
               <el-submenu index="/statistics" class="itemDown">
                   <template slot="title">统计</template>
                   <el-menu-item index="/statistics/turnover">营业额</el-menu-item>
-                  <el-menu-item index="/userManage">客流</el-menu-item>
+                  <el-menu-item index="/statistics/passengerFlow">客流</el-menu-item>
+                   <el-menu-item index="/statistics/indent">订单流水</el-menu-item>
+                    <el-menu-item index="">指标查询</el-menu-item>
+                    <el-menu-item index="">店铺分析</el-menu-item>
               </el-submenu>
               <el-menu-item index="/software">安防</el-menu-item>
               <el-menu-item index="/personnel">人事</el-menu-item>
@@ -186,8 +189,14 @@ export default {
         case "/userDetails":
             this.activeIndex = "/userManage";
         break;
-         case "/statistics/turnover":
+        case "/statistics/turnover":
             this.activeIndex="/statistics/turnover";
+        break;
+        case "/statistics/passengerFlow":
+            this.activeIndex="/statistics/passengerFlow";
+        break;
+        case "/statistics/indent":
+            this.activeIndex="/statistics/indent";
         break;
         default:
         this.activeIndex = "/main";

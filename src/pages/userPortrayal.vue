@@ -20,17 +20,17 @@
                             <el-col :span="12">
                                 <div class="grid-content">
                                     <div class="dataDisplay">
-                                            <div>
-                                                <span class="dataName">新客：</span>
-                                                <span class="numDate">5</span>
-                                                <span class="dataUnit">人</span>
-                                            </div>
-                                            <div>
-                                                <span class="dataName">新客：</span>
-                                                <span class="numDate">5</span>
-                                                <span class="dataUnit">人</span>
-                                            </div>
+                                        <div>
+                                            <span class="dataName">新客：</span>
+                                            <span class="numDate">5</span>
+                                            <span class="dataUnit">人</span>
                                         </div>
+                                        <div>
+                                            <span class="dataName">新客：</span>
+                                            <span class="numDate">5</span>
+                                            <span class="dataUnit">人</span>
+                                        </div>
+                                    </div>
                                     <div class="chart" id="contain3" style="height:100%"></div>
                                 </div>
                             </el-col>
@@ -47,7 +47,7 @@
                                                 <span class="numDate">5</span>
                                                 <span class="dataUnit">人</span>
                                             </div>
-                                        </div>
+                                    </div>
                                     <div class="chart" id="contain4" style="height:100%"></div>
                                 </div>
                             </el-col>
@@ -74,11 +74,10 @@
             }
         },
         mounted(){
-            console.log(Highcharts)
-              Highcharts.chart('contain1',userOptionColumn())
-              Highcharts.chart('contain2',userOptionColumn())
-              Highcharts.chart('contain3',userOptionPie())
-              Highcharts.chart('contain4',userOptionPie())
+            //   Highcharts.chart('contain1',userOptionColumn())
+            //   Highcharts.chart('contain2',userOptionColumn())
+            //   Highcharts.chart('contain3',userOptionPie())
+            //   Highcharts.chart('contain4',userOptionPie())
         }
     }
 </script>
@@ -89,7 +88,7 @@
         margin-top: 6px;
     }
     .userChart .el-col.el-col-12{
-        height: 374px;
+        height: 377px;
         &:nth-child(2n-1){
             padding-right: 3px;
             padding-bottom: 6px;

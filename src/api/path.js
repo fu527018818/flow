@@ -5,5 +5,6 @@ export default {
     USER_INIT:'',
     NOTIFICATION_REALTIME:'notification/realtime',
     NOTICE_LISTS:'/notice/lists',
-    STATISTICS_TURNOVER:"/statistics/turnover"
+    STATISTICS_TURNOVER:"/statistics/turnover",
+    STATISTICS_PASSENGER:"/statistics/passenger"
 }

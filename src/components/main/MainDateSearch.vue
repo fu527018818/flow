@@ -36,7 +36,7 @@
                         <div :class ="[chart.turnover.is_rise=='1'?'':'rise_down']">
                             {{chart.turnover.compare_rate+'%'}}<i :class="['iconfont',chart.turnover.is_rise=='1'?'icon-up':'icon-down']"></i>
                         </div>
-                      <div id="marking" v-bind:style="'width:'+ chart.turnover.completion+'%'"></div>
+                      <!-- <div id="marking" v-bind:style="'width:'+ chart.turnover.completion+'%'"></div> -->
                     </div>  
                 </el-col>
                 <el-col :span="6">
@@ -190,6 +190,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/css/chartlist.scss';
 .dateShowBox{
       width: 1024px;
       height: 389px;
@@ -250,80 +251,5 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 .shortcutBtn .tab{
     background-color: #48a7ff;
     color: #ffffff!important;
-}
-.dataListBox .dataList{
-    padding: 0 13px;
-    & > div:nth-child(1){
-        position: relative;
-    }
-    & .grid-content.bg-purple{
-        border: solid 1px #d3dde0;
-        height: 128px;
-        position: relative;
-        cursor: pointer;
-        & > div:nth-child(1){
-            font-size:14px;
-            letter-spacing: 0px;
-            color: #4c4c4c;
-            padding-left: 12px;
-            padding-top:12px;
-        }
-        & > div:nth-child(2){
-            text-align: center;
-            position: relative;
-            margin-top:8px;
-            &  .numList div:nth-child(1){
-                font-size: 40px;
-                font-weight: normal;
-                font-stretch: normal;
-                letter-spacing: 0px;
-                color: #ff6648;
-                padding-left: 10px;
-                overflow: hidden;
-                &.profit{
-                   color: #4198ff;
-                }
-                &.col_rest{
-                     color: #4d4d4d;
-                }
-            }
-            &  .numList div:nth-child(2){
-                font-size: 13px;
-                height: 45px;
-                font-weight: normal;
-                font-stretch: normal;
-                letter-spacing: 0px;
-                color: #4c4c4c;
-                position: relative;
-                & > span{
-                    position: absolute;
-                    right: 17px;
-                    bottom: -2px;
-                    font-size: 16px;
-                }
-            }
-        }
-         & > div:nth-child(3){
-            font-size: 12px;
-            line-height: 26px;
-            letter-spacing: 0px;
-            color: #ff6648;
-            position: absolute;
-            bottom:10px;
-            right:10px;
-            &.rise_down{
-                color: #00c853;
-            }
-         }
-    }
-    & div:nth-child(5),& div:nth-child(6), & div:nth-child(7), & div:nth-child(8){
-        margin-top: 20px;
-    }
-    & #marking{
-        height: 2px;
-        position: absolute;
-        top: -1px;
-        background-color: #ff6648;
-    }
 }
 </style>

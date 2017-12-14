@@ -10,14 +10,16 @@ import loginPwd from '../pages/LoginPwd.vue';
 import main from '../pages/Main.vue';
 import user from '../pages/User.vue';
 import personnel from '../pages/personnel.vue';
-import statistics from '../pages/statistics/statistics.vue'
+import orderDetail from '../pages/statistics/orderDetail.vue'
 import software from '../pages/software.vue';
 import dataEnter from '../pages/dataEnter.vue';
 import userHelp from '../pages/userHelp.vue';
 import userPortrayal from '../pages/userPortrayal.vue';
 import userDetails from '../pages/userDetails.vue';
 import userManage from '../pages/userManage.vue';
-import statisyicsTurnover   from '../pages/statistics/turnover.vue';
+import statisticsTurnover  from '../pages/statistics/turnover.vue';
+import statisticsFlow  from '../pages/statistics/passengerFlow.vue';
+import statisticsIndent from '../pages/statistics/indent.vue'
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -66,15 +68,26 @@ export const constantRouterMap = [
     name: "personnel",
     component: personnel
   }, {
-    path: "/statistics",
-    name: "statistics",
-    component: statistics
+    path: "/statistics/orderDetail",
+    name: "orderDetail",
+    component: orderDetail
   },
   {
     path: "/statistics/turnover",
     name: "turnover",
-    component: statisyicsTurnover
-  },{
+    component: statisticsTurnover
+  },
+  {
+    path: "/statistics/passengerFlow",
+    name: "passengerFlow",
+    component: statisticsFlow
+  },
+  {
+    path: "/statistics/indent",
+    name: "statisticsIndent",
+    component: statisticsIndent
+  },
+  {
     path: "/software",
     name: "software",
     component: software
@@ -118,6 +131,7 @@ router.beforeEach((to, from, next) => {
   var userInfo = ls.get('userInfo');
   var userId = ls.get('userId');
   var arr = [',',"/loginAccount", "/loginpwd"];
+  /**判断路由跳转区分登录和进入内容页面*/
   if (arr.indexOf(to.path) >= 0) {
     if (to.path.indexOf("/loginAccount")>= 0 && userInfo && userId) {
           next({ path: '/loginpwd' });

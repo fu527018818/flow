@@ -154,7 +154,7 @@
                                             </el-tag>
                                             <el-tag 
                                             type="info" 
-                                            closable 
+                                            closable
                                             v-if="search.total_consumption.length > 0 && typeof search.total_consumption =='object'"
                                             @close="handleClose(search.total_consumption,'search.total_consumption')"
                                             >

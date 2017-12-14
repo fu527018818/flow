@@ -32,9 +32,18 @@ export function userInit(json){
             data:json
         })
 }
+/**统计营业额 */
 export function statisticsTurnover(json){
     return fetch({
         url:path.STATISTICS_TURNOVER,
+        method:"post",
+        data:json
+    })
+}
+/**统计客流 */
+export function statisticsPassenger(json){
+    return fetch({
+        url:path.STATISTICS_PASSENGER,
         method:"post",
         data:json
     })

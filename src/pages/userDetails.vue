@@ -251,7 +251,6 @@
         },
         created(){
                 console.log(("18960120350".replace(/(\d{3})(\d{4})(\d{4})/,"$1****$3")));
-                console.log(this.$route.params.id)
         }
     }
 </script>
