@@ -29,8 +29,8 @@
                   <el-menu-item index="/statistics/turnover">营业额</el-menu-item>
                   <el-menu-item index="/statistics/passengerFlow">客流</el-menu-item>
                    <el-menu-item index="/statistics/indent">订单流水</el-menu-item>
-                    <el-menu-item index="">指标查询</el-menu-item>
-                    <el-menu-item index="">店铺分析</el-menu-item>
+                    <el-menu-item index="/statistics/refer">指标查询</el-menu-item>
+                    <el-menu-item index="/statistics/analyze">店铺分析</el-menu-item>
               </el-submenu>
               <el-menu-item index="/software">安防</el-menu-item>
               <el-menu-item index="/personnel">人事</el-menu-item>
@@ -153,7 +153,6 @@ export default {
       ];
     },
     menuType(index){
-      console.log(index)
       // 防止刷新时指向当前路由
       switch(index){
         case '/main': 
@@ -197,6 +196,21 @@ export default {
         break;
         case "/statistics/indent":
             this.activeIndex="/statistics/indent";
+        break;
+        case "/statistics/refer":
+            this.activeIndex="/statistics/refer";
+        break;
+        case "/statistics/analyze":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/highLow":
+            this.activeIndex="/statistics/analyze";
+        break;
+         case "/statistics/analyze/flowRetention":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/effectiveness":
+            this.activeIndex="/statistics/analyze";
         break;
         default:
         this.activeIndex = "/main";

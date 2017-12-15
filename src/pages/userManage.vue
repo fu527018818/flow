@@ -10,7 +10,7 @@
                         </div>   
                         <!-- 表单条件筛选 stat-->
                         <el-collapse-transition>
-                            <div class="searchCondition" v-show="show">
+                            <div class="searchCondition" v-show="isFold">
                                 <el-row class="searchList">
                                     <el-col :span="3">
                                         <div class="searchName">
@@ -94,7 +94,7 @@
                                 </el-row>
                                 <el-row class="searchList">
                                     <el-col :span="3">
-                                        <div class="searchName">
+                                    <div class="searchName">
                                             是否是会员
                                         </div>
                                     </el-col>
@@ -170,7 +170,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[show?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -209,10 +209,10 @@
             return {
                 checkAllNum:false,
                 checkAllBuy: false,
-                show:true,
+                isFold:true,
                 search:{
                     gender:'',
-                    date:"",
+                    date:"今天",
                     last_visit:[],
                     service_user:"",
                     total_consumption:[],
@@ -228,7 +228,7 @@
         },
          methods: {
             showColse(){
-                    this.show = !this.show;
+                    this.isFold = !this.isFold;
             },// 多选表单简单交互
             closeSearch(){
                 var search = this.search;
@@ -296,7 +296,7 @@
                 for(var key in obj){
                     this.search.last_visit.push(obj[key])
                 }
-            },
+            }, //多选 时间控制
              handleCheckAllChange(val) {
                     this.search.total_consumption = val ? total_consumptionValue:[];
                     this.isIndeterminate = false;
@@ -305,7 +305,7 @@
                     let checkedCount = value.length;
                     this.checkAllBuy = checkedCount === this.total_consumptionValue.length;
                     this.isIndeterminate = checkedCount > 0 && checkedCount < this.total_consumptionValue.length;
-            },
+            }, 
             handleCheckAllNumChange(val){
                     this.search.consumption_sequence = val ? consumption_sequenceValue:[];
                     this.isIndeterminate_1 = false;
@@ -319,8 +319,8 @@
         watch:{
            search:{
                 handler:function (newValue,oldValue){
-                    console.log(newValue)
-                    console.log(oldValue)
+                    // console.log(newValue)
+                    // console.log(oldValue)
                 },
                 deep:true
            }
@@ -329,7 +329,7 @@
             
         },
         created (){
-            
+        this.radioCheckDate('今天')
            
         }
     }
@@ -357,16 +357,7 @@
     .manageSearch{
         background-color: #ffffff;
         line-height: 77px;
-    }
-    .searchCondition{
-        width:100%;
-        height: 262px;
-        background-color: #ffffff;
-        transition: all 1.5s inherit;
-        padding: 0 30px;
-        box-sizing: border-box!important;
-    }
-    .conditionTit{
+         &  .conditionTit{
         padding-left: 30px;
         font-family: MicrosoftYaHeiLight;
         font-size: 14px;
@@ -375,14 +366,14 @@
         letter-spacing: 0px;
         color: #4c4c4c;
 
-    }
-    .conditionTag{
+        }
+        &  .conditionTag{
         line-height: 50px;
         width: 100%;
         height: 100%;
         min-height: 77px;
-    }
-    .searchBtn{
+        }
+        & .searchBtn{
         font-family: MicrosoftYaHeiLight;
         font-weight: normal;
         font-stretch: normal;
@@ -395,8 +386,16 @@
             display: inline-block;
             margin: 0 10px;
         }
+        }
     }
-    .searchList{
+    .searchCondition{
+        width:100%;
+        height: 262px;
+        background-color: #ffffff;
+        transition: all 1.5s inherit;
+        padding: 0 30px;
+        box-sizing: border-box!important;
+       & .searchList{
         height: 45px;
         line-height: 45px;
         border-bottom: 1px dashed #cccccc;
@@ -410,6 +409,11 @@
             color: #808080;
        }
     }
+    }
+   
+   
+   
+    
     .el-date-editor.el-range-editor.el-input__inner.el-date-editor--daterange{
         margin-left: 40px;
     }

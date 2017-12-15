@@ -1,3 +1,5 @@
+import { format } from "path";
+
 /*格式化后台数据*/
 export default{
     // 线形图
@@ -20,5 +22,16 @@ export default{
         }
         data.format = def
         return  data
+    },
+    formatOneSpline:function(data){
+        var obj = {};
+        obj.name = data.name;
+        obj.date =[];
+        obj.y=[];
+        for (var i=0;i<data.data.length;i++){
+            obj.date.push(data.data[i].name);
+            obj.y.push(data.data[i].data[0]*1);
+        }
+        return obj
     }
 }

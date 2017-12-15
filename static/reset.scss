@@ -203,6 +203,10 @@ legend {
   top:50%;
   transform: translate(0,-50%);
 }
+.el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date .el-input__inner{
+  position: relative;
+  top:-2px;
+}
 #searchContentBox .searchContent .el-input__inner{
   border: none;
   background-color:$globalColor!important;

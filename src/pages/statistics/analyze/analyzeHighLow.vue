@@ -1,0 +1,178 @@
+<template>
+    <div class="app">
+          <main-nav :indexMenu="'/statistics/analyze/highLow'"></main-nav>
+        <div class="contentBox" v-slim-scroll>
+            <div class="contentBox_child">
+                <div class="content">
+                    <search-date :isShowDate="false" :tit="'客流高低峰分析'"  @seachtrigger="seachtrigger"></search-date>
+                    <el-collapse-transition>
+                        <div class="searchCondition" v-show="isFold"  >
+                            <el-row class="searchList">
+                                    <el-col :span="2">
+                                        <div class="searchName">
+                                            时间
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="22">
+                                             <el-checkbox-group
+                                                v-model="checkedWeek"
+                                                :min="1"
+                                                :max="2">
+                                                <el-checkbox  v-for="city in weeks" :label="city" :key="city">{{city}}</el-checkbox>
+                                            </el-checkbox-group>
+                                    </el-col>
+                            </el-row>
+                        </div>
+                    </el-collapse-transition>
+                      <div class="manageSearch">
+                         <el-row>
+                                <el-col :span="3">
+                                    <div class="conditionTit">
+                                        筛选条件：
+                                    </div>
+                                </el-col> 
+                                <!-- 标签 -->
+                                <el-col :span="15">  
+                                        <div class="conditionTag">
+                                            <el-tag 
+                                                type="info"
+                                                :disable-transitions="false"
+                                                >
+                                               时间：<span v-for="item in checkedWeek" :key="item">{{item +' '}}</span>    
+                                            </el-tag>
+                                           
+                                        </div>
+                                </el-col>
+                                <el-col :span="6">
+                                    <div class="searchBtn">
+                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <el-button type="primary" @click="submitBtn">
+                                            筛选
+                                        </el-button>
+                                        <el-button type="primary" @click="closeSearch">
+                                            清空
+                                        </el-button>
+                                    </div>
+                                </el-col> 
+                            </el-row>
+                    </div>
+                    <div class="chartsplineBox">
+                        <div id="container"></div>
+                    </div>
+                </div>
+                  <div class="contentFooter"></div> 
+            </div>
+        </div> 
+    </div>
+</template>
+
+<script>
+import MainNav from '../../../components/MainNav';
+import searchDate from '../../../components/statistic/searchDate';
+import {mapGetters} from 'vuex'
+const  weekOptions = ['星期一', '星期二', '星期三', '星期四','星期五','星期六','星期日','平均'];
+export default {
+  components: {MainNav,searchDate},
+  name: "analyzeHighLow", //客流高低峰值分析
+  data(){
+      return {
+          isFold:true,
+        checkedWeek: ['星期一'],
+        weeks: weekOptions
+      }
+  },
+  computed:{
+      ...mapGetters([
+          'shop_list_current'
+      ])
+  },
+  created(){
+
+  },
+  methods:{
+      cc(){
+          console.log(123)
+
+      },
+      showColse(){
+          this.isFold = !this.isFold;
+      },
+      seachtrigger(){
+
+      },
+      submitBtn(){
+
+      },
+      closeSearch(){
+
+      }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+    .searchCondition{
+        width:100%;
+        height: 68px;
+        background-color: #ffffff;
+        transition: all 1.5s inherit;
+        padding: 10px 30px;
+        box-sizing: border-box!important;
+        margin-top: 6px;
+        &  .searchList{
+            height: 45px;
+            line-height: 45px;
+            // border-bottom: 1px dashed #cccccc;
+            overflow: hidden;
+        & .searchName{
+                font-size: 14px;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                color: #808080;
+                padding-left: 10px;
+        }
+        }
+    }
+       .manageSearch{
+        background-color: #ffffff;
+        line-height: 77px;
+         &  .conditionTit{
+        padding-left: 30px;
+        font-family: MicrosoftYaHeiLight;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #4c4c4c;
+
+        }
+        &  .conditionTag{
+        line-height: 50px;
+        width: 100%;
+        height: 100%;
+        min-height: 77px;
+        }
+        & .searchBtn{
+        font-family: MicrosoftYaHeiLight;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        cursor: pointer;
+        user-select: none;
+        & > div:nth-child(1){
+            color: #808080;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        }
+    }
+    .chartsplineBox{
+        width: 100%;
+        height:500px;
+        padding-bottom: 200px;
+        background-color: #ffffff;
+        margin-top: 6px;
+    }
+</style>

@@ -19,7 +19,12 @@ import userDetails from '../pages/userDetails.vue';
 import userManage from '../pages/userManage.vue';
 import statisticsTurnover  from '../pages/statistics/turnover.vue';
 import statisticsFlow  from '../pages/statistics/passengerFlow.vue';
-import statisticsIndent from '../pages/statistics/indent.vue'
+import statisticsIndent from '../pages/statistics/indent.vue';
+import statisticsRefer from '../pages/statistics/refer.vue';
+import statisticsAnalyze from '../pages/statistics/analyze.vue';
+import analyzeHighLow from '../pages/statistics/analyze/analyzeHighLow.vue'
+import flowRetention from '../pages/statistics/analyze/flowRetention.vue'
+import effectiveness from '../pages/statistics/analyze/effectiveness.vue'
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -83,9 +88,34 @@ export const constantRouterMap = [
     component: statisticsFlow
   },
   {
-    path: "/statistics/indent",
+    path: "/statistics/analyze",
+    name: "statisticsAnalyze",
+    component: statisticsAnalyze
+  },
+  {
+    path: "/statistics/analyze/highLow",
+    name: "analyzeHighLow",
+    component: analyzeHighLow
+  },
+  {
+    path: "/statistics/analyze/flowRetention",
+    name: "flowRetention",
+    component: flowRetention
+  },
+  {
+    path: "/statistics/analyze/effectiveness",
+    name: "effectiveness",
+    component: effectiveness  
+  },
+  {
+    path: "/statistics/Indent",
     name: "statisticsIndent",
     component: statisticsIndent
+  },
+  {
+    path: "/statistics/refer",
+    name: "statisticsRefer",
+    component: statisticsRefer
   },
   {
     path: "/software",

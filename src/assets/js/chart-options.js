@@ -1,8 +1,8 @@
 
-export function addOptions(titledata,date,turnover,volume){
-    // main页图标option
-    var options1
-   return options1 = {
+export function addOptions(titledata,date,turnover,volume,tit1,tit2){
+    // main页图标option 
+
+   return {
             chart: {
                 zoomType: 'xy',
                 animation:true,
@@ -50,14 +50,14 @@ export function addOptions(titledata,date,turnover,volume){
                 shared: true,
             },
             series: [{
-                name: '营业额',
+                name: tit1,
                 type: 'column',
                 color:"#48a7ff",
                 yAxis: 1,
                 data: turnover
                 
             }, {
-                name: '成交量',
+                name: tit2,
                 type: 'spline',
                 color:"#ff6648",
                 data: volume,
@@ -294,9 +294,66 @@ export function passengerFunnel(){
         }]
     }
 }
+export function statisticsOneSpline(title,date,tit1,y){
+    return {
+        chart: {
+            zoomType: 'xy',
+            animation:true,
+            marginLeft:80,
+            marginRight:50,
+        },
+        title: {
+            text:title,
+            align:"left",
+            x:30,
+            y:30,
+            margin:50,
+            style:{
+                fontSize:"18px",
+                color:"#4d4d4d"
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: [{
+            categories:date,
+            minTickInterval:2
+            }],
+        yAxis: [{ 
+            labels: {
+                format: '{value}',
+                style: {
+                
+                }
+            },
+            title: {
+                text: null
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: null,
+                style: {
+                }
+            },
+            opposite: true,
+            visible:false
+        }],
+        tooltip: {
+            shared: true,
+        },
+        series: [{
+            name:'营业额',
+            type: 'spline',
+            color:"#ff6648",
+            data: y 
+        }]
+    }
+}
 export default {
     addOptions,
     userOptionColumn,
     userOptionPie,
-    statisticsSpline
+    statisticsSpline,
+    statisticsOneSpline
 }

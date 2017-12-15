@@ -4,8 +4,8 @@
                             <el-col :span="8">
                                 <div class="grid-content bg-purple">
                                 <el-form :inline="true" id="selAreaForm">
-                                    <el-form-item :label="isFlow=='flow'?'客流':'查询'">
-                                        <el-select v-if="!isFlow"  @change="changeShop" v-model="list_current" id="selArea" placeholder="请选择门店">
+                                    <el-form-item :label="tit" v-if="tit">
+                                        <el-select v-if="!isShowDate"  @change="changeShop" v-model="list_current" id="selArea" placeholder="请选择门店">
                                             <el-option v-for="item in shop_list" :key="item.id" :label="item.shop_name" :value="item.id"></el-option>
                                         </el-select>
                                     </el-form-item>
@@ -13,7 +13,7 @@
                                 </div>
                             </el-col>
                             <el-col :span="16">
-                                <div class="grid-content bg-purple">
+                                <div class="grid-content bg-purple" v-if="isShowDate">
                                     <el-radio-group v-model="cutDate" size="small" id="cut_date"  @change="radioCheckDate">
                                         <el-radio-button label="today">今天</el-radio-button>
                                         <el-radio-button label="yesterday">昨天</el-radio-button>
@@ -32,6 +32,7 @@
                                     </el-date-picker>
                                     <router-link :to="{name:'dataEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
                                 </div>
+                                 <slot name="selectDate"></slot>
                             </el-col>
                 </el-row>
         </div>
@@ -40,7 +41,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
     export default {
-            props:['isFlow'],
+            props:['tit','isShowDate'],
             data(){
                 return{
                     list_current:"",
@@ -72,7 +73,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
             }
         },
         created(){
-          
+            console.log(this.tit)
             },
         mounted(){
             this.list_current = this.shop_list_current;

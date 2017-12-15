@@ -48,9 +48,18 @@ export function statisticsPassenger(json){
         data:json
     })
 }
+/**指标查询 */
+export function statisticsRefer(json){
+    return fetch({
+        url:path.STATISTICS_REFER,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
     noticeList,
-    statisticsTurnover
+    statisticsTurnover,
+    statisticsRefer
 }

@@ -12,7 +12,7 @@ ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
   var data = config.data;
-  console.log(data)
+  console.log(config)
   function  official(){
         var checkUrl = config.url.split('/');
         var loginUrl = checkUrl[checkUrl.length-1];
@@ -80,7 +80,6 @@ service.interceptors.request.use(config => {
         var loginUrl = checkUrl[checkUrl.length-1];
         if(!(loginUrl=="id")&&!(loginUrl=="login")){
                  //aes解密
-                
                 var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
                 var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{
                     mode: CryptoJS.mode.ECB
