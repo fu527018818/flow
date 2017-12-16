@@ -7,5 +7,9 @@ export default {
     NOTICE_LISTS:'/notice/lists',
     STATISTICS_TURNOVER:"/statistics/turnover",
     STATISTICS_PASSENGER:"/statistics/passenger",
-    STATISTICS_REFER:"/statistics/quota"
+    STATISTICS_REFER:"/statistics/quota",
+    STATISTICS_FLOWPEAK:"/statistics/passengerflowpeak", //客流高低分
+    STATISTICS_EFFECT:"/statistics/groundeffect",//坪效
+    STATISTICS_RETENTION:"/statistics/passengerretention" //客流滞留分析
+    
 }

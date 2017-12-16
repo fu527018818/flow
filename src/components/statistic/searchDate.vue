@@ -5,7 +5,7 @@
                                 <div class="grid-content bg-purple">
                                 <el-form :inline="true" id="selAreaForm">
                                     <el-form-item :label="tit" v-if="tit">
-                                        <el-select v-if="!isShowDate"  @change="changeShop" v-model="list_current" id="selArea" placeholder="请选择门店">
+                                        <el-select v-if="isShowId"  @change="changeShop" v-model="list_current" id="selArea" placeholder="请选择门店">
                                             <el-option v-for="item in shop_list" :key="item.id" :label="item.shop_name" :value="item.id"></el-option>
                                         </el-select>
                                     </el-form-item>
@@ -41,7 +41,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
     export default {
-            props:['tit','isShowDate'],
+            props:['tit','isShowDate','isShowId'],
             data(){
                 return{
                     list_current:"",

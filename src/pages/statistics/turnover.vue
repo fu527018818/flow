@@ -6,7 +6,7 @@
             <div class="contentBox_child">
                 <div class="content">
                     <div class="dateShowBox">
-                        <search-date @seachtrigger="seachtrigger" :tit="'营业额'"></search-date>
+                        <search-date @seachtrigger="seachtrigger" :isShowId="true" :isShowDate="true" :tit="'营业额'"></search-date>
                         <chart-list :chart="chart"></chart-list>
                     </div>
                     <div class="trendChartBox">

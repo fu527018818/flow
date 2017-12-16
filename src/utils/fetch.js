@@ -12,7 +12,7 @@ ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
   var data = config.data;
-  console.log(config)
+  console.log(data)
   function  official(){
         var checkUrl = config.url.split('/');
         var loginUrl = checkUrl[checkUrl.length-1];

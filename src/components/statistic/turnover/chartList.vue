@@ -15,7 +15,7 @@
                         <div :class ="[chart.turnover.is_rise=='1'?'':'rise_down']">
                             {{chart.turnover.compare_rate+'%'}}<i :class="['iconfont',chart.turnover.is_rise=='1'?'icon-up':'icon-down']"></i>
                         </div>
-                    <div id="marking" v-bind:style="'width:'+ chart.turnover.completion+'%'"></div>
+                        <div id="marking" v-bind:style="'width:'+ chart.turnover.completion+'%'"></div>
                     </div>  
             </el-col>
             <el-col :span="6">

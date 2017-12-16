@@ -56,10 +56,37 @@ export function statisticsRefer(json){
         data:json
     })
 }
+/**客流高低峰 */
+export function statisticsFlowPeak(json){
+    return fetch({
+        url:path.STATISTICS_FLOWPEAK,
+        method:"post",
+        data:json
+    })
+}
+/**坪效 */
+export function statisticsgroundGffect(json){
+    return fetch({
+        url:path.STATISTICS_EFFECT,
+        method:"post",
+        data:json
+    })
+}
+/** 客流滞留分析*/
+export function  statisticsRetention(json){
+    return fetch({
+        url:path.STATISTICS_RETENTION,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
     noticeList,
     statisticsTurnover,
-    statisticsRefer
+    statisticsRefer,
+    statisticsFlowPeak,
+    statisticsgroundGffect,
+    statisticsRetention
 }

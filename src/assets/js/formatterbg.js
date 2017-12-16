@@ -22,16 +22,57 @@ export default{
         }
         data.format = def
         return  data
-    },
+    }, //格式化单线数据
     formatOneSpline:function(data){
         var obj = {};
         obj.name = data.name;
         obj.date =[];
         obj.y=[];
+        obj.line=data.line;
         for (var i=0;i<data.data.length;i++){
             obj.date.push(data.data[i].name);
             obj.y.push(data.data[i].data[0]*1);
         }
         return obj
-    }
+    },//格式话单线或者双线
+  formatOneOrTwoSpline:function(data){
+        var obj = {};
+        if(data.line.length==2){
+            obj.name=data.name;
+            obj.date = [];
+            obj.line = data.line;
+            obj.y1 = [];
+            obj.y2 = [];
+            obj.series = [];
+            for(var i=0;i<data.data.length;i++){
+                obj.date.push(data.data[i].name);
+                obj.y1.push(data.data[i].data[0]*1);
+                obj.y2.push(data.data[i].data[1]*1);
+            }
+            for(var j=0;j< data.line.length ;j++){
+                var obj1 = {};
+                obj1.name = data.line[j];
+                obj.series.push(obj1)
+            }
+            obj.series[0].data = obj.y1;
+            obj.series[1].data = obj.y2;
+        }else{
+            obj.series=[];
+            obj.name = data.name;
+            obj.line = data.line;
+            obj.y1=[];
+            obj.date = [];
+            for(var i=0;i<data.data.length;i++){
+                obj.date.push(data.data[i].name);
+                obj.y1.push(data.data[i].data[0]*1); 
+            }
+            obj.series.push({
+                name:obj.line[0],
+                data:obj.y1
+            })
+         
+        }
+    return  obj;
+    
+  }
 }

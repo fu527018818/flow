@@ -1,7 +1,6 @@
 
 export function addOptions(titledata,date,turnover,volume,tit1,tit2){
     // main页图标option 
-
    return {
             chart: {
                 zoomType: 'xy',
@@ -54,9 +53,9 @@ export function addOptions(titledata,date,turnover,volume,tit1,tit2){
                 type: 'column',
                 color:"#48a7ff",
                 yAxis: 1,
-                data: turnover
+                data:turnover
                 
-            }, {
+            },{
                 name: tit2,
                 type: 'spline',
                 color:"#ff6648",
@@ -235,14 +234,14 @@ export function statisticsSpline(name,dateX,datay1,datay2){
         series: [{
             name:name[0],
             type: 'spline',
-            color:"#48a7ff",
+            color:"#ff6648",
             yAxis: 1,
             data:datay1
             
         }, {
             name: name[1],
             type: 'spline',
-            color:"#ff6648",
+            color:"#48a7ff",
             data:datay2,
 
         }]
@@ -293,7 +292,8 @@ export function passengerFunnel(){
             ]
         }]
     }
-}
+}   
+// 单线图
 export function statisticsOneSpline(title,date,tit1,y){
     return {
         chart: {
@@ -317,8 +317,7 @@ export function statisticsOneSpline(title,date,tit1,y){
             enabled: false
         },
         xAxis: [{
-            categories:date,
-            minTickInterval:2
+            categories:date
             }],
         yAxis: [{ 
             labels: {
@@ -343,11 +342,66 @@ export function statisticsOneSpline(title,date,tit1,y){
             shared: true,
         },
         series: [{
-            name:'营业额',
+            name:tit1,
             type: 'spline',
             color:"#ff6648",
             data: y 
         }]
+    }
+}
+// 单线图或者双线图
+export function statisticsOneOrTwoSpline(Highcharts,title,date,data){
+    console.log()
+    Highcharts.getOptions().colors=['#ff6648','#48a7ff']
+    return {
+        chart: {
+            zoomType: 'xy',
+            type: 'spline',
+            animation:true,
+            marginLeft:80,
+            marginRight:50,
+        },
+        title: {
+            text:title,
+            align:"left",
+            x:30,
+            y:30,
+            margin:50,
+            style:{
+                fontSize:"18px",
+                color:"#4d4d4d"
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: [{
+            categories:date,
+            // minTickInterval:2
+            }],
+        yAxis: [{ 
+            labels: {
+                format: '{value}',
+                style: {
+                
+                }
+            },
+            title: {
+                text: null
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: null,
+                style: {
+                }
+            },
+            opposite: true,
+            visible:false
+        }],
+        tooltip: {
+            shared: true,
+        },
+        series:data
     }
 }
 export default {
@@ -355,5 +409,6 @@ export default {
     userOptionColumn,
     userOptionPie,
     statisticsSpline,
-    statisticsOneSpline
+    statisticsOneSpline,
+    statisticsOneOrTwoSpline
 }

@@ -4,7 +4,7 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                    <search-date :isShowDate="false" :tit="'客流高低峰分析'"  @seachtrigger="seachtrigger"></search-date>
+                    <search-date :isShowDate="false" :isShowId="true" :tit="'客流高低峰分析'"  @seachtrigger="seachtrigger"></search-date>
                     <el-collapse-transition>
                         <div class="searchCondition" v-show="isFold"  >
                             <el-row class="searchList">
@@ -55,9 +55,9 @@
                                     </div>
                                 </el-col> 
                             </el-row>
-                    </div>
+                        </div>
                     <div class="chartsplineBox">
-                        <div id="container"></div>
+                        <div id="container"  style="height:500px"></div>
                     </div>
                 </div>
                   <div class="contentFooter"></div> 
@@ -69,7 +69,11 @@
 <script>
 import MainNav from '../../../components/MainNav';
 import searchDate from '../../../components/statistic/searchDate';
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
+import {statisticsFlowPeak} from '../../../api/global';
+import {statisticsOneOrTwoSpline} from '../../../assets/js/chart-options';
+import format from '../../../assets/js/formatterbg';
+import Highcharts from 'highcharts';
 const  weekOptions = ['星期一', '星期二', '星期三', '星期四','星期五','星期六','星期日','平均'];
 export default {
   components: {MainNav,searchDate},
@@ -87,24 +91,35 @@ export default {
       ])
   },
   created(){
-
+      this.flowPeakInit();
+    
+  },
+  mounted(){
+       
   },
   methods:{
-      cc(){
-          console.log(123)
-
-      },
       showColse(){
           this.isFold = !this.isFold;
       },
       seachtrigger(){
-
+           this.flowPeakInit();
       },
       submitBtn(){
-
+           this.flowPeakInit();
       },
       closeSearch(){
 
+      },
+      flowPeakInit(){
+          statisticsFlowPeak({
+              shop_id:this.shop_list_current,
+              compare1_week:this.checkedWeek[0],
+              Compare2_week:this.checkedWeek.length == 2?this.checkedWeek[1]:this.checkedWeek[0]
+          })
+          .then(res=>{
+               var current = format.formatOneOrTwoSpline(res.data.graphic.data1);
+               Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
+          })
       }
   }
 };

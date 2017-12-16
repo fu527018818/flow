@@ -57,13 +57,13 @@ export default {
             end:this.formatDate(getCurrentDate)
             }
         },
-   //昨天
+   //今天昨天
    getYesterdayDate(){
         var getYesterdayDate = new Date(nowYear, nowMonth, nowDay - 1);
         var getYesterdayDate = this.formatDate(getYesterdayDate);
         return {
-            start:this.getToday().start,
-            end:getYesterdayDate
+            end:getYesterdayDate,
+            start:this.getToday().start
         }
    },
    getWeekDate(){
@@ -124,5 +124,10 @@ getRecentDate(){
             start:this.formatDate(getRecentDate),
             end:this.formatDate(getCurrentDate)
         }
-   } 
+   },
+getMonth(){
+        var nowMonth = new Date().getMonth();
+        var nowYear = new Date().getFullYear();
+        return nowYear + '-'+(nowMonth*1 + 1)
+   }
 }

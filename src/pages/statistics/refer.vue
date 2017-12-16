@@ -5,7 +5,7 @@
         <div class="contentBox"  v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                    <search-date :isShowDate="false" :tit="'查询'"  @seachtrigger="seachtrigger"></search-date>
+                    <search-date :isShowDate="false" :tit="'查询'" :isShowId="true"  @seachtrigger="seachtrigger"></search-date>
                     <el-collapse-transition>
                         <div class="searchCondition" v-show="isFold">
                              <el-row class="searchList">
@@ -186,8 +186,8 @@ export default {
                     start_date:this.unit=="小时"?this.date1:this.date2[0],
                     end_date:this.unit=="小时"?this.date1:this.date2[1]
                 }).then(res=>{
-                   var current = formatterbg.formatOneSpline(res.data.graphic[0])
-                    Highcharts.chart('contain',statisticsOneSpline(current.name,current.date,'营业额',current.y))
+                   var current = formatterbg.formatOneSpline(res.data.graphic.data1)
+                    Highcharts.chart('contain',statisticsOneSpline(current.name,current.date,current.line[0],current.y))
                 })
             }
         },

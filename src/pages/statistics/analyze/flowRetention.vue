@@ -4,8 +4,89 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-
+                     <search-date :isShowDate="false" :isShowId="true" :tit="'客流高低峰分析'"  @seachtrigger="seachtrigger"></search-date>
+                     <el-collapse-transition>
+                        <div class="searchCondition" v-show="isFold"  >
+                            <el-row class="searchList">
+                                    <el-col :span="2">
+                                        <div class="searchName">
+                                            时间
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="22" id="changSeparator">
+                                           <el-date-picker
+                                             value-format="yyyy-MM-dd"
+                                            v-model="date"
+                                            type="daterange"
+                                            range-separator="对比"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期">
+                                            </el-date-picker>  
+                                    </el-col>
+                            </el-row>
+                        </div>
+                    </el-collapse-transition>
+                     <div class="manageSearch">
+                         <el-row>
+                                <el-col :span="3">
+                                    <div class="conditionTit">
+                                        筛选条件：
+                                    </div>
+                                </el-col> 
+                                <!-- 标签 -->
+                                <el-col :span="15">  
+                                        <div class="conditionTag">
+                                            <el-tag 
+                                                type="info"
+                                                :disable-transitions="false"
+                                                v-if="date"
+                                               
+                                                >
+                                               时间：<span v-for="item in date" :key="item">{{item + ' '}}</span>    
+                                            </el-tag>
+                                           
+                                        </div>
+                                </el-col>
+                                <el-col :span="6">
+                                    <div class="searchBtn">
+                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <el-button type="primary" @click="submitBtn">
+                                            筛选
+                                        </el-button>
+                                        <el-button type="primary" @click="closeSearch">
+                                            清空
+                                        </el-button>
+                                    </div>
+                                </el-col> 
+                        </el-row>
+                    </div>
+                    <div class="chartAnalyBox">
+                        <el-row v-if="chart">
+                            <el-col :span="12"  class="left">
+                                <div class="list">
+                                    <div>{{chart[0].name}}</div>
+                                    <div>人数：<span class="num">{{chart[0].max_person}}</span>人</div>
+                                    <div>时间：{{chart[0].datetime}}</div>
+                                </div>
+                            </el-col>
+                            <el-col :span="12" class="right">
+                                <div class="list">
+                                    <div>{{chart[1].name}}</div>
+                                    <div>
+                                       {{chart[1].data[0].date}}：<span class="num"> {{chart[1].data[0].average_person}}</span>人每小时
+                                    </div>
+                                    <div>
+                                          {{chart[1].data[1].date}}：<span class="num"> {{chart[1].data[1].average_person}}</span>人每小时
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div class="chartsplineBox">
+                        <div id="container"  style="height:500px"></div>
+                    </div>
                 </div>
+                <div class="contentFooter"></div> 
             </div>
         </div> 
     </div>
@@ -13,12 +94,190 @@
 
 <script>
 import MainNav from '../../../components/MainNav';
+import searchDate from '../../../components/statistic/searchDate';
+import getDate from '../../../assets/js/dateSelect';
+import {statisticsRetention} from '../../../api/global';
+import {mapGetters} from 'vuex';
+import formatbg from '../../../assets/js/formatterbg';
+import {statisticsOneOrTwoSpline} from '../../../assets/js/chart-options';
+import Highcharts from 'highcharts'
 export default {
-  components: {MainNav},
-  name: "flowRetention" //客流滞留分析
+  components: {MainNav,searchDate},
+  name: "flowRetention", //客流滞留分析
+  data(){
+      return {
+          isFold:true,
+          date:[],
+          chart:""
+      }
+  },
+  computed:{
+      ...mapGetters([
+          'shop_list_current'
+      ])
+  },
+  methods:{
+      seachtrigger(){
+           this.retentionInit();
+      },
+      submitBtn(){
+           this.retentionInit();
+      },
+      closeSearch(){
+
+      },
+      showColse(){
+          this.isFold = !this.isFold;
+      },
+      retentionInit(){
+          statisticsRetention({
+              shop_id:this.shop_list_current,
+              compare1_date:this.date[0],
+              Compare2_date:this.date[1]
+          })
+          .then(res=>{
+              this.chart = res.data.chart;
+              var current = formatbg.formatOneOrTwoSpline(res.data.graphic.data1);
+              Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
+          })
+      }
+
+  },
+  created(){
+       var date = getDate.getYesterdayDate()
+        for(var key in date){
+            this.date.push(date[key])
+        }
+       this.retentionInit();
+  }
+
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .searchCondition{
+        width:100%;
+        height: 68px;
+        background-color: #ffffff;
+        transition: all 1.5s inherit;
+        padding: 10px 30px;
+        box-sizing: border-box!important;
+        margin-top: 6px;
+        &  .searchList{
+            height: 45px;
+            line-height: 45px;
+            // border-bottom: 1px dashed #cccccc;
+            overflow: hidden;
+        & .searchName{
+                font-size: 14px;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                color: #808080;
+                padding-left: 10px;
+        }
+        }
+    }
+     .manageSearch{
+        background-color: #ffffff;
+        line-height: 77px;
+         &  .conditionTit{
+        padding-left: 30px;
+        font-family: MicrosoftYaHeiLight;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #4c4c4c;
 
+        }
+        &  .conditionTag{
+        line-height: 50px;
+        width: 100%;
+        height: 100%;
+        min-height: 77px;
+        }
+        & .searchBtn{
+        font-family: MicrosoftYaHeiLight;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        cursor: pointer;
+        user-select: none;
+        & > div:nth-child(1){
+            color: #808080;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        }
+    }
+    .chartAnalyBox{
+        width: 100%;
+        height: 150px;
+        margin-top: 6px;
+        & .left{
+            height: 150px;
+            padding-right: 5px;
+            & .list{
+               
+                & div:nth-child(2){
+                    padding-left: 170px;
+                    padding-bottom: 10px;
+                    font-size: 16px;
+                    & > .num{
+                        display: inline-block;
+                        width: 100px;
+                        font-size:30px;
+                        text-align:center;
+                    }
+                }
+                & div:nth-child(3){
+                    padding-left: 170px;
+                    font-size: 16px;
+                }
+            }
+        }
+         & .right{
+             height: 150px;
+            padding-left: 5px;
+            
+        }
+        & .list{
+            color: #4c4c4c;
+            height: 100%;
+            background-color: #ffffff;
+             & > div:nth-child(1){
+                font-size: 18px;
+                padding: 17px 0 0 30px;
+                }
+             & div:nth-child(2){
+                    padding-left: 138px;
+                    font-size: 16px;
+                    & > .num{
+                        display: inline-block;
+                        width: 100px;
+                        font-size:30px;
+                        text-align:center;
+                    }
+                }
+                & div:nth-child(3){
+                    padding-left: 138px;
+                    font-size: 16px;
+                     & > .num{
+                        display: inline-block;
+                        width: 100px;
+                        font-size:30px;
+                        text-align:center;
+                    }
+                }
+        }
+    }
+      .chartsplineBox{
+        width: 100%;
+        height:500px;
+        padding-bottom: 100px;
+        background-color: #ffffff;
+        margin-top: 6px;
+    }
 </style>
