@@ -4,7 +4,7 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                     <search-date :isShowDate="false" :isShowId="true" :tit="'客流高低峰分析'"  @seachtrigger="seachtrigger"></search-date>
+                     <search-date :isShowDate="false" :isShowId="true" :tit="'客流滞留分析 '"  @seachtrigger="seachtrigger"></search-date>
                      <el-collapse-transition>
                         <div class="searchCondition" v-show="isFold"  >
                             <el-row class="searchList">
@@ -280,4 +280,13 @@ export default {
         background-color: #ffffff;
         margin-top: 6px;
     }
+// 客流高峰时间选择 start
+
+.el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+    width:250px!important;
+   
+}
+
+// 客流高峰时间选择 end
+
 </style>

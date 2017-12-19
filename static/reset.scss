@@ -26,10 +26,10 @@ html,body{
   font-family: MicrosoftYaHeiLight;
   overflow: hidden;
 }
-:focus {
-  outline: 0;
-}
-table {
+// :focus {
+//   outline: 0;
+// }
+table{
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -197,12 +197,7 @@ legend {
 #selAreaForm .el-form-item__label{
   font-size: 18px!important;
 }
-.el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
-  width: 206px;
-  position: absolute;
-  top:50%;
-  transform: translate(0,-50%);
-}
+
 .el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date .el-input__inner{
   position: relative;
   top:-2px;

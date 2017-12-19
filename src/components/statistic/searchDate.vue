@@ -12,7 +12,7 @@
                                     </el-form>
                                 </div>
                             </el-col>
-                            <el-col :span="16">
+                            <el-col :span="16" >
                                 <div class="grid-content bg-purple" v-if="isShowDate">
                                     <el-radio-group v-model="cutDate" size="small" id="cut_date"  @change="radioCheckDate">
                                         <el-radio-button label="today">今天</el-radio-button>
@@ -22,6 +22,7 @@
                                         <el-radio-button label="thisMonth">本月</el-radio-button>
                                     </el-radio-group>
                                     <el-date-picker
+                                                id="selectDate"
                                                 @change="seachDate"
                                                 v-model="last_visit"
                                                 type="daterange"
@@ -73,7 +74,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
             }
         },
         created(){
-            console.log(this.tit)
+            // console.log(this.tit)
             },
         mounted(){
             this.list_current = this.shop_list_current;
@@ -113,4 +114,10 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
             }
         }
 }
+ .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+    width: 206px!important;
+    position: absolute!important;
+    top:50%;
+    transform: translate(0,-50%);
+  }
 </style>

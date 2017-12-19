@@ -80,6 +80,61 @@ export function  statisticsRetention(json){
         data:json
     })
 }
+// 投资估算
+export function  statisticsForecast(json){
+    return fetch({
+        url:path.STATISTICS_FORECAST,
+        method:"post",
+        data:json
+    })
+}
+//增长率分析
+export function  statisticsIncrease(json){
+    return fetch({
+        url:path.STATISTICS_INCREASE,
+        method:"post",
+        data:json
+    })
+}
+//销售时段趋势图
+export function  statisticsTimeinterval(json){
+    return fetch({
+        url:path.STATISTICS_TIMEINTERVAL,
+        method:"post",
+        data:json
+    })
+}
+//周权重
+export function  statisticsWeekweight(json){
+    return fetch({
+        url:path.STATISTICS_WEEKWEIGHT,
+        method:"post",
+        data:json
+    })
+}
+//周趋势
+export function  statisticsWeekTendency(json){
+    return fetch({
+        url:path.STATISTICS_WEEKTREND,
+        method:"post",
+        data:json
+    })
+}
+// 顾客员工分析比
+export function  statisticsCustomerStaffrate(json){
+    return fetch({
+        url:path.STATISTICS_CUSTOMER,
+        method:"post",
+        data:json
+    })
+}
+export function  statisticsIndent(json){
+    return fetch({
+        url:path.STATISTICS_INDENT,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -88,5 +143,11 @@ export default{
     statisticsRefer,
     statisticsFlowPeak,
     statisticsgroundGffect,
-    statisticsRetention
+    statisticsRetention,
+    statisticsForecast,
+    statisticsIncrease,
+    statisticsTimeinterval,
+    statisticsWeekweight,
+    statisticsWeekTendency,
+    statisticsIndent
 }

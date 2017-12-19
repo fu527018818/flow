@@ -4,7 +4,7 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                     <search-date :isShowDate="false" :tit="'店铺评估'"  @seachtrigger="seachtrigger"></search-date>
+                     <search-date :isShowDate="false" :isShowId="true"  :tit="'店铺评估'"  @seachtrigger="seachtrigger"></search-date>
                      <div class="analyzeBox">
                          <div class="dataListBox">
                             <el-row :gutter="10" class="dataList">
@@ -45,7 +45,7 @@ export default {
           },{
               name:"投资测算",
               img:require("../../assets/img/assess/assess3.png"),
-              url:""
+              url:"forecast"
           },{
               name:"坪效",
               img:require("../../assets/img/assess/assess4.png"),
@@ -53,19 +53,19 @@ export default {
           },{
               name:"增长率分析",
               img:require("../../assets/img/assess/assess5.png"),
-              url:""
+              url:"increase"
           },{
               name:"周趋势分析",
               img:require("../../assets/img/assess/assess6.png"),
-               url:""
+               url:"weekTendency"
           },{
               name:"周权重分析",
               img:require("../../assets/img/assess/assess7.png"),
-               url:""
+               url:"weekWeight"
           },{
               name:"销售时段分析",
               img:require("../../assets/img/assess/assess8.png"),
-               url:""
+               url:"timeFrame"
           },{
               name:"客流滞留分析",
               img:require("../../assets/img/assess/assess9.png"),
@@ -77,7 +77,7 @@ export default {
           },{
               name:"顾客员工比分析",
               img:require("../../assets/img/assess/assess11.png"),
-               url:""
+               url:"clientStaff"
           },{
               name:"热点",
               img:require("../../assets/img/assess/assess12.png"),

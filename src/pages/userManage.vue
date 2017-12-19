@@ -73,7 +73,7 @@
                                         </div>
                                     </el-col>
                                     <el-col :span="21">
-                                        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAllBuy" @change="handleCheckAllChange">全选</el-checkbox>
+                                         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAllBuy" @change="handleCheckAllChange">全选</el-checkbox>
                                             <el-checkbox-group v-model="search.total_consumption" @change="handleCheckedChange">
                                                 <el-checkbox v-for="item in total_consumptionValue"  :label="item"  :key="item">{{item == 10000?item+'元以上':item + '元'}}</el-checkbox>
                                             </el-checkbox-group> 
@@ -410,12 +410,13 @@
        }
     }
     }
-   
-   
-   
-    
+   .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+       width: 240px;
+} 
     .el-date-editor.el-range-editor.el-input__inner.el-date-editor--daterange{
         margin-left: 40px;
+        position:relative;
+        top:-2px;
     }
     .el-checkbox-group{
         display: inline-block!important;

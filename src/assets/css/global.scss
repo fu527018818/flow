@@ -50,15 +50,21 @@
     top: 50%;
     transform: translate(0,-50%);
 }
-/*客流高峰时间选择 start*/
-#changSeparator .el-date-editor .el-range-separator{
+/*客流滞留分析*/
+#changSeparator > .el-date-editor .el-range-separator{
     width:15%!important;
 }
-#changSeparator .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
-    width:250px!important;
-   
-}
-#changSeparator .el-date-editor .el-range-input{
+#changSeparator > .el-date-editor .el-range-input{
     width: 34%!important;
 }
-/*客流高峰时间选择 end*/
+/*客流滞留分析*/
+#indent{
+    height: 30px!important;
+    border-radius: 0;
+    padding: 0;
+    text-indent: 5px;
+}
+#indent + .el-input__suffix{
+    right: 0!important;
+}
+

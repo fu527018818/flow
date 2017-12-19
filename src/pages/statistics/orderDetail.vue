@@ -5,7 +5,7 @@
         <div class="contentBox">
             <div class="contentBox_child">
                 <div class="content">
-
+                    
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
 <script>
 import MainNav from '../../components/MainNav'
 export default {
-        name:"statistics",
+        name:"orderDetail",//详情
         components:{MainNav},
         data (){
             return {
@@ -28,6 +28,7 @@ export default {
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+   
 
 </style>

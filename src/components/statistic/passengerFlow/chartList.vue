@@ -100,17 +100,17 @@
             </el-col>
              <el-col :span="6">
                     <div class="grid-content bg-purple">
-                        <div>{{chart.return_rate.name}}</div>
+                        <div>{{chart.visit_guest.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18" class="col_rest">{{chart.return_rate.value}}</el-col>
+                                <el-col :span="18" class="col_rest">{{chart.visit_guest.value}}</el-col>
                                 <el-col :span="6">
-                                    <span>{{chart.return_rate.unit}}</span>
+                                    <span>{{chart.visit_guest.unit}}</span>
                                 </el-col>
                             </el-row>
                         </div>
-                        <div :class ="[chart.return_rate.is_rise=='1'?'':'rise_down']">
-                            {{chart.return_rate.compare_rate+'%'}}<i :class="['iconfont',chart.return_rate.is_rise=='1'?'icon-up':'icon-down']"></i>
+                        <div :class ="[chart.visit_guest.is_rise=='1'?'':'rise_down']">
+                            {{chart.visit_guest.compare_rate+'%'}}<i :class="['iconfont',chart.visit_guest.is_rise=='1'?'icon-up':'icon-down']"></i>
                         </div>
                     </div>
             </el-col>

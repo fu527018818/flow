@@ -25,6 +25,12 @@ import statisticsAnalyze from '../pages/statistics/analyze.vue';
 import analyzeHighLow from '../pages/statistics/analyze/analyzeHighLow.vue'
 import flowRetention from '../pages/statistics/analyze/flowRetention.vue'
 import effectiveness from '../pages/statistics/analyze/effectiveness.vue'
+import clientStaff from '../pages/statistics/analyze/clientStaff.vue'
+import forecast from '../pages/statistics/analyze/forecast.vue'
+import timeFrame from  '../pages/statistics/analyze/timeFrame.vue'
+import increase from '../pages/statistics/analyze/increase.vue'
+import weekWeight from '../pages/statistics/analyze/weekWeight.vue'
+import weekTendency from '../pages/statistics/analyze/weekTendency.vue'
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -106,6 +112,35 @@ export const constantRouterMap = [
     path: "/statistics/analyze/effectiveness",
     name: "effectiveness",
     component: effectiveness  
+  },
+  {
+    path: "/statistics/analyze/clientStaff",
+    name: "clientStaff",
+    component: clientStaff  
+  },
+  {
+    path: "/statistics/analyze/forecast",
+    name: "forecast",
+    component: forecast  
+  },
+  {
+    path: "/statistics/analyze/timeFrame",
+    name: "timeFrame",
+    component: timeFrame  
+  },{
+    path: "/statistics/analyze/increase",
+    name: "increase",
+    component: increase 
+  },
+  {
+    path: "/statistics/analyze/weekWeight",
+    name: "weekWeight",
+    component: weekWeight 
+  },
+  {
+    path: "/statistics/analyze/weekTendency",
+    name: "weekTendency",
+    component: weekTendency 
   },
   {
     path: "/statistics/Indent",

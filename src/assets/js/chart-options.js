@@ -183,6 +183,58 @@ export function userOptionPie (tit,data){
         }]
     }
 }
+//投资测算页面，只展示
+export function forecastOptionPie(Highcharts,tit,y1,y2){
+    Highcharts.getOptions().colors=['#4096ff','#e5f1ff'];
+    return {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            spacing : [50, 0 , 0, 0]
+        },
+        title: {
+            text: tit,
+            floating:true,
+            style:{
+                fontSize:"40px",
+                color:"#4d4d4d"
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            enabled:false,
+        },
+        legend: {
+            enabled:false
+        },
+        plotOptions: {
+            pie: {
+                // allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            type: 'pie',
+            innerSize: '70%',
+            name: '男女比例',
+            data:[{
+                name:"回报率",
+                y:150
+            },{
+                name:"投资总额",
+                y:0
+            }]
+        }]
+    }
+}
+// 线图
 export function statisticsSpline(name,dateX,datay1,datay2){
     return {
         chart: {
@@ -351,7 +403,6 @@ export function statisticsOneSpline(title,date,tit1,y){
 }
 // 单线图或者双线图
 export function statisticsOneOrTwoSpline(Highcharts,title,date,data){
-    console.log()
     Highcharts.getOptions().colors=['#ff6648','#48a7ff']
     return {
         chart: {
@@ -410,5 +461,6 @@ export default {
     userOptionPie,
     statisticsSpline,
     statisticsOneSpline,
-    statisticsOneOrTwoSpline
+    statisticsOneOrTwoSpline,
+    forecastOptionPie
 }

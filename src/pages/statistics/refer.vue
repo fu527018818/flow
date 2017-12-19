@@ -100,7 +100,7 @@
                                         </el-button>
                                     </div>
                                 </el-col> 
-                            </el-row>
+                        </el-row>
                     </div>
                     <div class="chartShow">
                         <div class="contain" id="contain" style="height:100%"></div>
@@ -111,7 +111,7 @@
         </div>
     </div>  
 </template>
-
+  
 <script>
 import MainNav from '../../components/MainNav';
 import searchDate from '../../components/statistic/searchDate';
@@ -226,7 +226,6 @@ export default {
             }
         }
     }
-   
     .manageSearch{
         background-color: #ffffff;
         line-height: 77px;

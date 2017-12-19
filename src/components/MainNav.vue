@@ -212,6 +212,21 @@ export default {
         case "/statistics/analyze/effectiveness":
             this.activeIndex="/statistics/analyze";
         break;
+        case "/statistics/analyze/forecast":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/increase":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/timeFrame":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/weekTendency":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/analyze/weekWeight":
+            this.activeIndex="/statistics/analyze";
+        break;
         default:
         this.activeIndex = "/main";
       }
