@@ -103,14 +103,12 @@ export default {
   methods: {
     // 退出系统
     outSystem: function() {
-      console.log(123)
         this.$confirm('是否注销当前登录并退出？', '提示：', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               closeOnClickModal: false,
               type: 'warning'
         }).then(() => {
-          console.log(123)
             this.$store.commit('REMOVE_TOKEN');
             this.$store.commit('ROMOVE_SECRET');
             this.$store.commit('ROMOVE_SHOP_LIST')
@@ -225,6 +223,9 @@ export default {
             this.activeIndex="/statistics/analyze";
         break;
         case "/statistics/analyze/weekWeight":
+            this.activeIndex="/statistics/analyze";
+        break;
+         case "/statistics/orderDetail":
             this.activeIndex="/statistics/analyze";
         break;
         default:

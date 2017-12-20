@@ -46,7 +46,7 @@
                 prop="name"
                 label="客户"
                 width="80">
-                </el-table-column>
+            </el-table-column>
                 <el-table-column
                 prop="gender"
                 label="性别"

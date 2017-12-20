@@ -2,7 +2,7 @@
     <div class="dataListBox" v-if="chart">
         <el-row :gutter="10" class="dataList" >
             <el-col :span="6" >
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.turnover.name,url:'orderDetail'})">
                         <div>{{chart.turnover.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -19,7 +19,7 @@
                     </div>  
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.total_people.name,url:'orderDetail'})">
                         <div>{{chart.total_people.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -35,7 +35,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple"  @click="goto({name:chart.turnover_count.name,url:'orderDetail'})">
                         <div>{{chart.turnover_count.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -99,7 +99,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.new_guest_contribution.name,url:'orderDetail'})">
                         <div>{{chart.new_guest_contribution.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -115,7 +115,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.old_guest_contribution.name,url:'orderDetail'})">
                         <div>{{chart.old_guest_contribution.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -143,6 +143,11 @@ export default {
   computed: {},
   created() {
       
+  },
+  methods:{
+    goto(val){
+       this.$emit('goto',val)
+    }
   },
   watch: {
     chart: function(val) {

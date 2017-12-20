@@ -1,5 +1,5 @@
 import { format } from "path";
-
+import getDate from '../../assets/js/dateSelect';
 /*格式化后台数据*/
 export default{
     // 线形图
@@ -74,5 +74,38 @@ export default{
         }
     return  obj;
     
+  }, //格式化快捷时间
+  getClockerDate(val){
+      console.log(val)
+    switch (val){
+        case '今天':
+            return  getDate.getToday()
+        break;
+        case '昨天':
+           return  getDate.getYesterdayDate()
+        break;
+        case '本周':
+            return  getDate.getWeekDate()
+        break;
+        case '上周':
+           return  getDate.getUpWeekDate()
+        break;
+        case '本月':
+           return  getDate.getMonthDate()
+        break;
+        case '上月':
+           return  getDate.getLastMonthDate()
+        break;
+        case '近七天':
+          return  getDate.getToday()
+        break;
+    }
+  },
+  formatPageDate(limit,page,tolNum){
+      return {
+          limit:limit,
+          page:page,
+          tolPage: Math.ceil(tolNum/limit)
+      }
   }
 }

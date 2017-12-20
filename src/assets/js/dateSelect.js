@@ -62,8 +62,8 @@ export default {
         var getYesterdayDate = new Date(nowYear, nowMonth, nowDay - 1);
         var getYesterdayDate = this.formatDate(getYesterdayDate);
         return {
-            end:getYesterdayDate,
-            start:this.getToday().start
+            start:getYesterdayDate,
+            end:this.getToday().start
         }
    },
    getWeekDate(){
@@ -76,6 +76,7 @@ export default {
         return {
             start:getWeekStartDate,
             end: getWeekEndDate
+            
         }
    },
    getUpWeekDate(){

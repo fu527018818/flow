@@ -76,7 +76,7 @@
                                          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAllBuy" @change="handleCheckAllChange">全选</el-checkbox>
                                             <el-checkbox-group v-model="search.total_consumption" @change="handleCheckedChange">
                                                 <el-checkbox v-for="item in total_consumptionValue"  :label="item"  :key="item">{{item == 10000?item+'元以上':item + '元'}}</el-checkbox>
-                                            </el-checkbox-group> 
+                                         </el-checkbox-group> 
                                     </el-col>
                                 </el-row>
                                 <el-row class="searchList">
@@ -132,7 +132,7 @@
                                             type="info"
                                             closable 
                                             v-if="!search.date==''&&search.date.length > 0"
-                                            @close="handleClose(search.date,'search.date')"
+                                            class=""
                                             >
                                                 <span>上次到店：{{search.date}}</span>    
                                             </el-tag>

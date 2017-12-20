@@ -16,7 +16,7 @@ import './directive/directive';
 import 'jquery-slimscroll';
 Vue.config.productionTip = false;
 
-Vue.use(VueSocketio, socketio('http://182.61.32.66:2323'), storeSocket);
+// Vue.use(VueSocketio, socketio('http://182.61.32.66:2323'), storeSocket);
 Vue.prototype.$jsEncrypt = JsEncrypt;
 Vue.use(ElementUI);
 Vue.use(Vuex);

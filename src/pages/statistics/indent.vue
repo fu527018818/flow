@@ -4,18 +4,27 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                   <search-page :tit="{tit:'订单流水',titIpt:'搜订单'}"  @changePagesSearch="changePagesSearch"></search-page>
+                   <search-page :tit="{tit:'订单流水',titIpt:'搜订单'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                       <div class="search" slot="searchCon">
+                        <div class="f-input">
+                                <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单">
+                        </div>
+                        <span class="searchIcon" @click="searchIndent">
+                            <i class="iconfont icon-serach"></i>
+                        </span>
+                    </div>
+                   </search-page>
                    <search-condition @changeCondition="changeCondition">
                         <div slot="searchList">
                             <el-row class="searchList" >
                                     <el-col :span="2">
                                         <div class="searchName">
                                             时间
-                                        </div>
+                                        </div>                                                                  
                                     </el-col>
                                     <el-col :span="22">
-                                        <el-radio-group v-model="clocker">
-                                                <el-radio v-for="item in def.clocker" :key="item" :label="item">{{item}}</el-radio>
+                                        <el-radio-group v-model="clockerCurrent" @change="changeDate">
+                                                <el-radio v-for="item in clocker" :key="item" :label="item">{{item}}</el-radio>
                                         </el-radio-group>
                                          <el-date-picker
                                                 v-model="date"
@@ -34,10 +43,10 @@
                                         </div>
                                     </el-col>
                                     <el-col :span="22">
-                                            <el-checkbox class="checkboxAll" :indeterminate="def.shopIndeterminate" v-model="def.isShopAll"  @change="changeAllShop">全选</el-checkbox>
-                                            <el-checkbox-group v-model="shop" @change="changeShop">
-                                                <el-checkbox v-for="item in def.shop"  :label="item"  :key="item">{{item}}</el-checkbox>
-                                            </el-checkbox-group> 
+                                        <el-checkbox :indeterminate="shopIndeterminate" v-model="isShopAll"  @change="changeAllShop">全选</el-checkbox>
+                                        <el-checkbox-group v-model="shop" @change="changeShop">
+                                                <el-checkbox v-for="item in defShop"  :label="item.id" :key="item.id">{{item.shop_name}}</el-checkbox>
+                                        </el-checkbox-group>
                                     </el-col>
                             </el-row>
                              <el-row class="searchList">
@@ -46,56 +55,91 @@
                                             收银台
                                         </div>
                                     </el-col>
-                                    <el-col :span="22">
-                                            <el-checkbox :indeterminate="def.shopIndeterminate" v-model="def.isShopAll"  @change="changeAllShop">全选</el-checkbox>
-                                            <el-checkbox-group v-model="shop" @change="changeShop">
-                                                <el-checkbox v-for="item in def.shop"  :label="item"  :key="item">{{item}}</el-checkbox>
-                                            </el-checkbox-group> 
+                                     <el-col :span="22">
+                                        <el-checkbox :indeterminate="moneyIndeterminate" v-model="isMoneyAll"  @change="changeAllMoney">全选</el-checkbox>
+                                        <el-checkbox-group v-model="cashier_desk" @change="changeMoney">
+                                                <el-checkbox v-for="item in cashier_deskAll"  :label="item" :key="item">{{item}}</el-checkbox>
+                                        </el-checkbox-group> 
                                     </el-col>
                             </el-row>
                         </div>
+                        <div class="conditionTag" slot="conditionTag">
+                            <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                >
+                                时间：<span >{{date[0]+ '/'+date[1]}}</span>    
+                            </el-tag>
+                            <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                v-if="shopTag"
+                                >
+                                门店：<span v-for="item in shopTag" :key="item">{{item}}</span>    
+                            </el-tag>
+                            <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                v-if="cashier_desk.length>0"
+                                >
+                                收银台：<span v-for="item in cashier_desk" :key="item">{{item}}</span>    
+                            </el-tag>
+                        </div>
                    </search-condition>
+                   <indent-table :lists="lists"></indent-table>
                 </div>
             </div>
         </div> 
     </div>
 </template>
-
 <script>
 import MainNav from '../../components/MainNav';
 import searchPage from '../../components/statistic/searchPage';
+import indentTable from '../../components/statistic/indentTable'
 import {statisticsIndent} from '../../api/global.js';
 import {mapGetters} from 'vuex';
 import searchCondition from '../../components/statistic/searchCondition';
-const options = [{value: 10,label: 10}, {value: 20,label: 20}, {value:30,label:30}, {value:40,label:40}, {value:50,label:50}];
+import formatBg from '../../assets/js/formatterbg';
+import getTotay  from '../../assets/js/dateSelect';
 export default {
-  components: {MainNav,searchPage,searchCondition},
+  components: {MainNav,searchPage,searchCondition,indentTable},
   name: "indent", //订单流水
   data(){
       return{
-           currentPage3: 5,
-           options:options,
-           def:{
-                clocker:['今天','昨天','本周','上周','上月','本月'],
-                shop:[],
-                shopIndeterminate:true,
-                isShopAll:false,
-                isPages:false,
-           },
-           value:10,
-           date:"",
-           clocker:'今天',
-           shop:''
+            clocker:['今天','昨天','本周','上周','上月','本月'],
+            shopIndeterminate:true,
+            moneyIndeterminate:true,
+            isMoneyAll:false,
+            isShopAll:false,
+            isPages:false,
+            value:10,
+            date:[],
+            clockerCurrent:'今天',
+            shop:[],
+            cashier_deskAll:'',  //收银员列表
+            cashier_desk:[], //已选收银员
+            shopTag:'',
+            pageDate:"", //后台分页数据
+            lists:'', //数据列表
+            searchOrder:''
       }
   },
   computed:{
       ...mapGetters([
           'shop_list_current',
           'shop_list'
-      ]),
-      shopList(){
-         return this.shop = this.shop_list
+      ]), //门店列表获取
+      defShop(){
+          return this.shop_list
+      },
+      shopId(){
+          var arr = []
+           for(var i =0;i<this.shop_list.length;i++){
+               arr.push(this.shop_list[i].id);
+           }
+          return arr
       }
+      
 
   },
   methods:{
@@ -108,33 +152,125 @@ export default {
       handleCurrentChange(val){
           console.log(val)
       },
-      indentInit(){
-          statisticsIndent({
-              shop_id:this.shop_list_current,
+    indentInit(val){
+       statisticsIndent({
+              shop_id:this.shop,
+              start_date:this.date[0],
+              end_date:this.date[1],
+              search:this.searchOrder,
+              cashier_desk:this.cashier_desk,
+              limit:val==undefined?'':val.limit,
+              page:val==undefined?'':val.current
+          })
+          .then(res=>{
+              var data = res.data;
+              this.cashier_deskAll =data.cashier_desk;
+              //格式化分页所需数值
+              this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
+              this.lists = data.lists
           })
       }, //searchPage分页组件传过来的值
       changePagesSearch(val){
-          console.log(val)
+          this.indentInit(val)
       }, //搜索条件
       changeCondition(val){
-
+           this.indentInit();
       }, //门店
-      changeShop(){
-
+      changeShop(val){
+          let checkCount = val.length;
+          this.isShopAll = checkCount ===this.shop_list.length;
+          this.shopIndeterminate = checkCount > 0 && checkCount < this.shop_list.length;
       },//选全部门店
-      changeAllShop(){
+      changeAllShop(val){
+          this.shop = val?this.shopId:[];
+          this.shopIndeterminate = false;
+      },//全选收银台
+      changeAllMoney(val){
+           this.cashier_desk = val?this.cashier_deskAll:[];
+           this.moneyIndeterminate = false;
+      }, //收银台
+      changeMoney(val){
+          console.log(val)
+          let checkCount = val.length;
+          this.isMoneyAll = checkCount ===this.cashier_deskAll.length;
+          this.moneyIndeterminate = checkCount > 0 && checkCount < this.cashier_deskAll.length;
+      }, //时间添加
+      changeDate(val){
+        this.date = [];
+        var date = formatBg.getClockerDate(val);
+        for(var key in date){
+                this.date.push(date[key])
+            }
+      },
+      searchIndent(){
+           this.indentInit()
+      }
 
+  },
+watch:{ //监听店铺ID变化，转化成店铺名字
+      shop:function(val){
+          var self = this;
+          var arr =[];
+           this.shop_list.forEach(function (item){
+               if(self.shop.length>0){
+                  self.shop.forEach(function(oneItem){
+                        if(item.id==oneItem){
+                            arr.push(item.shop_name)
+                            
+                        }
+                  })
+               }
+           })
+         this.shopTag = arr
       }
   },
   created(){
-      console.log(this.shop)
-      console.log(this.shop_list)
+       this.changeDate('今天');
+       this.indentInit();
   }
 
 };
 </script>
 
 <style scoped lang="scss">
+  .search{
+            width: 250px;
+            height: 30px;
+            position: relative;
+            display: inline-block;
+            & input{
+                  vertical-align:middle;
+                  display: table-cell;
+                  border:0;
+                  height:30px;
+                  padding: 0;
+                  width: 196px;
+                  box-sizing: border-box;
+                  background-color: #ffffff;
+                  border: 1px solid #dcdfe6;
+                  -webkit-appearance:none;
+                  text-indent: 10px;
+            }
+           & .searchIcon{
+               cursor: pointer;
+               width:54px;
+               height: 30px;
+               display:inline-block;
+               background-color: #4198ff;
+               position: absolute;
+               right: 0;
+               top:0;
+               & .icon-serach{
+                 color: #ffffff;
+                 position: absolute;
+                 top: 50%;
+                 left: 50%;
+                 font-size: 20px;
+                 transform: translate(-50%,-50%);
+                 line-height: 0;
+               }
+           }
+        }
      .searchList{
             height: 45px;
             line-height: 45px;
@@ -198,5 +334,8 @@ export default {
         position:relative;
         top:-2px;
 } 
-   
+.el-checkbox-group{
+        display: inline-block!important;
+        margin-left: 24px!important;
+    }
 </style>

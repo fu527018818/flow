@@ -7,7 +7,7 @@
                 <div class="content">
                     <div class="dateShowBox">
                         <search-date @seachtrigger="seachtrigger" :isShowId="true" :isShowDate="true" :tit="'营业额'"></search-date>
-                        <chart-list :chart="chart"></chart-list>
+                        <chart-list :chart="chart" @goto="goto"></chart-list>
                     </div>
                     <div class="trendChartBox">
                         <div>{{current_trend.name}}走势图</div>
@@ -97,6 +97,7 @@ export default {
               new_old_chart:"",
               is_new_show:true,
               current_trend:"",//切换走势图时当前走势图的数据
+              date:''
             }
         },
         computed:{   
@@ -105,8 +106,13 @@ export default {
                 ])
         },
         methods:{
+            goto(val){
+                console.log(this.date)
+             this.$router.push({name:val.url,params:{name:val.name,date:this.date}})
+            },
             //初始化时从searchDate页面触发
             seachtrigger(val){
+                this.date = val;
                 statisticsTurnover({
                     shop_id:this.shop_list_current,
                     start_date:val.start,
@@ -121,7 +127,7 @@ export default {
                     this.new_old_chart=this.fomrtNewOld(res.data.new_old_chart);
                     this.circle(this.new_old_chart);
                 })
-            },
+         },
         fomrtGraphic(data){ //格式化数据
                 var obj = {}
                 for(var i in data){

@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  BASE_API: '"http://dianliubao.api/d.php"'
+  BASE_API: '"http://appdev.ly.ai"'
 }
