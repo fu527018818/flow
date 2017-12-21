@@ -107,7 +107,6 @@ export default {
         },
         methods:{
             goto(val){
-                console.log(this.date)
              this.$router.push({name:val.url,params:{name:val.name,date:this.date}})
             },
             //初始化时从searchDate页面触发

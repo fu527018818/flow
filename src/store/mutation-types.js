@@ -4,6 +4,7 @@ export const REMOVE_TOKEN = "REMOVE_TOKEN" //移除token;
 export const SET_USER_INFO = "SET_USER_INFO" //设置用户信息；
 export const SET_SECRET ="SET_SECRET"   //数据加密钥匙;
 export const ROMOVE_SECRET = "ROMOVE_SECRET" //移除aes秘钥;
+export const SOCKET_NEW_GUEST = 'SOCKET_NEW_GUEST' //socket保存新客到通知
 export const SET_SHOP_LIST = "SET_SHOP_LIST" //设置管理商户列表
 export const ROMOVE_SHOP_LIST = "ROMOVE_SHOP_LIST" //移除店铺列表
 export const MAIN_INIT = "MAIN_INIT"    //主页初始化

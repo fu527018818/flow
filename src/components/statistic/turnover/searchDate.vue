@@ -30,7 +30,7 @@
                                                 start-placeholder="开始日期"
                                                 end-placeholder="结束日期">
                                     </el-date-picker>
-                                    <router-link :to="{name:'dataEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
+                                    <router-link :to="{name:'posEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
                                 </div>
                             </el-col>
                 </el-row>

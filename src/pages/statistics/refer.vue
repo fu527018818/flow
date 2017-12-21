@@ -194,6 +194,9 @@ export default {
         created(){
             this.date1 = getDate.getToday().start;
             // 初始化时
+            if(this.$route.params.name){
+                this.type = this.$route.params.name
+            }
             this.searchInit()
         }
     }
@@ -267,4 +270,10 @@ export default {
         margin-top: 6px;
         padding-bottom: 200px;
     }
+.el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+    width: 220px;
+}
+.el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date{
+    width: 150px;
+}
 </style>

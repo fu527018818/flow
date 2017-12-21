@@ -85,6 +85,7 @@
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default {
   props: ['indexMenu'],
   components: {},
@@ -228,13 +229,26 @@ export default {
          case "/statistics/orderDetail":
             this.activeIndex="/statistics/analyze";
         break;
+        case "/statistics/posHistory":
+            this.activeIndex="/statistics/analyze";
+        break;
+        case "/statistics/expenditures":
+            this.activeIndex="/statistics/analyze";
+        break;
         default:
         this.activeIndex = "/main";
       }
     }
   },
+   computed:{
+           ...mapGetters([
+               'userInfo'
+           ])
+  },
   created() {
-   this.menuType(this.indexMenu)
+       //登录weksocket
+      //  this.$socket.emit('login',this.userInfo.user_id)
+       this.menuType(this.indexMenu)
   },
   mounted() {
     this.restaurants = this.loadAll();

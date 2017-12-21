@@ -122,7 +122,7 @@ import searchCondition from '../../components/statistic/searchCondition';
 import formatBg from '../../assets/js/formatterbg';
 import getTotay  from '../../assets/js/dateSelect';
 export default {
-  components: {MainNav,searchPage,searchCondition,detailTable},
+ components: {MainNav,searchPage,searchCondition,detailTable},
  name:"orderDetail",//详情
   data(){
       return{
@@ -171,13 +171,7 @@ export default {
   methods:{
       changPages(){
           this.isPages = !this.isPages;
-      },
-      handleSizeChange(val){
-          console.log(val)
-      },
-      handleCurrentChange(val){
-          console.log(val)
-      },
+    },
     indentInit(val){
        statisticsIndent({
               shop_id:this.shop,
@@ -257,7 +251,7 @@ export default {
       },
       searchIndent(){
            this.indentInit()
-      },
+      }, //处理从营业额页面点进来时的参数
       orderSource(){
           if(this.$route.params.name){
                 this.clockerCurrent = '';

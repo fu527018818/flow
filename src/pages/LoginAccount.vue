@@ -84,7 +84,8 @@ export default {
             lineHeight: "inherit"
           });
         }, 3000);
-      }
+      },
+      
   },
   created() {
       

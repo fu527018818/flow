@@ -51,7 +51,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.turnover_rate.name,url:'statisticsRefer'})">
                         <div>{{chart.turnover_rate.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -67,7 +67,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.unit_price.name,url:'statisticsRefer'})">
                         <div>{{chart.unit_price.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -83,7 +83,7 @@
                     </div>
             </el-col>
             <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="goto({name:chart.joint_rate.name,url:'statisticsRefer'})">
                         <div>{{chart.joint_rate.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">

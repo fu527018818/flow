@@ -17,5 +17,8 @@ export default {
     STATISTICS_WEEKWEIGHT:'/statistics/weekweight', //周权重
     STATISTICS_WEEKTREND:'/statistics/weektrend',//周趋势
     STATISTICS_CUSTOMER:'/statistics/customerstaffrate',
-    STATISTICS_INDENT:'/order/lists'
+    STATISTICS_INDENT:'/order/lists', //订单流水和订单详情使用同一个api
+    STATISTICS_POS:'/pos/lists',//店铺分析pos数据
+    STATISTICS_POS_WRITE:'/pos/write/input', //pos数据录入
+    STATISTICS_POS_OUTPUT:'/pos/write/output' //pos数据支出
 }

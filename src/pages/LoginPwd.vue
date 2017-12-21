@@ -37,6 +37,7 @@
 <script>
     import path from '../api/path';
     import md5 from 'js-md5';
+    import {mapGetters} from 'vuex';
     export default {
         name:"loginPwd",
         data (){
@@ -45,6 +46,9 @@
             }
         },
         computed:{
+            ...mapGetters([
+               'userInfo'
+            ]),
             userimg(){
                 return this.$store.state.login.userInfo.avatar || ls.get('userInfo').avatar
             }
@@ -59,7 +63,7 @@
                 }).then(() => {
                     ls.rm('userId');
                     this.$router.push({name:'loginAccount'});
-                }, ()=>{});
+               }, ()=>{});
             },
             loginEenter:function (){
                  this.loading = true;

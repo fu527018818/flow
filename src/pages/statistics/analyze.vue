@@ -37,11 +37,11 @@ export default {
           def:[{
               name:"pos录入历史",
               img:require("../../assets/img/assess/assess1.png"),
-              url:""
+              url:"posHistory"
           },{
               name:"支出明细",
               img:require("../../assets/img/assess/assess2.png"),
-              url:""
+              url:"expenditures"
           },{
               name:"投资测算",
               img:require("../../assets/img/assess/assess3.png"),

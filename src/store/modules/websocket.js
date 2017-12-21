@@ -1,23 +1,18 @@
+import * as types from '../mutation-types'
 const state = {
-   connect:false
+   connect:false,
+   newMessage:''
 }
+// 登录socket login 在 MainNav组件中
 const mutations={
-    'SOCKET_CONNECT'(state) {
-      console.log('Socket连接成功')
-      state.connect = true;
-  },
-    'SOCKET_UPDATE_ONLINE_COUNT'(state,info){
-      console.log(info+'111')
+  [types.SOCKET_NEW_GUEST](state,newMessage){
+         state.newMessage = newMessage
   }
 }
 const actions={
-  // socketConnect(context, value) {
-  //   console.log('连接123');
-  // },
-  // socketUpdate_online_count(context, value) {
-  //   console.log(1111)
-  //   console.log(value);
-  // }
+   socket_new_guest({commit},newMessage){
+         commit('SOCKET_NEW_GUEST',newMessage)
+   }
 }
 const getters={
 

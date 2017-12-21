@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from 'store/index';
-import 'nprogress/nprogress.css'
-import NProgress from 'nprogress'
+// import store from 'store/index';
+// import 'nprogress/nprogress.css'
+// import NProgress from 'nprogress'
 
 // 组件
 import loginAccount from '../pages/LoginAccount.vue';
@@ -31,6 +31,8 @@ import timeFrame from  '../pages/statistics/analyze/timeFrame.vue'
 import increase from '../pages/statistics/analyze/increase.vue'
 import weekWeight from '../pages/statistics/analyze/weekWeight.vue'
 import weekTendency from '../pages/statistics/analyze/weekTendency.vue'
+import posHistory from '../pages/statistics/analyze/posHistory.vue'
+import expenditures from '../pages/statistics/analyze/expenditures.vue'
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -153,13 +155,27 @@ export const constantRouterMap = [
     component: statisticsRefer
   },
   {
+    path: "/statistics/posHistory",
+    name: "posHistory",
+    component:posHistory
+  },
+  {
+    path: "/statistics/expenditures",
+    name: "expenditures",
+    component:expenditures
+  },
+  {
     path: "/software",
     name: "software",
     component: software
   }, {
     path: "/dataEnter",
     name: "dataEnter",
-    component: dataEnter
+    component: dataEnter,
+    children:[
+      { path: "/dataEnter/posBuy", name: "posBuy", component: _import('components/pos/posBuy') },
+      { path: "/dataEnter/posEnter", name: "posEnter", component: _import('components/pos/posEnter') }
+    ]
   },
   {
     path: '/userHelp',
@@ -173,8 +189,6 @@ export const constantRouterMap = [
     ]
   }
 ]
-
-
 const router = new Router({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -185,49 +199,48 @@ const router = new Router({
   },
   routes: constantRouterMap
 })
+// /* 页面加载进度条配置 */
+// NProgress.configure({ easing: 'ease', speed: 300, minimum: 0.1, showSpinner: false });
+// // 路由配置 start
+// router.beforeEach((to, from, next) => {
+//   console.log(`路由到${to.path}`)
+//   NProgress.start();
+//   var token = ls.get('token');
+//   var userInfo = ls.get('userInfo');
+//   var userId = ls.get('userId');
+//   var arr = [',',"/loginAccount", "/loginpwd"];
+//   /**判断路由跳转区分登录和进入内容页面*/
+//   if (arr.indexOf(to.path) >= 0) {
+//     if (to.path.indexOf("/loginAccount")>= 0 && userInfo && userId) {
+//           next({ path: '/loginpwd' });
+//           NProgress.done();
+//       return
+//     }
+//    else if(to.path.indexOf('/loginpwd')>=0&&!userInfo&&!userId){
+//       next({ path: '/loginAccount' });
+//       NProgress.done();
+//     }
+//     next()
+//     return
+//   }
+//   else if (token&&token.length>0) {
+//         next()
+//    }else{
+//     if (userInfo && userId&&!ls.get('shop_list')) {
+//           next({ path: '/loginpwd' });
+//           NProgress.done();
+//         return 
+//     } else {
+//           next('/loginAccount');
+//           NProgress.done();
+//     }
+//     next();
+//   }
+// });
+// router.afterEach(route => {
+//  NProgress.done();
+// })
 
-/* 页面加载进度条配置 */
-NProgress.configure({ easing: 'ease', speed: 300, minimum: 0.1, showSpinner: false });
-// 路由配置 start
-router.beforeEach((to, from, next) => {
-  console.log(`路由到${to.path}`)
-  NProgress.start();
-  var token = ls.get('token');
-  var userInfo = ls.get('userInfo');
-  var userId = ls.get('userId');
-  var arr = [',',"/loginAccount", "/loginpwd"];
-  /**判断路由跳转区分登录和进入内容页面*/
-  if (arr.indexOf(to.path) >= 0) {
-    if (to.path.indexOf("/loginAccount")>= 0 && userInfo && userId) {
-          next({ path: '/loginpwd' });
-          NProgress.done();
-      return
-    }
-   else if(to.path.indexOf('/loginpwd')>=0&&!userInfo&&!userId){
-      next({ path: '/loginAccount' });
-      NProgress.done();
-    }
-    next()
-    return
-  }
-  if (token&&token.length>0) {
-        next()
-   }else{
-    if (userInfo && userId&&!ls.get('shop_list')) {
-          
-          next({ path: '/loginpwd' });
-          NProgress.done();
-        return 
-    } else {
-          next('/loginAccount');
-          NProgress.done();
-    }
-    next();
-  }
-});
 
-router.afterEach(route => {
- NProgress.done();
-})
 // 路由配置
 export default router

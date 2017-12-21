@@ -59,11 +59,9 @@ export default {
                 this.$refs.cut_shop_init.realTime()
            }
         },
-        computed:{
-           
-        },
+      
         created(){
-            
+           
         },
         mounted(){
             this.mainInit(this.$store.getters.shop_list_current||ls.get('shop_list_current'));

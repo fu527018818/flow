@@ -75,6 +75,7 @@ service.interceptors.request.use(config => {
   // response拦截器
   service.interceptors.response.use(
     response => {
+       console.log(response)
       //登录之后返回数据进行解密
         var checkUrl = response.config.url.split('/');
         var loginUrl = checkUrl[checkUrl.length-1];

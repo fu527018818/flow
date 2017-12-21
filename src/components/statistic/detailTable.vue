@@ -4,15 +4,16 @@
             <el-table
             :data="lists"
             border
-            style="width: 100%;text-align:center;"
+            style="width: 100%"
             ref = "userTable"
-            height="500"
+            max-height="300"
+            :header-row-class-name="tableHeade"
             :default-sort = "{prop:'date', order: 'descending'}"
             >
                 <el-table-column
                 prop="order_no"
                 label="订单编号"
-                >
+                 >
                  </el-table-column>
                  <el-table-column
                 prop="shop_name"
@@ -72,6 +73,11 @@
         },
         created(){
             console.log(this.lists)
+        },
+        methods:{
+           tableHeade(){
+          return 'headerTr'
+         }
         }
     }
 </script>

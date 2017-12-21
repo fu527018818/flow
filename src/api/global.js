@@ -127,10 +127,34 @@ export function  statisticsCustomerStaffrate(json){
         method:"post",
         data:json
     })
-}
+} //订单流水和订单详情
 export function  statisticsIndent(json){
     return fetch({
         url:path.STATISTICS_INDENT,
+        method:"post",
+        data:json
+    })
+}
+//pos数据
+export function statisticsPosList(json){
+    return fetch({
+        url:path.STATISTICS_POS,
+        method:"post",
+        data:json
+    })
+}
+//pos录入数据
+export function statisticsWrite(json){
+    return fetch({
+        url:path.STATISTICS_POS_WRITE,
+        method:"post",
+        data:json
+    })
+}
+//pos支出
+export function statisticsOutPut(json){
+    return fetch({
+        url:path.STATISTICS_POS_OUTPUT,
         method:"post",
         data:json
     })
@@ -149,5 +173,8 @@ export default{
     statisticsTimeinterval,
     statisticsWeekweight,
     statisticsWeekTendency,
-    statisticsIndent
+    statisticsIndent,
+    statisticsPosList,
+    statisticsWrite,
+    statisticsOutPut
 }

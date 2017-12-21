@@ -15,7 +15,7 @@
             </el-col>
              <el-col :span="16">
                 <div class="grid-content bg-purple">
-                 <router-link :to="{name:'dataEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
+                 <router-link :to="{name:'posEnter'}" type="primary" class="el-button el-button--primary" id="dataEntering">数据录入</router-link>
                 </div>
             </el-col>
           </el-row>
