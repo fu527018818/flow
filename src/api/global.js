@@ -135,7 +135,7 @@ export function  statisticsIndent(json){
         data:json
     })
 }
-//pos数据
+//pos数据 店铺分析
 export function statisticsPosList(json){
     return fetch({
         url:path.STATISTICS_POS,
@@ -143,7 +143,15 @@ export function statisticsPosList(json){
         data:json
     })
 }
-//pos录入数据
+//支出明细 店铺分析
+export function statisticsPosExpenditure(json){
+    return fetch({
+        url:path.STATISTICS_POS_EXPENDITURE,
+        method:"post",
+        data:json
+    })
+}
+//pos录入数据 表单提交
 export function statisticsWrite(json){
     return fetch({
         url:path.STATISTICS_POS_WRITE,
@@ -151,10 +159,42 @@ export function statisticsWrite(json){
         data:json
     })
 }
-//pos支出
+//pos支出 表单提交
 export function statisticsOutPut(json){
     return fetch({
         url:path.STATISTICS_POS_OUTPUT,
+        method:"post",
+        data:json
+    })
+}
+//人事  人员管理
+export function personnelAdmin(json){
+    return fetch({
+        url:path.PERSONNEL_ADMIN,
+        method:"post",
+        data:json
+    })
+}
+//人事 修改状态
+export function personnelModifyLogin(json){
+    return fetch({
+        url:path.PERSONNEL_MODIFY_LOGIN,
+        method:"post",
+        data:json
+    })
+}
+//人事 人员审核
+export function personnelStaff(json){
+    return fetch({
+        url:path.PERSONNEL_STAFF,
+        method:"post",
+        data:json
+    })
+}
+//人事 修改状态
+export function personnelModifyApply(json){
+    return fetch({
+        url:path.PERSONNEL_MODIFY_APPLY,
         method:"post",
         data:json
     })
@@ -176,5 +216,9 @@ export default{
     statisticsIndent,
     statisticsPosList,
     statisticsWrite,
-    statisticsOutPut
+    statisticsOutPut,
+    statisticsPosExpenditure,
+    personnelAdmin,
+    personnelStaff,
+    personnelModifyApply
 }

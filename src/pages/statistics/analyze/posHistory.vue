@@ -46,14 +46,14 @@
                                         <el-radio-group v-model="date2Current" @change="changeDate1">
                                                 <el-radio v-for="item in clocker" :key="item" :label="item">{{item}}</el-radio>
                                         </el-radio-group>
-                                         <el-date-picker
+                                        <el-date-picker
                                                 v-model="date2"
                                                 type="daterange"
                                                 value-format="yyyy-MM-dd"
                                                 range-separator="至"
                                                 start-placeholder="开始日期"
                                                 end-placeholder="结束日期">
-                                            </el-date-picker>   
+                                        </el-date-picker>   
                                     </el-col>
                             </el-row>
                             <el-row class="searchList" >
@@ -69,14 +69,56 @@
                                         </el-checkbox-group>
                                      </el-col>
                             </el-row>
+                            <el-row class="searchList" v-if="def.userIdAll">
+                                    <el-col :span="3">
+                                        <div class="searchName">
+                                            录入人
+                                        </div>                                                                  
+                                    </el-col>
+                                    <el-col :span="21">
+                                        <el-checkbox :indeterminate="def.userIdIndeterminate" v-model="def.isUserIdAll"  @change="changeAllUserId">全选</el-checkbox>
+                                        <el-checkbox-group v-model="user_id" @change="changeUserId">
+                                                <el-checkbox v-for="item in def.userIdAll"  :label="item.id" :key="item.id">{{item.real_name}}</el-checkbox>
+                                        </el-checkbox-group>
+                                     </el-col>
+                            </el-row>
                         </div>
+                         <div class="conditionTag" slot="conditionTag">
+                             <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                >
+                                录入时间：<span >{{date1[0]+ '/'+date2[1]}}</span>    
+                            </el-tag>
+                             <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                >
+                                成交时间：<span >{{date2[0]+ '/'+date2[1]}}</span>    
+                            </el-tag>
+                            <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                v-if="type.length>0"
+                                >
+                                录入方式：<span v-for="item in type" :key="item">{{item}}</span>    
+                            </el-tag>
+                             <el-tag 
+                                type="info"
+                                :disable-transitions="false"
+                                v-if="user_id_tag.length > 0"
+                                >
+                                录入方式：<span  v-for="item in user_id_tag" :key="item">{{item+'/'}}</span>    
+                            </el-tag>
+                         </div>
                     </search-condition>
+                    <pos-history-table :lists="lists"></pos-history-table>
                 </div>
+                 <div class="contentFooter"></div>
             </div>
         </div> 
     </div>
 </template>
-
 <script>
 import MainNav from '../../../components/MainNav';
 import searchPage from '../../../components/statistic/searchPage';
@@ -84,8 +126,9 @@ import searchCondition from '../../../components/statistic/searchCondition';
 import formatBg from '../../../assets/js/formatterbg';
 import {statisticsPosList} from '../../../api/global';
 import {mapGetters} from 'vuex';
+import posHistoryTable from '../../../components/statistic/posHistoryTable';
 export default {
-  components: {MainNav,searchPage,searchCondition},
+  components: {MainNav,searchPage,searchCondition,posHistoryTable},
   name: "posHistory", //pos录入历史
   data(){
       return{
@@ -98,27 +141,42 @@ export default {
           date2Current:'',
           type:[],
           user_id:[],//录入人
+          user_id_tag:"", //标签
+          lists:"", //数据列表
           def:{
              typeAll:['天','小时'],
              typeIndeterminate:true,
-             isTypeAll:false
+             userIdIndeterminate:true,
+             isTypeAll:false,
+             isUserIdAll:false,
+             userIdAll:[] //全部录入人
           }
       }
   },
   computed:{
      ...mapGetters([
          'shop_list_current'
-     ])
+     ]),
+     userIdAllId(){
+         var arr = [];
+         for(var i=0;i< this.def.userIdAll.length;i++){
+             arr.push(this.def.userIdAll[i].id);
+         }
+         return arr
+     }
   },
-  methods:{
-      changePagesSearch(){
-
+  methods:{ //改变分页
+      changePagesSearch(val){
+           this.posInit(val)
       },
       searchIndent(){
-
+         this.posInit()
       },
-      changeCondition(){
-
+      changeCondition(val){
+          if(val=='close'){
+            return false;
+          }
+         this.posInit()
       },
     changeDate(val){
         this.date1 = [];
@@ -133,7 +191,7 @@ export default {
         for(var key in date){
                 this.date2.push(date[key])
             }
-   },
+   }, //录入方式
    changeAllType(val){
        this.type = val ? this.def.typeAll:[];
        this.def.typeIndeterminate = false;
@@ -142,26 +200,58 @@ export default {
       let checkCount = val.length;
       this.def.isTypeAll = checkCount === this.def.typeAll.length;
       this.def.typeIndeterminate = checkCount>0 && checkCount < this.def.typeAll.length;
+   }, //录入人
+   changeUserId(val){
+      let checkCount = val.length;
+      this.def.isUserIdAll = checkCount === this.def.userIdAll.length;
+      this.def.userIdIndeterminate = checkCount>0 && checkCount < this.def.userIdAll.length;
    },
-   posInit(){
+   changeAllUserId(val){
+       this.user_id =  val ? this.userIdAllId:[];
+       this.def.userIdIndeterminate = false;
+   },
+   posInit(val){
       statisticsPosList({
           shop_id:this.shop_list_current,
+          searchOrder:this.searchOrder,//搜索条件
           type:this.type,
           add_start_date:this.date1[0],
           add_end_date:this.date1[1],
           Input_start_date:this.date2[0],
           Input_end_date:this.date2[1],
-          user_id:this.user_id
+          user_id:this.user_id,
+          limit:val==undefined?'10':val.limit,
+          page:val==undefined?'1':val.current,
       })
       .then(res=>{
-          console.log(res)
+           var data = res.data;
+           this.def.userIdAll = data.user_lists;
+           this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
+           this.lists = data.lists
       })
    }
   },
   created(){
-     this.changeDate('今天');
-     this.changeDate1('今天');
+     this.changeDate('本月');
+     this.changeDate1('本月');
      this.posInit()
+  },
+  watch:{
+     user_id:function(val){
+        var self = this;
+        var arr =[];
+        this.def.userIdAll.forEach(function(item){
+               if(self.user_id.length>0){
+                   self.user_id.forEach(function(oneItem){
+                        if(item.id==oneItem){
+                            arr.push(item.real_name) 
+                        }
+                   })
+               }
+        })
+        this.user_id_tag = arr;
+        console.log(this.user_id_tag)
+     } 
   }
 };
 </script>

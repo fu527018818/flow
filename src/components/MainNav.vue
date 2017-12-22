@@ -33,7 +33,11 @@
                     <el-menu-item index="/statistics/analyze">店铺分析</el-menu-item>
               </el-submenu>
               <el-menu-item index="/software">安防</el-menu-item>
-              <el-menu-item index="/personnel">人事</el-menu-item>
+              <el-submenu index="/personnel" class="itemDown">
+                  <template slot="title">人事</template>
+                  <el-menu-item index="/personnel/personnelAdmin">职员管理</el-menu-item>
+                  <el-menu-item index="/personnel/staffReview">职员审核</el-menu-item>
+              </el-submenu>
             </el-menu>
             <!-- 导航菜单 start right-->
             <el-menu
@@ -55,7 +59,10 @@
               </el-menu-item>
               <el-menu-item index="/systemSet"><i class="iconfont icon-set"></i></el-menu-item>
               <el-submenu  index="userHead"  class="user-img">
-                    <template  slot="title" class="123" index="3435434">小伙子欢迎回来</template>
+                    <template  slot="title">
+                          {{userInfo.real_name}}
+                        <img id="userAvatar" :src="userInfo.avatar" alt="头像">
+                    </template>
                     <el-menu-item index="/userHelp">修改资料</el-menu-item>
                     <el-menu-item index="3-2">我的相册</el-menu-item>
                     <el-menu-item index="3-3">我的门店</el-menu-item>
@@ -235,6 +242,12 @@ export default {
         case "/statistics/expenditures":
             this.activeIndex="/statistics/analyze";
         break;
+        case "/personnel/staffReview":
+            this.activeIndex="/personnel/staffReview";
+        break;
+        case "/personnel/personnelAdmin":
+            this.activeIndex="/personnel/personnelAdmin";
+        break;
         default:
         this.activeIndex = "/main";
       }
@@ -333,23 +346,32 @@ export default {
   color: #878d99;
   vertical-align: middle;
 }
-.user-img::before {
-  content: "";
-  background-image: url("../assets/img/default_head.png");
-  background-size: 100%;
+#userAvatar{
   position: absolute;
   width: 24px;
   height: 24px;
-  left: 5px;
+  left: 10px;
   top: 50%;
-  transform: translate(0, -50%);
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 20px;
-  z-index: 999;
-  cursor: pointer;
-  padding: 0;
+  border-radius: 50%;
+  transform: translate(0,-50%);
 }
+// .user-img::before {
+//   content: "";
+//   background-image: url("../assets/img/default_head.png");
+//   background-size: 100%;
+//   position: absolute;
+//   width: 24px;
+//   height: 24px;
+//   left: 5px;
+//   top: 50%;
+//   transform: translate(0, -50%);
+//   -webkit-border-radius: 25px;
+//   -moz-border-radius: 25px;
+//   border-radius: 20px;
+//   z-index: 999;
+//   cursor: pointer;
+//   padding: 0;
+// }
 .el-menu {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;

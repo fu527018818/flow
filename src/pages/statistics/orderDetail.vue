@@ -179,8 +179,8 @@ export default {
               end_date:this.date[1],
               search:this.searchOrder,
               cashier_desk:this.cashier_desk,
-              limit:val==undefined?'':val.limit,
-              page:val==undefined?'':val.current,
+              limit:val==undefined?'10':val.limit,
+              page:val==undefined?'1':val.current,
               type:this.type,
               cashier:this.cashier
 
@@ -256,7 +256,6 @@ export default {
           if(this.$route.params.name){
                 this.clockerCurrent = '';
                 this.orderSource = this.$route.params
-                console.log(this.orderSource)
                 for(var key in this.orderSource.date){
                     this.date.push(this.orderSource.date[key])
                 }

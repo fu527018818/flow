@@ -14,16 +14,16 @@ service.interceptors.request.use(config => {
   var data = config.data;
   console.log(data)
   function  official(){
-        var checkUrl = config.url.split('/');
-        var loginUrl = checkUrl[checkUrl.length-1];
+        var checkUrl = config.url;
         var obj = {} 
         obj.client= "pc";
         obj.version ="1.0";
         // 登录之前
-        if(loginUrl=="id"||loginUrl=="login"){
+        if(checkUrl=="/user/check/id"||checkUrl=="/user/login"){
               var encrypt = new JsEncrypt.JSEncrypt();
               encrypt.setPublicKey(publicKey);
               obj.params  = encrypt.encrypt(JSON.stringify(data));
+             
           }else{
             // 判断登录成功后
               if(!store.getters.token==""||ls.get('token')&&!store.getters.userInfo==""||ls.get('secret')){
@@ -40,6 +40,7 @@ service.interceptors.request.use(config => {
                 obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
                 obj.id= ls.get('userId');
                 obj.token = store.getters.token||ls.get('token');
+            
               }
           }
           //排序算法a-z;
@@ -75,11 +76,10 @@ service.interceptors.request.use(config => {
   // response拦截器
   service.interceptors.response.use(
     response => {
-       console.log(response)
       //登录之后返回数据进行解密
-        var checkUrl = response.config.url.split('/');
-        var loginUrl = checkUrl[checkUrl.length-1];
-        if(!(loginUrl=="id")&&!(loginUrl=="login")){
+      var checkUrl = response.config.url;
+       console.log(checkUrl)
+        if(store.getters.token){
                  //aes解密
                 var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
                 var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{

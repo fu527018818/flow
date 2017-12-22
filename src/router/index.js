@@ -22,17 +22,19 @@ import statisticsFlow  from '../pages/statistics/passengerFlow.vue';
 import statisticsIndent from '../pages/statistics/indent.vue';
 import statisticsRefer from '../pages/statistics/refer.vue';
 import statisticsAnalyze from '../pages/statistics/analyze.vue';
-import analyzeHighLow from '../pages/statistics/analyze/analyzeHighLow.vue'
-import flowRetention from '../pages/statistics/analyze/flowRetention.vue'
-import effectiveness from '../pages/statistics/analyze/effectiveness.vue'
-import clientStaff from '../pages/statistics/analyze/clientStaff.vue'
-import forecast from '../pages/statistics/analyze/forecast.vue'
-import timeFrame from  '../pages/statistics/analyze/timeFrame.vue'
-import increase from '../pages/statistics/analyze/increase.vue'
-import weekWeight from '../pages/statistics/analyze/weekWeight.vue'
-import weekTendency from '../pages/statistics/analyze/weekTendency.vue'
-import posHistory from '../pages/statistics/analyze/posHistory.vue'
-import expenditures from '../pages/statistics/analyze/expenditures.vue'
+import analyzeHighLow from '../pages/statistics/analyze/analyzeHighLow.vue';
+import flowRetention from '../pages/statistics/analyze/flowRetention.vue';
+import effectiveness from '../pages/statistics/analyze/effectiveness.vue';
+import clientStaff from '../pages/statistics/analyze/clientStaff.vue';
+import forecast from '../pages/statistics/analyze/forecast.vue';
+import timeFrame from  '../pages/statistics/analyze/timeFrame.vue';
+import increase from '../pages/statistics/analyze/increase.vue';
+import weekWeight from '../pages/statistics/analyze/weekWeight.vue';
+import weekTendency from '../pages/statistics/analyze/weekTendency.vue';
+import posHistory from '../pages/statistics/analyze/posHistory.vue';
+import expenditures from '../pages/statistics/analyze/expenditures.vue';
+import personnelAdmin from '../pages/personnel/personnelAdmin.vue';
+import staffReview from '../pages/personnel/staffReview.vue';
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -163,6 +165,16 @@ export const constantRouterMap = [
     path: "/statistics/expenditures",
     name: "expenditures",
     component:expenditures
+  },
+  {
+    path: "/personnel/staffReview",
+    name: "staffReview",
+    component:staffReview
+  },
+  {
+    path: "/personnel/personnelAdmin",
+    name: "personnelAdmin",
+    component:personnelAdmin
   },
   {
     path: "/software",
