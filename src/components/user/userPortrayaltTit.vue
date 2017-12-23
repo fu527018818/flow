@@ -19,15 +19,15 @@
           </el-row>
        </div>
        <div class="dataListBox">
-           <el-row :gutter="10" class="dataList">
+           <el-row :gutter="10" class="dataList"  v-if="chart">
                 <el-col :span="6">
                     <div class="grid-content bg-purple">
-                        <div>营业额</div>
+                        <div>{{chart.total_member.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
-                                <el-col :span="18">dd323232255</el-col>
+                                <el-col :span="18">{{chart.total_member.value}}</el-col>
                                 <el-col :span="6">
-                                    <span>万元</span>
+                                    <span>{{chart.total_member.unit}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -36,12 +36,102 @@
                         </div> -->
                     </div>
                 </el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
-                <el-col :span="6"><div class="grid-content bg-purple">123</div></el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.old_member.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.old_member.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.old_member.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.return_member.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.return_member.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.return_member.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.return_member_rate.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.return_member_rate.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.return_member_rate.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.active_member.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.active_member.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.active_member.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
+                 <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.loss_member.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.loss_member.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.loss_member.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <div>{{chart.member.name}}</div>
+                        <div>
+                            <el-row :gutter="0" class="numList">
+                                <el-col :span="18">{{chart.member.value}}</el-col>
+                                <el-col :span="6">
+                                    <span>{{chart.member.unit}}</span>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!-- <div>
+                            +8.9%<i class="iconfont icon-down"></i>
+                        </div> -->
+                    </div>
+                </el-col>
             </el-row>
        </div>
     </div>
@@ -49,6 +139,7 @@
 
 <script>
     export default {
+        props:['chart'],
         data(){
             return {
             }
@@ -144,7 +235,7 @@
                 font-weight: normal;
                 font-stretch: normal;
                 letter-spacing: 0px;
-                color: #ff6648;
+                color: #4c4c4c;
                 padding-left: 10px;
                 width: 180px;
                 overflow: hidden;

@@ -1,11 +1,16 @@
 <template>
-    <div>
+    <div class="app">
         <main-nav :indexMenu="'/userDetails'"></main-nav>
-        <div class="content">
-            <div class="detailsTit">
-                客户详情
-            </div>
-            <div class="userDetailBox">
+        <div class="contentBox"  v-slim-scroll>
+          <div class="contentBox_child">
+           <div class="content">
+               <div class="detailsTitBox">
+                   <div class="detailsTit">
+                    客户详情
+                    </div>
+               </div>
+               
+                <div class="userDetailBox">
                 <el-row class="userDetail">
                     <!-- 详情左侧 start -->
                     <el-col :span="9" class="userDetailLeft">
@@ -189,81 +194,73 @@
                     </el-col>
                     <!-- 详情右侧 end-->
                 </el-row>
+               </div>
             </div>
-        </div>
+         </div>
+        </div> 
     </div>
 </template>
 
 <script>
-    import MainNav from '../components/MainNav';
-    export default {
-        name:"userDetails",
-        components:{MainNav},
-        data(){
-            return {
-                is_menus:"userDetailsInfo",
-                details:{
-                    real_name:"靳小迪",
-                    avatar:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512392706466&di=342f1df0fc28439a7277db86581ad25c&imgtype=0&src=http%3A%2F%2Fimg.25pp.com%2Fuploadfile%2Fapp%2Ficon%2F20160520%2F1463697462330461.jpg",
-                    short_info:"男-27岁-福建-厦门",
-                    level:3.7,
-                    active_value:1234,
-                    member_no:"LY201710171234560001",
-                    birthday:"1989-12-12",
-                    phone:"15505952110",
-                    career:"ui设计师",
-                    consumption_grade:"高",
-                    has_children:"有，男，12岁",
-                    sales_promotion:"高，易接受促销建议",
-                    favorite_brand:["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512464184447&di=0b6876da594d1c586a2463f6e1679fc5&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffd039245d688d43fe757c123771ed21b0ff43b60.jpg",
-                       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512464184446&di=dc7ff252e47b26498b959849584f3858&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F0d338744ebf81a4c11abdb21dd2a6059242da6b8.jpg",
-                       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512464184446&di=cb9774e25d64ce54fc46f157c119cf81&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fcrop%253D0%252C0%252C640%252C866%2Fsign%3Dc9ab87feb4096b63955604103103ab74%2F730e0cf3d7ca7bcbc9ab87feb4096b63f724a80b.jpg",
-                       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512464184446&di=dc7ff252e47b26498b959849584f3858&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F0d338744ebf81a4c11abdb21dd2a6059242da6b8.jpg",
-                       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512464184446&di=cb9774e25d64ce54fc46f157c119cf81&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fcrop%253D0%252C0%252C640%252C866%2Fsign%3Dc9ab87feb4096b63955604103103ab74%2F730e0cf3d7ca7bcbc9ab87feb4096b63f724a80b.jpg" 
-                    ],
-                    promotion_proposal:[
-                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1512465430117&di=60bf5ed7a86e1d9910639890f11d98b8&imgtype=0&src=http%3A%2F%2Fimg.hr987.com%2FStImge%2F62116%2Fpp18051_8.gif"
-                    ],
-                    tag:["小清新","大傻逼","无敌","闷骚","桀骜不驯"],
-                    manager:{
-                        avatar:"http://img5.imgtn.bdimg.com/it/u=547138142,3998729701&fm=27&gp=0.jpg",
-                        name:"靳小迪",
-                        history_avatar:["","",""]
-                    }
-
-                },
-                isIphone:true
-            }
-        },
-         methods: {
-            lookIphone(){
-                this.isIphone = false;
-            },
-            changeMenu(val){
-                // 菜单val值不变
-                this.$router.push({name:val})
-            }
-        },
-        computed:{
-            formatPhone(){
-                return this.details.phone.replace(/(\d{3})(\d{4})(\d{4})/,"$1****$3");
-            }
-        },
-        created(){
-                console.log(("18960120350".replace(/(\d{3})(\d{4})(\d{4})/,"$1****$3")));
+import MainNav from "../components/MainNav";
+import datailLeft from '../components/user/userDetails/detailLeft'
+export default {
+  name: "userDetails",
+  components: { MainNav,datailLeft},
+  data() {
+    return {
+      is_menus: "userDetailsInfo",
+      details: {
+        real_name: "靳小迪",
+        avatar: "",
+        short_info: "男-27岁-福建-厦门",
+        level: 3.7,
+        active_value: 1234,
+        member_no: "LY201710171234560001",
+        birthday: "1989-12-12",
+        phone: "15505952110",
+        career: "ui设计师",
+        consumption_grade: "高",
+        has_children: "有，男，12岁",
+        sales_promotion: "高，易接受促销建议",
+        favorite_brand: [],
+        promotion_proposal: [""],
+        tag: ["小清新", "大傻逼", "无敌", "闷骚", "桀骜不驯"],
+        manager: {
+          avatar: "",
+          name: "靳小迪",
+          history_avatar: ["", "", ""]
         }
+      },
+      isIphone: true
+    };
+  },
+  methods: {
+    lookIphone() {
+      this.isIphone = false;
+    },
+    changeMenu(val) {
+      // 菜单val值不变
+      this.$router.push({ name: val });
     }
+  },
+  computed: {
+    formatPhone() {
+      return this.details.phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3");
+    }
+  },
+  created() {
+    console.log("18960120350".replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3"));
+  }
+};
 </script>
 
 <style scoped lang="scss">
-    .content{
-        width: 1024px;
-        margin: 0 auto;
-        height: 100%;
-        margin-top: 6px;
-        background-color: #ffffff;
-    }
-    .detailsTit{
+.detailsTitBox{
+  width: 100%;
+  background-color: #ffffff;
+  padding-bottom: 10px;
+  & .detailsTit {
         font-size: 18px;
         height: 65px;
         line-height: 70px;
@@ -271,177 +268,176 @@
         color: #4d4d4d;
         margin: 0 30px;
         border-bottom: 1px solid #cccccc;
-        margin-bottom: 10px;
+        background-color: #ffffff;
+  }
+}
 
+.userDetailBox {
+    background-color: #ffffff;
+  & .userDetail {
+    width: 100%;
+    & .userDetailLeft {
+      padding: 0 30px;
     }
-    .userDetailBox{
-        & .userDetail{
-            height:100%;
-            width: 100%;
-            & .userDetailLeft{
-                padding: 0 30px;
-            }
+  }
+}
+/**details left start**/
+.detailLeft {
+  width: 100%;
+  .userAvatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 40px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+    & > img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    & > .isMember {
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 10;
+    }
+  }
+  & .userName {
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 3px;
+    letter-spacing: 0px;
+    color: #4c4c4c;
+    text-align: center;
+  }
+  & .userDesc {
+    font-size: 12px;
+    line-height: 26px;
+    color: #808080;
+    text-align: center;
+  }
+  & .rateBox > .el-row .el-col.el-col-12 {
+    height: 22px;
+    line-height: 22px;
+    margin-top: 20px;
+    & .beautyValue {
+      width: 100%;
+      height: 100%;
+      border-left: 1px solid #cccccc;
+      & .beauty {
+        font-size: 12px;
+        line-height: 22px;
+        color: #808080;
+        padding-left: 42px;
+        position: relative;
+        &::before {
+          content: "";
+          width: 13px;
+          height: 18px;
+          background: url("../assets/img/user/is_active.png") no-repeat;
+          position: absolute;
+          left: 20px;
         }
+      }
     }
-    /**details left start**/
-    .detailLeft{
+    & .el-rate {
+      text-align: right;
+      padding-right: 20px;
+    }
+  }
+  & .rateBox {
+    padding-bottom: 59px;
+    border-bottom: 1px dashed #cccccc;
+  }
+  & .basicDetails li {
+    width: 100%;
+    line-height: 54px;
+    & .listLeft {
+      font-size: 14px;
+      letter-spacing: 30px;
+      color: #4c4c4c;
+      &.module1 {
+        letter-spacing: 1px;
+        position: relative;
+      }
+    }
+    & .listRight {
+      font-size: 14px;
+      color: #808080;
+      position: relative;
+      & .lookIphone {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+    &.favorite_brand .grid-content {
+      height: 40px;
+      line-height: 40px;
+      margin-top: 10px;
+      & img {
         width: 100%;
-        .userAvatar{
-            width: 88px;
-            height: 88px;
-            border-radius:50%;
-            position: relative;
-            margin-top: 40px;
-            left:50%;
-            transform: translate(-50%,0);
-            z-index: 1;
-            & > img{
-               width: 100%;
-               height: 100%; 
-               border-radius: 50%;
-            }
-            & > .isMember{
-                width: 16px;
-                height: 16px;
-                position: absolute;
-                bottom:-8px;
-                left:50%;
-                transform: translate(-50%,0);
-                z-index:10;
-            }
-        }
-      & .userName{
-            font-size: 14px;
-            margin-top: 20px;
-            margin-bottom: 3px;
-            letter-spacing: 0px;
-            color: #4c4c4c;
-            text-align: center;
+        height: 100%;
       }
-      & .userDesc{
-            font-size: 12px;
-            line-height: 26px;
-            color: #808080;
-            text-align: center;
+    }
+    &.favorite_brand .dashed_line {
+      padding-bottom: 49px;
+    }
+    &.userTag .dashed_line {
+      padding-bottom: 20px;
+      & .el-tag {
+        margin: 0 4px;
       }
-     &  .rateBox > .el-row .el-col.el-col-12{
-         height: 22px;
-         line-height: 22px;
-         margin-top: 20px;
-         & .beautyValue{
-             width: 100%;
-             height: 100%;
-             border-left: 1px solid #cccccc;
-             & .beauty{
-                font-size: 12px;
-                line-height: 22px;
-                color: #808080;
-                padding-left: 42px;
-                position: relative;
-                &::before{
-                    content: '';
-                    width: 13px;
-                    height: 18px;
-                    background: url("../assets/img/user/is_active.png") no-repeat;
-                    position: absolute;
-                    left:20px;
-
-                }
-             }
-            }
-            & .el-rate{
-                text-align: right;
-                padding-right: 20px;
-            }
-        }
-        &  .rateBox{
-            padding-bottom: 59px;
-            border-bottom: 1px dashed #cccccc;
-        }
-        & .basicDetails li{
-            width:100%;
-            line-height: 54px;
-            & .listLeft{
-                font-size: 14px;
-                letter-spacing: 30px;
-                color: #4c4c4c;
-                &.module1{
-                    letter-spacing:1px;
-                    position: relative;
-                }
-            }
-            & .listRight{
-                 font-size: 14px;
-                 color: #808080;
-                 position: relative;
-                 & .lookIphone{
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    transform: translate(0,-50%);
-                 }
-            }
-        &.favorite_brand .grid-content{
-            height:40px;
-            line-height: 40px;
-            margin-top: 10px;
-            & img{
-                width: 100%;
-                height: 100%;
-            }
-         }
-        &.favorite_brand .dashed_line{
-            padding-bottom: 49px;
-        }
-        &.userTag .dashed_line{
-            padding-bottom: 20px;
-          &  .el-tag{
-            margin: 0 4px;
-        }  
     }
-    &.promotion_proposal .promotion_proposal_list .grid-content.bg-purple{
-        text-align: center;
-        & img{
-            width: 267px;
-            height: 120px;
-        }
+    &.promotion_proposal .promotion_proposal_list .grid-content.bg-purple {
+      text-align: center;
+      & img {
+        width: 267px;
+        height: 120px;
+      }
     }
-    &.userManager{
-        padding-top: 10px;
-        padding-bottom: 100px;
-        height: 53px;
-        & .avatar{
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(0,-50%);
+    &.userManager {
+      padding-top: 10px;
+      padding-bottom: 100px;
+      height: 53px;
+      & .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+      & .userName {
+        padding-left: 44px;
+        & > em {
+          font-size: 14px;
+          color: #808080;
         }
-        & .userName{
-            padding-left: 44px;
-            & > em{
-                 font-size: 14px;
-                 color: #808080;
-            }
-        }
+      }
     }
-    }
+  }
 }
 /**details left END**/
 
 /**details right start**/
-.userDetailRight{
-    & .rightBox{
-        text-align: center;
-        & .rightMenu{
-            margin-top: 29px;
-        }
+.userDetailRight {
+  & .rightBox {
+    text-align: center;
+    & .rightMenu {
+      margin-top: 29px;
     }
-  
+  }
 }
 /** details right END**/
-.dashed_line{
-     border-bottom: 1px dashed #cccccc;
+.dashed_line {
+  border-bottom: 1px dashed #cccccc;
 }
 </style>

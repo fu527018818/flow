@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div v-if="lists">
          <el-table
-                :data="tableData"
+                :data="lists"
                 border
                 style="width: 100%;text-align:center;"
                 ref = "userTable"
@@ -43,7 +43,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="name"
+                prop="real_name"
                 label="客户"
                 width="80">
             </el-table-column>
@@ -99,6 +99,7 @@
 
 <script>
     export default {
+        props:['lists'],
         data()  {
             return {
                 tableData: [{
@@ -141,7 +142,6 @@
             console.log(column)
         },
         rowClick(row,event,column){
-            console.log(row,event,column)
             this.$router.push({name:"userDetails",params:{id:row.id}})
         }
     }

@@ -5,9 +5,16 @@
             <div class="contentBox_child">
                 <div class="content">
                     <div class="searchTop">
-                        <div class="manageTit">
-                            <div>客户管理</div>
-                        </div>   
+                        <search-page :tit="{tit:'支出明细'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                            <div class="search" slot="searchCon">
+                                <div class="f-input">
+                                        <input type="text" v-model="searchFuzzy"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜客户...">
+                                </div>
+                                <span class="searchIcon" @click="searchIndent">
+                                    <i class="iconfont icon-serach"></i>
+                                </span>
+                            </div>
+                       </search-page>  
                         <!-- 表单条件筛选 stat-->
                         <el-collapse-transition>
                             <div class="searchCondition" v-show="isFold">
@@ -99,7 +106,7 @@
                                         </div>
                                     </el-col>
                                     <el-col :span="21">
-                                            <el-radio-group v-model="search.is_user">
+                                            <el-radio-group v-model="search.is_member">
                                                 <el-radio :label="''"> 全选</el-radio>
                                                 <el-radio :label="'1'">是</el-radio>
                                                 <el-radio :label="'0'">否</el-radio>
@@ -161,7 +168,7 @@
                                             累计消费： <span  v-for='item in search.total_consumption' :key="item">{{item + '元/'}}</span>    
                                             </el-tag>
                                             <el-tag
-                                            type="info"closable v-if="search.consumption_sequence.length > 0 && typeof search.consumption_sequence =='object'"
+                                            type="info" closable v-if="search.consumption_sequence.length > 0 && typeof search.consumption_sequence =='object'"
                                             @close="handleClose(search.consumption_sequence,'search.consumption_sequence')"
                                             >
                                             累计消费： <span  v-for='item in search.consumption_sequence' :key="item">{{ item + '次/'}}</span>    
@@ -186,7 +193,7 @@
                     </div>
                     <div class="manageTable">
                         <div class="tableBox">
-                            <user-manage-table></user-manage-table>
+                            <user-manage-table :lists="lists"></user-manage-table>
                         </div> 
                     </div>
                 </div>
@@ -197,27 +204,36 @@
 </template>
 
 <script>
-    import getDate from '../assets/js/dateSelect'
+    import getDate from '../assets/js/dateSelect';
     import MainNav from '../components/MainNav';
-    import userManageTable from '../components/user/userManageTable.vue'
+    import userManageTable from '../components/user/userManageTable.vue';
+    import searchPage from '../components/statistic/searchPage';
+    import {userManager} from '../api/global';
+    import {mapGetters} from 'vuex';
+    import formatBg from '../assets/js/formatterbg';
     const  total_consumptionValue = ['0','1-999','1000-1999','2000-4999','5000-10000','10000']
     const  consumption_sequenceValue = ['0','1','2-4','5-10','>10']
     export default {
         name:"userDetails",
-        components:{MainNav,userManageTable},
+        components:{MainNav,userManageTable,searchPage},
         data(){
             return {
+                searchFuzzy:"",
+                pageDate:"",
+                lists:"",
                 checkAllNum:false,
                 checkAllBuy: false,
                 isFold:true,
+                page:"1",
+                limit:"10",
                 search:{
                     gender:'',
-                    date:"今天",
+                    date:"本月",
                     last_visit:[],
-                    service_user:"",
-                    total_consumption:[],
-                    consumption_sequence:[],
-                    is_user:"",
+                    service_user:"", //所属人
+                    total_consumption:[], //累计消费
+                    consumption_sequence:[], //消费次数
+                    is_member:"",
                     search:""
                 },
                 isIndeterminate:true,
@@ -225,6 +241,15 @@
                 total_consumptionValue :total_consumptionValue,
                 consumption_sequenceValue:consumption_sequenceValue
             }
+        },
+        computed:{
+          ...mapGetters([
+              'shop_list_current'
+          ])
+        },
+        created(){
+                this.radioCheckDate('本月')
+                this.userManagerInit();
         },
          methods: {
             showColse(){
@@ -240,8 +265,41 @@
                     }
                 }
             },
+            userManagerInit(){
+                 userManager({
+                      search:{
+                          user_type:"", //来自哪个页面
+                          gender:this.search.gender,
+                          consumption_sequence:this.search.consumption_sequence,
+                          last_visit:this.search.last_visit,
+                          manager:this.search.service_user,
+                          total_consumption:this.search.total_consumption,  //累计消费
+                          is_member:this.search.is_member,
+                          search:""   //模糊搜索
+                      },
+                      shop_id:this.shop_list_current,
+                      page:this.page,
+                      limit:this.limit
+                 })
+                 .then(res=>{
+                     if(res.status==200){
+                        var data = res.data
+                        this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.total_count)
+                        this.lists = data.lists;
+                     }
+                   
+                 })
+            },
             submitBtn(){
-                
+                 this.userManagerInit();
+            },
+            changePagesSearch(val){
+                 this.limit = val.limit;
+                 this.page = val.current;
+                 this.userManagerInit();
+            },
+            searchIndent(){
+                 this.userManagerInit();
             },
             handleClose(tag,val){
                 switch(val){
@@ -324,33 +382,11 @@
                 },
                 deep:true
            }
-        },
-        computed:{
-            
-        },
-        created (){
-        this.radioCheckDate('今天')
-           
         }
     }
 </script>
 
 <style scoped lang="scss">
-    .manageTit{
-        height:77px;
-        background-color: #ffffff;
-        & > div:nth-child(1){
-            display: inline-block;
-            line-height: 77px;
-            font-family: MicrosoftYaHei;
-            font-size: 18px;
-            font-weight: normal;
-            font-stretch: normal;
-            letter-spacing: 1px;
-            color: #4d4d4d;
-            margin-left: 30px;
-        }
-    }
     .searchTop{
         width: 1024px;
     }
@@ -425,7 +461,7 @@
     // table start
     .manageTable{
         width: 100%;
-        height: 1500px;
+        height: 800px;
         background-color: #ffffff;
         margin-top: 6px;
         & > .tableBox{
@@ -433,4 +469,43 @@
         }
     }
     // table end
+
+     .search{
+            width: 250px;
+            height: 30px;
+            position: relative;
+            display: inline-block;
+            & input{
+                  vertical-align:middle;
+                  display: table-cell;
+                  border:0;
+                  height:30px;
+                  padding: 0;
+                  width: 196px;
+                  box-sizing: border-box;
+                  background-color: #ffffff;
+                  border: 1px solid #dcdfe6;
+                  -webkit-appearance:none;
+                  text-indent: 10px;
+            }
+           & .searchIcon{
+               cursor: pointer;
+               width:54px;
+               height: 30px;
+               display:inline-block;
+               background-color: #4198ff;
+               position: absolute;
+               right: 0;
+               top:0;
+               & .icon-serach{
+                 color: #ffffff;
+                 position: absolute;
+                 top: 50%;
+                 left: 50%;
+                 font-size: 20px;
+                 transform: translate(-50%,-50%);
+                 line-height: 0;
+               }
+           }
+        }
 </style>

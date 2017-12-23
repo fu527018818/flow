@@ -106,7 +106,10 @@
                 }
         },
         created(){
-            
+         
+        },
+        beforeCreate(){
+           
         }
     }
 </script>

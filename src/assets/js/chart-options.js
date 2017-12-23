@@ -65,8 +65,8 @@ export function addOptions(titledata,date,turnover,volume,tit1,tit2){
     }
 
 }
-// 客户页面option 柱形 - 统计客流页
-export function userOptionColumn(tit,datex,y){
+// 客户页面option 柱形 - 统计客流页 isShow是否显示柱形上面的值
+export function userOptionColumn(tit,datex,y,isShow){
   return  {
         chart: {
             type: 'column'
@@ -84,6 +84,14 @@ export function userOptionColumn(tit,datex,y){
         },
         credits: {
             enabled: false
+        },
+        plotOptions: {
+            column: {
+                dataLabels: {
+                    enabled: isShow||false,
+                    allowOverlap: true
+                }
+            }
         },
         legend:{
         enabled:false
@@ -178,7 +186,7 @@ export function userOptionPie (tit,data){
         series: [{
             type: 'pie',
             innerSize: '70%',
-            name: '男女比例',
+            name:tit,
             data:data
         }]
     }
@@ -299,6 +307,7 @@ export function statisticsSpline(name,dateX,datay1,datay2){
         }]
 }   
 }
+//漏斗图
 export function passengerFunnel(){
     return {
         chart: {

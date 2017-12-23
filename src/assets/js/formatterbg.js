@@ -12,7 +12,7 @@ export default{
         }
         return rate
     },
-    // 饼图
+    // 饼图  passengerFlow 统计页
     formatPie:function(data,def){
         var def = def ||[{color:'#4198ff'},{color: "#ff6648"}] //默认图表颜色
         var  arrVal=[];
@@ -22,7 +22,17 @@ export default{
         }
         data.format = def
         return  data
-    }, //格式化单线数据
+    }, //格式化不同的饼图
+    formatPieUser(data){
+        var def = def ||[{color:'#4198ff'},{color: "#ff6648"}] //默认图表颜色
+        for(var i=0;i<data.data.length;i++){
+            def[i].name = data.data[i].key
+            def[i].y = data.data[i].value * 1;
+        }
+        data.format = def
+        return data
+    },
+    //格式化单线数据
     formatOneSpline:function(data){
         var obj = {};
         obj.name = data.name;
@@ -34,7 +44,7 @@ export default{
             obj.y.push(data.data[i].data[0]*1);
         }
         return obj
-    },//格式话单线或者双线
+  },//格式话单线或者双线
   formatOneOrTwoSpline:function(data){
         var obj = {};
         if(data.line.length==2){
@@ -74,7 +84,16 @@ export default{
         }
     return  obj;
     
-  }, //格式化快捷时间
+  }, 
+  formatOneBar(data){
+      data.dateX=[];
+      data.y = [];
+      data.data.forEach(function (item){
+        data.dateX.push(item.name);
+        data.y.push(item.value*1);
+      })
+     return data
+  },//格式化快捷时间
   getClockerDate(val){
       console.log(val)
     switch (val){
@@ -100,7 +119,7 @@ export default{
           return  getDate.getToday()
         break;
     }
-  },
+  },  //格式化分页算出总页数
   formatPageDate(limit,page,tolNum){
       return {
           limit:limit,

@@ -77,9 +77,9 @@ service.interceptors.request.use(config => {
   service.interceptors.response.use(
     response => {
       //登录之后返回数据进行解密
+      console.log(response)
       var checkUrl = response.config.url;
-       console.log(checkUrl)
-        if(store.getters.token){
+        if(!(checkUrl=="http://appdev.ly.ai/user/login")&&!(checkUrl=="http://appdev.ly.ai/user/check/id")){
                  //aes解密
                 var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
                 var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{

@@ -91,9 +91,7 @@ export default {
       
   },
   beforeCreate(){
-    //   if(ls.get('userId')&&!ls.get('userId')==""){
-    //      this.$router.push({name:"loginPwd"})
-    //   }
+  
   }
 };
 </script>

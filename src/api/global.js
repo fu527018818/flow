@@ -199,6 +199,22 @@ export function personnelModifyApply(json){
         data:json
     })
 }
+//用户画像
+export function userPortrayal(json){
+    return fetch({
+        url:path.USER_PORTRAYAL,
+        method:"post",
+        data:json
+    })
+}
+//用户管理
+export function userManager(json){
+    return fetch({
+        url:path.USER_MANAGE,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -220,5 +236,7 @@ export default{
     statisticsPosExpenditure,
     personnelAdmin,
     personnelStaff,
-    personnelModifyApply
+    personnelModifyApply,
+    userPortrayal,
+    userManager
 }
