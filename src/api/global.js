@@ -215,6 +215,14 @@ export function userManager(json){
         data:json
     })
 }
+//用户详情
+export function userDetail(json){
+    return fetch({
+        url:path.USER_DETAILS,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -238,5 +246,6 @@ export default{
     personnelStaff,
     personnelModifyApply,
     userPortrayal,
-    userManager
+    userManager,
+    userDetail
 }

@@ -3,254 +3,86 @@
         <main-nav :indexMenu="'/userDetails'"></main-nav>
         <div class="contentBox"  v-slim-scroll>
           <div class="contentBox_child">
-           <div class="content">
-               <div class="detailsTitBox">
-                   <div class="detailsTit">
-                    客户详情
+            <div class="content">
+                <div class="detailsTitBox">
+                    <div class="detailsTit">
+                        客户详情
                     </div>
-               </div>
-               
+                </div>
                 <div class="userDetailBox">
-                <el-row class="userDetail">
-                    <!-- 详情左侧 start -->
-                    <el-col :span="9" class="userDetailLeft">
-                        <div class="detailLeft">
-                            <div class="userAvatar">
-                                <img :src="details.avatar" alt="客户头像">
-                                <img class="isMember" src="../assets/img/user/is_menber.png" alt="">
+                    <el-row class="userDetail">
+                        <!-- 详情左侧 start -->
+                        <el-col :span="9" class="userDetailLeft">
+                            <datail-left></datail-left>
+                        </el-col>
+                        <!-- 详情左侧 end -->
+                        <!-- 详情右侧  start-->
+                        <el-col :span="15" class="userDetailRight">
+                            <div class="rightBox">
+                                <div class="rightMenu">  
+                                    <!-- 切换路由 -->
+                                    <el-radio-group id="userCut" v-model="is_menus" @change="changeMenu">
+                                        <el-radio-button label="userDetailsInfo">客户信息</el-radio-button>
+                                        <el-radio-button label="userDetailsConsume">消费记录</el-radio-button>
+                                        <el-radio-button label="userDetailsServe">到店记录</el-radio-button>
+                                        <el-radio-button label="userDetailsPortrait">客户肖像</el-radio-button>
+                                        <el-radio-button label="userDetailsPromotion">促销建议</el-radio-button>
+                                    </el-radio-group>  
+                                </div>
+                                <router-view @parentInit="parentInit"></router-view>
                             </div>
-                            <div class="userName">
-                                {{details.real_name}}
-                            </div>
-                            <div class="userDesc">
-                                男-27岁-福建-厦门
-                            </div>
-                            <!-- 评星 -->
-                            <div class="rateBox" id="rateBox">
-                                <el-row>
-                                    <el-col :span="12">
-                                        <el-rate
-                                         v-model="details.level"
-                                         show-score
-                                         text-color="#ff9900"
-                                         disabled-void-color="#cccccc"
-                                         score-template="{value}"
-                                         disabled>
-                                    </el-rate>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <div class="beautyValue">
-                                            <div class="beauty">
-                                                {{details.active_value}}
-                                            </div>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                            <ul class="basicDetails">
-                                <li>
-                                    <el-row>
-                                        <el-col :span="8" class="listLeft">
-                                            姓名
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.real_name}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li>
-                                    <el-row>
-                                        <el-col :span="8" class="listLeft">
-                                            会员
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.member_no}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li>
-                                   <el-row>
-                                        <el-col :span="8" class="listLeft">
-                                            生日
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.birthday}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li>
-                                   <el-row>
-                                        <el-col :span="8" class="listLeft">
-                                            手机
-                                        </el-col>
-                                        <el-col :span="16" class="listRight" v-if ="isIphone" style="color:#4198ff">
-                                            {{formatPhone}} 
-                                            <el-button  class="lookIphone"  type="primary" @click="lookIphone">查看</el-button>
-                                        </el-col>
-                                         <el-col :span="16" class="listRight" v-else>
-                                            {{details.phone}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li class="dashed_line">
-                                   <el-row>
-                                        <el-col :span="8" class="listLeft module1">
-                                            职业
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.career}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li>
-                                   <el-row>
-                                        <el-col :span="8" class="listLeft module1">
-                                            消费档次
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.consumption_grade}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li>
-                                   <el-row>
-                                        <el-col :span="8" class="listLeft module1">
-                                            是否有小孩
-                                        </el-col>
-                                        <el-col :span="16" class="listRight">
-                                            {{details.has_children}}
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li class="favorite_brand">
-                                   <el-row class="dashed_line">
-                                        <el-col :span="24" class="listLeft module1">
-                                            品牌偏好
-                                        </el-col>
-                                        <el-row :gutter="40">
-                                            <el-col :span="8" v-for="item in details.favorite_brand" :key="item">
-                                                <div class="grid-content bg-purple">
-                                                    <img :src="item" alt="喜爱品牌图片">
-                                                </div>
-                                            </el-col>
-        
-                                        </el-row>
-                                    </el-row>
-                                </li>
-                                <li class="userTag">
-                                   <el-row  class="dashed_line">
-                                        <el-col :span="24" class="listLeft module1">
-                                            客户标签
-                                        </el-col>
-                                        <el-col :span="24">
-                                            <div>
-                                                <el-tag v-for="item in details.tag" :key="item"  type="info">{{item}}</el-tag>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                                <li class="promotion_proposal">
-                                   <el-row  class="dashed_line">
-                                        <el-col :span="24" class="listLeft module1">
-                                            促销建议
-                                        </el-col>
-                                        <el-row :gutter="40">
-                                            <el-col :span="24" class="promotion_proposal_list">
-                                                <div class="grid-content bg-purple">
-                                                    <img :src="details.promotion_proposal" alt="">
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </el-row>
-                                </li>
-                                <li class="userManager">
-                                   <el-row>
-                                        <el-col :span="24" class="listLeft module1">
-                                            <div>
-                                                <img class="avatar" :src="details.manager.avatar" alt="">
-                                                <span class="userName">服务员：<em>{{details.manager.name}}</em></span>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </li>
-                            </ul>
-                        </div>
-                    </el-col>
-                    <!-- 详情左侧 end -->
-                    <!-- 详情右侧  start-->
-                    <el-col :span="15" class="userDetailRight">
-                        <div class="rightBox">
-                            <div class="rightMenu">
-                                <el-radio-group v-model="is_menus" @change="changeMenu">
-                                <el-radio-button label="userDetailsInfo">用户信息</el-radio-button>
-                                <el-radio-button label="userDetailsConsume">消费记录</el-radio-button>
-                                <el-radio-button label="userDetailsServe">服务记录</el-radio-button>
-                                <el-radio-button label="userDetailsPortrait">客户肖像</el-radio-button>
-                                <el-radio-button label="userDetailsPromotion">促销建议</el-radio-button>
-                                </el-radio-group>  
-                            </div>
-                            <router-view></router-view>
-                        </div>
-                    </el-col>
-                    <!-- 详情右侧 end-->
-                </el-row>
-               </div>
+                        </el-col>
+                        <!-- 详情右侧 end-->
+                       
+                    </el-row>
+                     <div>分页</div>
+                 </div>
+                 </div>
+                <div class="contentFooter"></div>
             </div>
-         </div>
         </div> 
     </div>
 </template>
 
 <script>
 import MainNav from "../components/MainNav";
-import datailLeft from '../components/user/userDetails/detailLeft'
+import datailLeft from '../components/user/userDetails/detailLeft';
+import {mapGetters} from 'vuex';
 export default {
   name: "userDetails",
   components: { MainNav,datailLeft},
   data() {
     return {
       is_menus: "userDetailsInfo",
-      details: {
-        real_name: "靳小迪",
-        avatar: "",
-        short_info: "男-27岁-福建-厦门",
-        level: 3.7,
-        active_value: 1234,
-        member_no: "LY201710171234560001",
-        birthday: "1989-12-12",
-        phone: "15505952110",
-        career: "ui设计师",
-        consumption_grade: "高",
-        has_children: "有，男，12岁",
-        sales_promotion: "高，易接受促销建议",
-        favorite_brand: [],
-        promotion_proposal: [""],
-        tag: ["小清新", "大傻逼", "无敌", "闷骚", "桀骜不驯"],
-        manager: {
-          avatar: "",
-          name: "靳小迪",
-          history_avatar: ["", "", ""]
-        }
-      },
-      isIphone: true
+      user_current:"",
     };
   },
   methods: {
     lookIphone() {
       this.isIphone = false;
     },
+    parentInit(){
+        this.$store.dispatch('userDetailInit',{
+            shop_id:this.shop_list_current,
+            member_id:this.user_current
+        }).then(res=>{
+            console.log(res)
+        })
+    },
     changeMenu(val) {
       // 菜单val值不变
-      this.$router.push({ name: val });
+      this.$router.push({ name: val,params:{id:this.user_current}});
     }
   },
   computed: {
-    formatPhone() {
-      return this.details.phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3");
-    }
+       ...mapGetters([
+           'shop_list_current'
+       ])
   },
   created() {
-    console.log("18960120350".replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3"));
+      this.user_current =  this.$route.params.id;
+      this.parentInit();
+
   }
 };
 </script>
@@ -281,151 +113,6 @@ export default {
     }
   }
 }
-/**details left start**/
-.detailLeft {
-  width: 100%;
-  .userAvatar {
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    position: relative;
-    margin-top: 40px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    z-index: 1;
-    & > img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-    & > .isMember {
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      z-index: 10;
-    }
-  }
-  & .userName {
-    font-size: 14px;
-    margin-top: 20px;
-    margin-bottom: 3px;
-    letter-spacing: 0px;
-    color: #4c4c4c;
-    text-align: center;
-  }
-  & .userDesc {
-    font-size: 12px;
-    line-height: 26px;
-    color: #808080;
-    text-align: center;
-  }
-  & .rateBox > .el-row .el-col.el-col-12 {
-    height: 22px;
-    line-height: 22px;
-    margin-top: 20px;
-    & .beautyValue {
-      width: 100%;
-      height: 100%;
-      border-left: 1px solid #cccccc;
-      & .beauty {
-        font-size: 12px;
-        line-height: 22px;
-        color: #808080;
-        padding-left: 42px;
-        position: relative;
-        &::before {
-          content: "";
-          width: 13px;
-          height: 18px;
-          background: url("../assets/img/user/is_active.png") no-repeat;
-          position: absolute;
-          left: 20px;
-        }
-      }
-    }
-    & .el-rate {
-      text-align: right;
-      padding-right: 20px;
-    }
-  }
-  & .rateBox {
-    padding-bottom: 59px;
-    border-bottom: 1px dashed #cccccc;
-  }
-  & .basicDetails li {
-    width: 100%;
-    line-height: 54px;
-    & .listLeft {
-      font-size: 14px;
-      letter-spacing: 30px;
-      color: #4c4c4c;
-      &.module1 {
-        letter-spacing: 1px;
-        position: relative;
-      }
-    }
-    & .listRight {
-      font-size: 14px;
-      color: #808080;
-      position: relative;
-      & .lookIphone {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translate(0, -50%);
-      }
-    }
-    &.favorite_brand .grid-content {
-      height: 40px;
-      line-height: 40px;
-      margin-top: 10px;
-      & img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    &.favorite_brand .dashed_line {
-      padding-bottom: 49px;
-    }
-    &.userTag .dashed_line {
-      padding-bottom: 20px;
-      & .el-tag {
-        margin: 0 4px;
-      }
-    }
-    &.promotion_proposal .promotion_proposal_list .grid-content.bg-purple {
-      text-align: center;
-      & img {
-        width: 267px;
-        height: 120px;
-      }
-    }
-    &.userManager {
-      padding-top: 10px;
-      padding-bottom: 100px;
-      height: 53px;
-      & .avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(0, -50%);
-      }
-      & .userName {
-        padding-left: 44px;
-        & > em {
-          font-size: 14px;
-          color: #808080;
-        }
-      }
-    }
-  }
-}
-/**details left END**/
 
 /**details right start**/
 .userDetailRight {
@@ -433,11 +120,15 @@ export default {
     text-align: center;
     & .rightMenu {
       margin-top: 29px;
+      user-select: none;
     }
   }
 }
 /** details right END**/
 .dashed_line {
   border-bottom: 1px dashed #cccccc;
+}
+.el-radio-button__inner{
+    padding:12px 31px!important;
 }
 </style>

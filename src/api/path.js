@@ -26,6 +26,7 @@ export default {
     PERSONNEL_STAFF:'/staff/lists/bind',  //人事审核列表
     PERSONNEL_MODIFY_LOGIN:'/staff/modify/login',//职员管理 登录禁止和恢复
     PERSONNEL_MODIFY_APPLY:"/staff/modify/apply", //人事审核 通过与不通过状态
-    USER_PORTRAYAL:"/member/dashboard",
-    USER_MANAGE:"/member/lists"
+    USER_PORTRAYAL:"/member/dashboard", //客户画像
+    USER_MANAGE:"/member/lists",  //客户管理
+    USER_DETAILS:"/member/info"   //用户详情
 }

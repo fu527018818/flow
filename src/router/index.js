@@ -71,11 +71,11 @@ export const constantRouterMap = [
     name: "userDetails",
     component: userDetails,
     children: [
-      { path: "/userDetails/consume", name: "userDetailsConsume", component: _import('components/user/userDetailsConsume') },
-      { path: "/userDetails/info", name: "userDetailsInfo", component: _import('components/user/userDetailsInfo') },
-      { path: "/userDetails/portrait", name: "userDetailsPortrait", component: _import('../components/user/userDetailsPortrait') },
-      { path: "/userDetails/promotion", name: "userDetailsPromotion", component: _import('../components/user/userDetailsPromotion') },
-      { path: "/userDetails/serve", name: "userDetailsServe", component: _import('../components/user/userDetailsServe') },
+      { path: "/userDetails/consume/:id", name: "userDetailsConsume", component: _import('components/user/userDetails/userDetailsConsume') },
+      { path: "/userDetails/info/:id", name: "userDetailsInfo", component: _import('components/user/userDetails/userDetailsInfo') },
+      { path: "/userDetails/portrait/:id", name: "userDetailsPortrait", component: _import('components/user/userDetails/userDetailsPortrait') },
+      { path: "/userDetails/promotion/:id", name: "userDetailsPromotion", component: _import('components/user/userDetails/userDetailsPromotion') },
+      { path: "/userDetails/serve/:id", name: "userDetailsServe", component: _import('components/user/userDetails/userDetailsServe') },
     ]
   },
   {

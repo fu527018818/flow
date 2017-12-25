@@ -1,15 +1,15 @@
 <template>
     <div>
-        这里是用户信息
+        这里是客户肖像
     </div>
 </template>
 
 <script>
     export default {
-        name:"userDetailsInfo"
+        name:"userDetailsPortrait"
     }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
 </style>

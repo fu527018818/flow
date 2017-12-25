@@ -134,7 +134,6 @@
             formatMenber(row,column){
                 return row.is_menber=="1"?'是':'否';
             },
-            
         }
     },
     methods:{
@@ -142,7 +141,7 @@
             console.log(column)
         },
         rowClick(row,event,column){
-            this.$router.push({name:"userDetails",params:{id:row.id}})
+            this.$router.push({name:"userDetailsInfo",params:{id:row.id}})
         }
     }
 }

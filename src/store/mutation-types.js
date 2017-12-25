@@ -12,4 +12,5 @@ export const USER_MANAGE_INIT = "USER_MANAGE_INIT" //用户管理页面初始化
 export const CUT_SHOP_LIST_CURRENT = "CUT_SHOP_LIST_CURRENT" //全局切换店铺
 export const SET_MAIN_VAL = "SET_MAIN_VAL"  // 设置初始化的时候值  
 export const SET_NOTICE_TITLE = "SET_NOTICE_TITLE" //设置公共轮播值
+export const SET_USER_CURRENT_INFO = "SET_USER_CURRENT_INFO" //当前用户的信息
 
