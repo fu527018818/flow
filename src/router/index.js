@@ -35,6 +35,8 @@ import posHistory from '../pages/statistics/analyze/posHistory.vue';
 import expenditures from '../pages/statistics/analyze/expenditures.vue';
 import personnelAdmin from '../pages/personnel/personnelAdmin.vue';
 import staffReview from '../pages/personnel/staffReview.vue';
+import shopSet from '../pages/sets/set.vue';
+
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -198,6 +200,15 @@ export const constantRouterMap = [
       { path: "/helpDoc", name: "helpDoc", component: _import('components/userHelp/helpDoc') },
       { path: "/helpBrowser", name: "helpBrowser", component: _import('components/userHelp/helpBrowser') },
       { path: "/helpRelation", name: "helpRelation", component: _import('components/userHelp/helpRelation') }
+    ]
+  },
+  {
+    path: "/shopSet",
+    name: "shopSet",
+    component: shopSet,
+    children: [
+      { path: "/shop/set", name: "shopSetChild", component: _import('components/set/shopSet/shopSet') },
+      { path: "/more/info", name: "moreInfo", component: _import('components/set/shopSet/moreInfo') }
     ]
   }
 ]

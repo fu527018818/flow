@@ -31,7 +31,6 @@
                 label="手机号"
                 >
               </el-table-column>
-                </el-table-column>
                 <el-table-column
                 prop="shop_name"
                 label="所属组织"

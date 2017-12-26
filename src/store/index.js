@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import  login from './modules/login/login'
 import  main from './modules/main/main'
 import user  from './modules/user/user'
+import set from './modules/set/set'
 import websocket from './modules/websocket'
 import * as types from './mutation-types'
 import getDate from '../assets/js/dateSelect'
@@ -67,6 +68,7 @@ export default new Vuex.Store({
         login,
         main,
         websocket,
-        user
+        user,
+        set
     }
 })

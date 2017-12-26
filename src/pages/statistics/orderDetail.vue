@@ -386,7 +386,7 @@ watch:{ //监听店铺ID变化，转化成店铺名字
         }
         }
     }
-    .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+.el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
        width: 240px;
         margin-left: 40px;
         position:relative;

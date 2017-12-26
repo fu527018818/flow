@@ -223,6 +223,38 @@ export function userDetail(json){
         data:json
     })
 }
+//获取门店信息
+export function getSetShopInfo(json){
+    return fetch({
+        url:path.GET_SET_SHOPINFO,
+        method:"post",
+        data:json
+    })
+}
+//获得省市区县
+export function getCity(json){
+    return fetch({
+        url:path.GET_CITY,
+        method:"post",
+        data:json
+    })
+}
+// 设置店铺基本信息
+export function setShopBasic(json){
+    return fetch({
+        url:path.SET_SHOP_BASIC,
+        method:"post",
+        data:json
+    })
+}
+//门店设置 更多信息
+export function setShopMore(json){
+    return fetch({
+        url:path.SET_SHOP_MORE,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -247,5 +279,8 @@ export default{
     personnelModifyApply,
     userPortrayal,
     userManager,
-    userDetail
+    userDetail,
+    getSetShopInfo,
+    getCity,
+    setShopMore
 }

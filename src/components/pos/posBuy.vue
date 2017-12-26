@@ -1,38 +1,38 @@
 <template>
      <transition name="fade" mode="in-out">
-                    <div class="dateEnterForm">
-                        <el-form  ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="80px">
-                                     <el-form-item label="选择时间" prop="input_time">
-                                        <el-date-picker
-                                                v-model="ruleForm.input_time"
-                                                type="date"
-                                                placeholder="选择日期时间"
-                                                value-format="yyyy-MM-dd"
-                                        >
-                                        </el-date-picker>
-                                    </el-form-item>
-                                    <el-form-item label="录入方式" prop="type">
-                                        <el-select v-model="ruleForm.type" placeholder="请选择录入方式" size="100%">
-                                            <el-option  label="薪资" value="薪资"></el-option>
-                                            <el-option  label="采购" value="采购"></el-option>
-                                            <el-option  label="店租" value="店租"></el-option>
-                                            <el-option  label="税费" value="税费"></el-option>
-                                            <el-option  label="水费" value="水费"></el-option>
-                                            <el-option  label="电费" value="电费"></el-option>
-                                            <el-option  label="其他" value="其他"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="支出金额" prop="price">
-                                        <el-input v-model.number="ruleForm.price"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="支出事由" prop="reason">
-                                        <el-input v-model="ruleForm.reason"></el-input>
-                                    </el-form-item>
-                                     <el-form-item class="submitbtn">
-                                         <el-button type="primary" round @click="onSubmit('ruleForm')">保存</el-button>
-                                    </el-form-item>
-                            </el-form> 
-                    </div>             
+            <div class="dateEnterForm">
+                <el-form  ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="80px">
+                                <el-form-item label="选择时间" prop="input_time">
+                                <el-date-picker
+                                        v-model="ruleForm.input_time"
+                                        type="date"
+                                        placeholder="选择日期时间"
+                                        value-format="yyyy-MM-dd"
+                                >
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="录入方式" prop="type">
+                                <el-select v-model="ruleForm.type" placeholder="请选择录入方式" size="100%">
+                                    <el-option  label="薪资" value="薪资"></el-option>
+                                    <el-option  label="采购" value="采购"></el-option>
+                                    <el-option  label="店租" value="店租"></el-option>
+                                    <el-option  label="税费" value="税费"></el-option>
+                                    <el-option  label="水费" value="水费"></el-option>
+                                    <el-option  label="电费" value="电费"></el-option>
+                                    <el-option  label="其他" value="其他"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="支出金额" prop="price">
+                                <el-input v-model.number="ruleForm.price"></el-input>
+                            </el-form-item>
+                            <el-form-item label="支出事由" prop="reason">
+                                <el-input v-model="ruleForm.reason"></el-input>
+                            </el-form-item>
+                                <el-form-item class="submitbtn">
+                                    <el-button type="primary" round @click="onSubmit('ruleForm')">保存</el-button>
+                            </el-form-item>
+                    </el-form> 
+            </div>             
     </transition>
 </template>
 
@@ -76,6 +76,7 @@
         methods:{
           onSubmit(formName){
                 this.ruleForm.shop_id = this.shop_list_current;
+                
             this.$refs[formName].validate((valid)=>{
                 if(valid){
               statisticsOutPut(this.ruleForm).then(res=>{
@@ -85,6 +86,7 @@
                     message:'保存成功',
                     type: 'success'
                  });
+                 this.$emit('prentInit')
                 }
                 })
                 }else{

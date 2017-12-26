@@ -28,5 +28,9 @@ export default {
     PERSONNEL_MODIFY_APPLY:"/staff/modify/apply", //人事审核 通过与不通过状态
     USER_PORTRAYAL:"/member/dashboard", //客户画像
     USER_MANAGE:"/member/lists",  //客户管理
-    USER_DETAILS:"/member/info"   //用户详情
+    USER_DETAILS:"/member/info",  //用户详情
+    GET_SET_SHOPINFO:"/shop/info",  //获取门店信息
+    GET_CITY:"/utils/city",   //获取省市区县
+    SET_SHOP_BASIC:"/shop/modify/basic",  //门店信息设置
+    SET_SHOP_MORE:"/shop/modify/more"
 }

@@ -31,8 +31,6 @@
                 :formatter="formatGender"
                 >
               </el-table-column>
-              
-                </el-table-column>
                 <el-table-column
                 prop="phone"
                 label="手机号"

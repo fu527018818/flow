@@ -35,7 +35,20 @@
                         <!-- 详情右侧 end-->
                        
                     </el-row>
-                     <div>分页</div>
+                    <div class="operationBox">
+                        <el-row class="operation">
+                            <el-col :span="12">
+                                <div class="cutPage">
+                                    <el-button @click="currentPage--&& goto()"  size="mini" plain icon="el-icon-arrow-left"></el-button>
+                                     <el-button  @click="currentPage++&& goto()" size="mini" plain> <i class="el-icon-arrow-right el-icon--right"></i></el-button>
+                                </div>
+                                
+                            </el-col>
+                            <el-col :span="12" class="compile">
+                                 <el-button type="primary">编辑</el-button>
+                            </el-col>
+                        </el-row>
+                    </div>
                  </div>
                  </div>
                 <div class="contentFooter"></div>
@@ -55,6 +68,7 @@ export default {
     return {
       is_menus: "userDetailsInfo",
       user_current:"",
+      currentPage:"1"
     };
   },
   methods: {
@@ -80,8 +94,12 @@ export default {
        ])
   },
   created() {
+      this.is_menus = this.$route.name
       this.user_current =  this.$route.params.id;
       this.parentInit();
+
+  },
+  goto(){
 
   }
 };
@@ -130,5 +148,26 @@ export default {
 }
 .el-radio-button__inner{
     padding:12px 31px!important;
+}
+.operationBox{
+    & .operation{
+        line-height: 77px;
+        & .cutPage{
+            padding-left: 30px;
+        }
+        & .compile{
+            text-align: right;
+            padding-right:30px;
+        }
+    }
+}
+.el-button+.el-button{
+    margin-left: 0;
+}
+.el-icon-arrow-right.el-icon--right{
+    margin: 0;
+}
+.el-button.el-button--primary{
+    padding: 12px 60px!important;
 }
 </style>

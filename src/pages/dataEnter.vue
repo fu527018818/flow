@@ -18,6 +18,7 @@
                  <router-view></router-view>
             </div>
         </div>
+        <div class="contentFooter"></div>
    </div>
 </template>
 
@@ -39,7 +40,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../static/variable.scss";
-.titCutBox{
+.titCutBox{ 
    background-color:#ffffff;
    height: 68px;
    line-height: 68px;

@@ -80,7 +80,6 @@
                     item.date_hour = item.datetime.split(' ')[1];
                     item['date_name'] = item.datetime.substr(5, 2) + "月" + item.datetime.substr(8, 2) + "日";
                     newList[monthKey].push(item)
-                    
                 }
                 var result = [];
                 for (var key in newList) {
@@ -108,9 +107,13 @@
 <style scoped lang="scss">
      .userDetailRight{
         padding: 30px  30px 0 60px;
+
          & .basicDetails li {
         width: 100%;
         line-height: 54px;
+        &:last-child{
+            padding-bottom: 30px;
+        }
         & .listLeft {
         font-size: 14px;
         letter-spacing: 30px;
@@ -200,6 +203,7 @@
             & .stepTit{
             font-size: 14px;
             line-height: 53px;
+            padding-bottom: 10px;
             }
             & .status-list{
                 & li{

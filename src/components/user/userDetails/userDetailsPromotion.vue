@@ -3,13 +3,50 @@
          <ul v-if="currentInfo" class="basicDetails">
               <li>
                 <el-row>
-                    <el-col :span="5" class="listLeft module1">
-                        累计消费
+                    <el-col :span="24" class="listLeft module1">
+                        交流建议
                     </el-col>
-                    <el-col :span="19" class="listRight">
-                        {{currentInfo.sales_promotion}}
+                    <el-col :span="24" class="listRight">
+                        
                     </el-col>
                 </el-row>
+            </li>
+            <li>
+                <el-row style="line-height:30px">
+                    <el-col :span="5" class="listLeft module1">
+                        建议1
+                    </el-col>
+                    <el-col :span="19" class="listRight">
+                        重点推荐促销力度
+                    </el-col>
+                </el-row>
+            </li>
+            <li class="dashed_line">
+                <el-row  style="line-height:30px">
+                    <el-col :span="5" class="listLeft module1">
+                        建议2
+                    </el-col>
+                    <el-col :span="19" class="listRight">
+                        重点推荐食品安全
+                    </el-col>
+                </el-row>
+            </li>
+         </ul>
+         <ul class="basicDetails">
+             <li>
+                <el-row>
+                      <el-col :span="24" class="listLeft module1">
+                        促销建议
+                    </el-col>
+                </el-row>
+            </li>
+            <li class="suggestBox">
+                <div>
+                    <img src="../../../assets/img/user/suggest1.png" alt="">
+                </div>
+                <div>
+                     <img src="../../../assets/img/user/suggest2.png" alt="">
+                </div>
             </li>
          </ul>
       </div>
@@ -40,6 +77,9 @@
          & .basicDetails li {
         width: 100%;
         line-height: 54px;
+        &:last-child{
+            padding-bottom: 38px;
+        }
         & .listLeft {
         font-size: 14px;
         letter-spacing: 30px;

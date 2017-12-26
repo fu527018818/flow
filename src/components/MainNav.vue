@@ -57,16 +57,24 @@
                   <i class="iconfont icon-message"></i>
                 </el-badge>
               </el-menu-item>
-              <el-menu-item index="/systemSet"><i class="iconfont icon-set"></i></el-menu-item>
+              <el-submenu index="/set" class="itemDown">
+                  <template slot="title">
+                     <i class="iconfont icon-set"></i>
+                  </template>
+                  <el-menu-item index="/shopSetChild">门店设置</el-menu-item>
+                  <el-menu-item index="/userManage">公告管理</el-menu-item>
+              </el-submenu>
               <el-submenu  index="userHead"  class="user-img">
                     <template  slot="title">
                           {{userInfo.real_name}}
                         <img id="userAvatar" :src="userInfo.avatar" alt="头像">
                     </template>
-                    <el-menu-item index="/userHelp">修改资料</el-menu-item>
+                    <el-menu-item index="">修改资料</el-menu-item>
                     <el-menu-item index="3-2">我的相册</el-menu-item>
                     <el-menu-item index="3-3">我的门店</el-menu-item>
-                    <el-menu-item index="3-4">设置</el-menu-item>
+                    <el-menu-item index="/userHelp">
+                        设置
+                    </el-menu-item>
                     <el-menu-item index="/outSystem">退出登录</el-menu-item>
               </el-submenu>
               </el-menu>
@@ -184,6 +192,10 @@ export default {
         case "/userHelp":
             this.activeIndex = "/userHelp";
             this.$router.push({name:"helpSoftware"}); 
+        break;
+        case "/shopSetChild":
+            this.activeIndex = "/shopSetChild";
+            this.$router.push({name:"shopSetChild"}); 
         break;
         case "/userPortrayal":
             this.activeIndex = "/userPortrayal";
@@ -355,23 +367,6 @@ export default {
   border-radius: 50%;
   transform: translate(0,-50%);
 }
-// .user-img::before {
-//   content: "";
-//   background-image: url("../assets/img/default_head.png");
-//   background-size: 100%;
-//   position: absolute;
-//   width: 24px;
-//   height: 24px;
-//   left: 5px;
-//   top: 50%;
-//   transform: translate(0, -50%);
-//   -webkit-border-radius: 25px;
-//   -moz-border-radius: 25px;
-//   border-radius: 20px;
-//   z-index: 999;
-//   cursor: pointer;
-//   padding: 0;
-// }
 .el-menu {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -391,6 +386,10 @@ export default {
 }
 .el-menu-item:hover {
   background-color:$navHoverColor!important;
+}
+.iconfont.icon-set{
+  color: #ffffff;
+  font-size: 18px;
 }
 /* 搜索 start */
 #searchContentBox{
