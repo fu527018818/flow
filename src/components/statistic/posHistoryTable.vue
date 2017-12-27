@@ -30,7 +30,7 @@
                 label="成交笔数"
                 >
               </el-table-column>
-                </el-table-column>
+             
                 <el-table-column
                 prop="sales_count"
                 label="销售件数"

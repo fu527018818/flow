@@ -36,6 +36,8 @@ import expenditures from '../pages/statistics/analyze/expenditures.vue';
 import personnelAdmin from '../pages/personnel/personnelAdmin.vue';
 import staffReview from '../pages/personnel/staffReview.vue';
 import shopSet from '../pages/sets/set.vue';
+import setNotice from '../pages/sets/setNotice.vue';
+import editNotice from '../pages/sets/editNotice.vue';
 
 Vue.use(Router)
 /* 异步加载组件模块 */
@@ -78,6 +80,7 @@ export const constantRouterMap = [
       { path: "/userDetails/portrait/:id", name: "userDetailsPortrait", component: _import('components/user/userDetails/userDetailsPortrait') },
       { path: "/userDetails/promotion/:id", name: "userDetailsPromotion", component: _import('components/user/userDetails/userDetailsPromotion') },
       { path: "/userDetails/serve/:id", name: "userDetailsServe", component: _import('components/user/userDetails/userDetailsServe') },
+      { path: "/userDetails/detail/edit/:id", name: "userEdit", component: _import('components/user/userDetails/userEdit') },
     ]
   },
   {
@@ -210,6 +213,20 @@ export const constantRouterMap = [
       { path: "/shop/set", name: "shopSetChild", component: _import('components/set/shopSet/shopSet') },
       { path: "/more/info", name: "moreInfo", component: _import('components/set/shopSet/moreInfo') }
     ]
+  },{
+    path: "/setNotice",
+    name: "setNotice",
+    component: setNotice,
+    children:[
+      { path: "/notice/new", name: "newNotice", component: _import('components/set/noticeAdmin/newNotice') },
+      { path: "/notice/history", name: "historyNotice", component: _import('components/set/noticeAdmin/historyNotice') }
+
+    ]
+  },
+  {
+    path: "/editNotice",
+    name: "editNotice",
+    component: editNotice
   }
 ]
 const router = new Router({
@@ -222,48 +239,4 @@ const router = new Router({
   },
   routes: constantRouterMap
 })
-// /* 页面加载进度条配置 */
-// NProgress.configure({ easing: 'ease', speed: 300, minimum: 0.1, showSpinner: false });
-// // 路由配置 start
-// router.beforeEach((to, from, next) => {
-//   console.log(`路由到${to.path}`)
-//   NProgress.start();
-//   var token = ls.get('token');
-//   var userInfo = ls.get('userInfo');
-//   var userId = ls.get('userId');
-//   var arr = [',',"/loginAccount", "/loginpwd"];
-//   /**判断路由跳转区分登录和进入内容页面*/
-//   if (arr.indexOf(to.path) >= 0) {
-//     if (to.path.indexOf("/loginAccount")>= 0 && userInfo && userId) {
-//           next({ path: '/loginpwd' });
-//           NProgress.done();
-//       return
-//     }
-//    else if(to.path.indexOf('/loginpwd')>=0&&!userInfo&&!userId){
-//       next({ path: '/loginAccount' });
-//       NProgress.done();
-//     }
-//     next()
-//     return
-//   }
-//   else if (token&&token.length>0) {
-//         next()
-//    }else{
-//     if (userInfo && userId&&!ls.get('shop_list')) {
-//           next({ path: '/loginpwd' });
-//           NProgress.done();
-//         return 
-//     } else {
-//           next('/loginAccount');
-//           NProgress.done();
-//     }
-//     next();
-//   }
-// });
-// router.afterEach(route => {
-//  NProgress.done();
-// })
-
-
-// 路由配置
 export default router

@@ -1,12 +1,10 @@
 <template>
      <div class="titCutBox">
         <el-row>
-            <el-col :span="3">
-                <div class="tit">
-                    {{tit.tit}}
-                </div>
+            <el-col :span="8">
+                <slot name="tit"></slot>
             </el-col>
-            <el-col :span="21">
+            <el-col :span="16">
             <div class="rightSearch">
                     <slot name="searchCon"></slot>
                     <div class="pagingBox">
@@ -31,8 +29,8 @@
                             </el-select>
                             <img @click="changPages" class="cutShow" src="../../assets/img/cut_pages.png" alt="切换按钮">
                         </div>
-                        </div>
-                        </div>
+                    </div>
+                </div>
             </el-col>
         </el-row>
     </div>
@@ -41,7 +39,7 @@
 <script>
     export default {
         name:"searchPage", //分页搜索组件
-        props:['tit','pageDate'],
+        props:['pageDate'],
         data(){
             return{
                 isPages:false,
@@ -124,14 +122,7 @@
         background-color: #ffffff;
         height: 77px;
         line-height: 77px;
-        & .tit{
-            font-size: 18px;
-            font-weight: normal;
-            font-stretch: normal;
-            letter-spacing: 1px;
-            color: #4d4d4d;
-            padding-left: 30px;
-        }
+     
     }
     .rightSearch{
         height:77px;

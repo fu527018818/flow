@@ -2,7 +2,10 @@ var now = new Date();                    //当前日期
 var nowDayOfWeek = now.getDay();         //今天本周的第几天     
 var nowDay = now.getDate();              //当前日     
 var nowMonth = now.getMonth();           //当前月     
-var nowYear = now.getYear();             //当前年     
+var nowYear = now.getYear();          //当前年     
+var nowHour = now.getHours();         //得到小时
+var nowMinute = now.getMinutes(); //得到分钟
+var nowSecond =now.getSeconds(); //得到秒
 nowYear += (nowYear < 2000) ? 1900 : 0;  //    
 var lastMonthDate = new Date();  //上月日期  
 lastMonthDate.setDate(1);
@@ -57,6 +60,13 @@ export default {
             end:this.formatDate(getCurrentDate)
             }
         },
+    getTodayHDS(){
+        var getCurrentDate = new Date(nowYear, nowMonth, nowDay);
+        nowHour = nowHour<10?'0'+nowHour:nowHour;
+        nowMinute= nowMinute<10?'0'+nowMinute:nowMinute;
+        nowSecond = nowSecond<10?'0'+nowSecond:nowSecond;
+        return this.formatDate(getCurrentDate) + ' ' +nowHour+':'+nowMinute+':'+nowSecond
+    },
    //今天昨天
    getYesterdayDate(){
         var getYesterdayDate = new Date(nowYear, nowMonth, nowDay - 1);

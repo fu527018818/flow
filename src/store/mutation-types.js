@@ -14,3 +14,4 @@ export const SET_MAIN_VAL = "SET_MAIN_VAL"  // 设置初始化的时候值
 export const SET_NOTICE_TITLE = "SET_NOTICE_TITLE" //设置公共轮播值
 export const SET_USER_CURRENT_INFO = "SET_USER_CURRENT_INFO" //当前用户的信息
 export const GET_SET_SHOPINFO = "GET_SET_SHOPINFO" //得到门店信息
+export const GET_NOTICE_ALLLIST="GET_NOTICE_ALLLIST" //得到全部公告列表

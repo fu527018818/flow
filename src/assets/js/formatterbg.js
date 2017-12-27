@@ -124,7 +124,7 @@ export default{
       return {
           limit:limit,
           page:page,
-          tolPage: Math.ceil(tolNum/limit)
+          tolPage: Math.ceil(tolNum*1/limit*1)
       }
   }
 }

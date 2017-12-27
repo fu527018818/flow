@@ -5,7 +5,10 @@
             <div class="contentBox_child">
                 <div class="content">
                     <div class="searchTop">
-                        <search-page :tit="{tit:'用户管理'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                        <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                             <div slot="tit" class="tit">
+                                用户管理
+                            </div>
                             <div class="search" slot="searchCon">
                                 <div class="f-input">
                                         <input type="text" v-model="searchFuzzy"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜客户...">
@@ -387,6 +390,14 @@
 </script>
 
 <style scoped lang="scss">
+   .tit{
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 1px;
+            color: #4d4d4d;
+            padding-left: 30px;
+        }
     .searchTop{
         width: 1024px;
     }

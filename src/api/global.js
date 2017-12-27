@@ -16,7 +16,7 @@ export function mainInit(json){
         data:json
     })
 }
-/** 公告列表*/
+/** 公告列表*/ //主页公告列表 -参数Is_publish 1为 只获取发布中的公告     0（管理页） 为全部
 export function noticeList(json){
     return fetch({
         url:path.NOTICE_LISTS,
@@ -255,6 +255,38 @@ export function setShopMore(json){
         data:json
     })
 }
+//公告详情
+export function noticeInfo(json){
+    return fetch({
+        url:path.NOTICE_INFO,
+        method:"post",
+        data:json
+    })
+}
+//公告修改是否置顶
+export function editFlag(json){
+    return fetch({
+        url:path.EDIT_flag,
+        method:"post",
+        data:json
+    })
+}
+//公告发布
+export function editEditWrite(json){
+    return fetch({
+        url:path.EDIT_NOTICE_WRITE,
+        method:"post",
+        data:json
+    })
+}
+//下架公告
+export function editNoticeStop(json){
+    return fetch({
+        url:path.DITI_NOTICE_STOP,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -282,5 +314,8 @@ export default{
     userDetail,
     getSetShopInfo,
     getCity,
-    setShopMore
+    setShopMore,
+    noticeInfo,
+    editFlag,
+    editEditWrite
 }

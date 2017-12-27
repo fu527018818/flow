@@ -61,7 +61,6 @@ export default {
         },
       
         created(){
-           
         },
         mounted(){
             this.mainInit(this.$store.getters.shop_list_current||ls.get('shop_list_current'));

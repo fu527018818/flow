@@ -4,7 +4,8 @@ export default {
     MAIN_INIT:'/main',
     USER_INIT:'',
     NOTIFICATION_REALTIME:'notification/realtime',
-    NOTICE_LISTS:'/notice/lists',
+    NOTICE_LISTS:'/notice/lists', //主页公告列表 -参数Is_publish 1为 只获取发布中的公告     0（管理页） 为全部
+    NOTICE_INFO:'/notice/info', //公告详情
     STATISTICS_TURNOVER:"/statistics/turnover",
     STATISTICS_PASSENGER:"/statistics/passenger",
     STATISTICS_REFER:"/statistics/quota",
@@ -32,5 +33,8 @@ export default {
     GET_SET_SHOPINFO:"/shop/info",  //获取门店信息
     GET_CITY:"/utils/city",   //获取省市区县
     SET_SHOP_BASIC:"/shop/modify/basic",  //门店信息设置
-    SET_SHOP_MORE:"/shop/modify/more"
+    SET_SHOP_MORE:"/shop/modify/more",  //门店信息更多
+    EDIT_flag:"/notice/modify/flag",//公告状态修改是否置顶
+    EDIT_NOTICE_WRITE:"/notice/write",
+    DITI_NOTICE_STOP:"/notice/modify/stop"
 }

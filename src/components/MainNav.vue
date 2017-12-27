@@ -62,7 +62,7 @@
                      <i class="iconfont icon-set"></i>
                   </template>
                   <el-menu-item index="/shopSetChild">门店设置</el-menu-item>
-                  <el-menu-item index="/userManage">公告管理</el-menu-item>
+                  <el-menu-item index="/newNotice">公告管理</el-menu-item>
               </el-submenu>
               <el-submenu  index="userHead"  class="user-img">
                     <template  slot="title">
@@ -196,6 +196,10 @@ export default {
         case "/shopSetChild":
             this.activeIndex = "/shopSetChild";
             this.$router.push({name:"shopSetChild"}); 
+        break;
+         case "/newNotice":
+            this.activeIndex = "/newNotice";
+            this.$router.push({name:"newNotice"}); 
         break;
         case "/userPortrayal":
             this.activeIndex = "/userPortrayal";

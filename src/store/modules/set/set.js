@@ -1,7 +1,8 @@
 import * as types from '../../mutation-types';
-import  {getSetShopInfo} from '../../../api/global';
+import  {getSetShopInfo,noticeList} from '../../../api/global';
 const state={
-    shopInfo:""
+    shopInfo:"",
+    noticeAllList:""
 }
 const getters={
 
@@ -19,11 +20,27 @@ const actions={
                 reject(error)
             })
         })
+    },
+    getNoticeList({commit},json){
+        return new Promise((resolve,reject)=>{
+            noticeList(json).then(res=>{
+                if(res.status==200){
+                    commit('GET_NOTICE_ALLLIST',res.data);
+                    resolve(res)
+                }
+            })
+            .catch(error=>{
+                reject(error)
+            })
+        })
     }
 }   
 const mutations={
     [types.GET_SET_SHOPINFO](state,data){
         state.shopInfo = data
+    },
+    [types.GET_NOTICE_ALLLIST](state,data){
+        state.noticeAllList = data
     }
 }
 export default{

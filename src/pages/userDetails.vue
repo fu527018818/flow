@@ -45,7 +45,7 @@
                                 
                             </el-col>
                             <el-col :span="12" class="compile">
-                                 <el-button type="primary">编辑</el-button>
+                                 <el-button @click="CutEdit" type="primary">{{EditCut}}</el-button>
                             </el-col>
                         </el-row>
                     </div>
@@ -68,7 +68,8 @@ export default {
     return {
       is_menus: "userDetailsInfo",
       user_current:"",
-      currentPage:"1"
+      currentPage:"1",
+      EditCut:"编辑"
     };
   },
   methods: {
@@ -86,6 +87,15 @@ export default {
     changeMenu(val) {
       // 菜单val值不变
       this.$router.push({ name: val,params:{id:this.user_current}});
+    },
+    CutEdit(){
+        if(this.EditCut=="编辑"){
+            this.EditCut="保存"
+            this.$router.push({ name:'userEdit',params:{id:this.user_current}});
+        }else{
+            this.EditCut="编辑"
+            this.$router.push({ name:'userDetailsInfo',params:{id:this.user_current}});
+        }
     }
   },
   computed: {

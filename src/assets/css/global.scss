@@ -21,6 +21,7 @@
     margin: 0 auto;
     padding-top: 6px;
     position: relative;
+    min-height: 800px;
 }
 #cut_date .el-radio-button--small .el-radio-button__inner{
     padding: 7px 5px;
@@ -73,3 +74,20 @@
   .el-table .headerTr{
       background-color: #e5f1ff;
   }
+  #editNotice .el-radio-button__inner{
+    padding: 12px 50px!important;
+    border:1px solid #409EFF;
+    border-radius: 0;
+    border-left:0!important;
+}
+#editNotice .el-radio-button:first-child .el-radio-button__inner{
+    border-left: 1px solid #409EFF!important;
+}
+/*客户详情页编辑*/
+.twoFont .el-form-item__label{
+    text-align: left!important;
+    padding:0 0 0 12px!important;
+    letter-spacing: 20px!important;
+    
+}
+/*客户详情页编辑*/

@@ -4,7 +4,10 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                   <search-page :tit="{tit:'订单流水',titIpt:'搜订单'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                   <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                       <div slot="tit" class="tit">
+                           订单流水
+                       </div>
                        <div class="search" slot="searchCon">
                         <div class="f-input">
                                 <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单">
@@ -12,7 +15,7 @@
                         <span class="searchIcon" @click="searchIndent">
                             <i class="iconfont icon-serach"></i>
                         </span>
-                    </div>
+                        </div>
                    </search-page>
                    <search-condition @changeCondition="changeCondition">
                         <div slot="searchList">
@@ -233,6 +236,14 @@ watch:{ //监听店铺ID变化，转化成店铺名字
 </script>
 
 <style scoped lang="scss">
+   .tit{
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 1px;
+            color: #4d4d4d;
+            padding-left: 30px;
+        }
   .search{
             width: 250px;
             height: 30px;
