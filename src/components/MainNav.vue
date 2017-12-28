@@ -69,7 +69,7 @@
                           {{userInfo.real_name}}
                         <img id="userAvatar" :src="userInfo.avatar" alt="头像">
                     </template>
-                    <el-menu-item index="">修改资料</el-menu-item>
+                    <el-menu-item index="dssd">修改资料</el-menu-item>
                     <el-menu-item index="3-2">我的相册</el-menu-item>
                     <el-menu-item index="3-3">我的门店</el-menu-item>
                     <el-menu-item index="/userHelp">
@@ -83,13 +83,15 @@
       <transition name="slide-fade">
           <el-row class="autocomplete" id="searchContentBox"  v-show="isSearch">
               <el-col :span="10" :offset="7">
-                <i class="iconfont icon-serach" id="searchContentBtn"></i>
+                <i class="iconfont icon-serach" id="searchContentBtn" @click="globalSearch"></i>
                     <el-autocomplete
                       class="inline-input searchContent"
                       v-model="state1"
                       :fetch-suggestions="querySearch"
                       placeholder="请输入要查询的内容"
+                      :select-when-unmatched="true"
                       @select="handleSelectSearch"
+                      @blur="globalSearch"
                     >
                     </el-autocomplete>
                 <i class="iconfont icon-close" id="closeSearchBtn" @click="closeSearchBtn"></i>
@@ -100,7 +102,8 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
+import {searchHistory} from '../api/global';
 export default {
   props: ['indexMenu'],
   components: {},
@@ -111,10 +114,23 @@ export default {
       activeIndex: "/main",
       isMenu: true,
       isSearch: false,
-      restaurants: [],
+      restaurants: [{ value: "搜订单",id:'123'},{ value: "搜客户"}],
       state1: ""
-      //  activeIndex2: '3'
     };
+  },
+   computed:{
+           ...mapGetters([
+               'userInfo',
+               'shop_list_current'
+           ])
+  },
+  created() {
+       //登录weksocket
+      //  this.$socket.emit('login',this.userInfo.user_id)
+       this.menuType(this.indexMenu);
+  },
+  mounted(){
+    // this.restaurants = this.loadAll();
   },
   methods: {
     // 退出系统
@@ -136,15 +152,21 @@ export default {
         this.isMenu = true;
         this.activeIndex = this.$route.path
     },
+    globalSearch(){
+      console.log(123)
+    },
     handleSelect(key, keyPath) {
       // 搜索关闭时菜单指向当前路由
        this.menuType(key);
     },
     // 搜索选择
     handleSelectSearch(item) {
-      // console.log(item);
+       if(item.value=="搜客户"){
+         this.$router.push({name:'globalSearchUser'})
+       }
     },
     querySearch(queryString, cb) {
+      console.log(this.restaurants)
       var restaurants = this.restaurants;
       var results = queryString
         ? restaurants.filter(this.createFilter(queryString))
@@ -158,13 +180,6 @@ export default {
           restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===0
         );
       };
-    },
-    loadAll() {
-      return [
-        { value: "三全鲜食（北新泾店）", address: "长宁区新渔路144号" },
-        { value: "Hot honey 首尔炸鸡（仙霞路）", address: "上海市长宁区淞虹路661号" },
-        { value: "新旺角茶餐厅", address: "上海市普陀区真北路988号创邑金沙谷6号楼113" }
-      ];
     },
     menuType(index){
       // 防止刷新时指向当前路由
@@ -268,19 +283,6 @@ export default {
         this.activeIndex = "/main";
       }
     }
-  },
-   computed:{
-           ...mapGetters([
-               'userInfo'
-           ])
-  },
-  created() {
-       //登录weksocket
-      //  this.$socket.emit('login',this.userInfo.user_id)
-       this.menuType(this.indexMenu)
-  },
-  mounted() {
-    this.restaurants = this.loadAll();
   }
 };
 </script>

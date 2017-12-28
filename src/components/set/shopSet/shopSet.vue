@@ -190,7 +190,6 @@
         },
         watch:{
             shopInfo:function(val){
-                console.log(val)
                 this.shopSetInit()
             }
         }

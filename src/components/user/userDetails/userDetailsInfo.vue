@@ -158,7 +158,7 @@
                         所在地
                     </el-col>
                     <el-col :span="19" class="listRight">
-                        {{currentInfo.address}}
+                        {{currentInfo.area_str}}
                     </el-col>
                 </el-row>
             </li>
@@ -168,7 +168,7 @@
                         故乡
                     </el-col>
                     <el-col :span="19" class="listRight">
-                        {{currentInfo.hometown}}
+                        {{currentInfo.hometown_str}}
                     </el-col>
                 </el-row>
             </li>
@@ -230,8 +230,8 @@
             lookIphone(){
                 this.isIphone = false;
            }
-        },
-        created(){
+    },
+    created(){
             
         }
     }
@@ -320,4 +320,5 @@
     .dashed_line {
   border-bottom: 1px dashed #cccccc;
 }
+
 </style>

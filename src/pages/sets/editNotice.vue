@@ -173,7 +173,7 @@
     .el-date-editor.el-input, .el-date-editor.el-input__inner{
         width: 100%!important;
     }
-    .submitbtn {
+.submitbtn {
     text-align: left;
     & .el-button.el-button--primary{
         width: 150px;

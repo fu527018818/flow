@@ -29,7 +29,7 @@
                                         <el-radio-button label="userDetailsPromotion">促销建议</el-radio-button>
                                     </el-radio-group>  
                                 </div>
-                                <router-view @parentInit="parentInit"></router-view>
+                                <router-view @parentInit="parentInit" ref="changeEditr"></router-view>
                             </div>
                         </el-col>
                         <!-- 详情右侧 end-->
@@ -45,7 +45,7 @@
                                 
                             </el-col>
                             <el-col :span="12" class="compile">
-                                 <el-button @click="CutEdit" type="primary">{{EditCut}}</el-button>
+                                 <el-button v-show="EditCut" @click="CutEdit" type="primary">{{'编辑'}}</el-button>
                             </el-col>
                         </el-row>
                     </div>
@@ -66,10 +66,10 @@ export default {
   components: { MainNav,datailLeft},
   data() {
     return {
-      is_menus: "userDetailsInfo",
+      is_menus:"userDetailsInfo",
       user_current:"",
       currentPage:"1",
-      EditCut:"编辑"
+      EditCut:true
     };
   },
   methods: {
@@ -77,6 +77,7 @@ export default {
       this.isIphone = false;
     },
     parentInit(){
+        this.EditCut = true;
         this.$store.dispatch('userDetailInit',{
             shop_id:this.shop_list_current,
             member_id:this.user_current
@@ -86,16 +87,12 @@ export default {
     },
     changeMenu(val) {
       // 菜单val值不变
+      this.EditCut = true;
       this.$router.push({ name: val,params:{id:this.user_current}});
     },
     CutEdit(){
-        if(this.EditCut=="编辑"){
-            this.EditCut="保存"
+            this.EditCut =false;
             this.$router.push({ name:'userEdit',params:{id:this.user_current}});
-        }else{
-            this.EditCut="编辑"
-            this.$router.push({ name:'userDetailsInfo',params:{id:this.user_current}});
-        }
     }
   },
   computed: {
@@ -104,9 +101,16 @@ export default {
        ])
   },
   created() {
-      this.is_menus = this.$route.name
-      this.user_current =  this.$route.params.id;
-      this.parentInit();
+       this.user_current =  this.$route.params.id;
+       this.parentInit()
+      if(this.$route.name=="userEdit"){
+          this.EditCut = false;
+          this.is_menus = "userDetailsInfo";
+      }else{
+            this.EditCut = true;
+            this.is_menus = this.$route.name
+      }
+     ;
 
   },
   goto(){

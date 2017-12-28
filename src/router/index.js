@@ -38,7 +38,7 @@ import staffReview from '../pages/personnel/staffReview.vue';
 import shopSet from '../pages/sets/set.vue';
 import setNotice from '../pages/sets/setNotice.vue';
 import editNotice from '../pages/sets/editNotice.vue';
-
+import globalSearchUser from '../pages/search/globalSearchUser.vue';
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -227,6 +227,11 @@ export const constantRouterMap = [
     path: "/editNotice",
     name: "editNotice",
     component: editNotice
+  },
+  {
+    path: "/globalSearchUser",
+    name: "globalSearchUser",
+    component: globalSearchUser
   }
 ]
 const router = new Router({

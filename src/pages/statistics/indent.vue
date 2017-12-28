@@ -9,12 +9,12 @@
                            订单流水
                        </div>
                        <div class="search" slot="searchCon">
-                        <div class="f-input">
-                                <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单">
-                        </div>
-                        <span class="searchIcon" @click="searchIndent">
-                            <i class="iconfont icon-serach"></i>
-                        </span>
+                            <div class="f-input">
+                                    <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单">
+                            </div>
+                            <span class="searchIcon" @click="searchIndent">
+                                <i class="iconfont icon-serach"></i>
+                            </span>
                         </div>
                    </search-page>
                    <search-condition @changeCondition="changeCondition">

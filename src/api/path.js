@@ -35,6 +35,9 @@ export default {
     SET_SHOP_BASIC:"/shop/modify/basic",  //门店信息设置
     SET_SHOP_MORE:"/shop/modify/more",  //门店信息更多
     EDIT_flag:"/notice/modify/flag",//公告状态修改是否置顶
-    EDIT_NOTICE_WRITE:"/notice/write",
-    DITI_NOTICE_STOP:"/notice/modify/stop"
+    EDIT_NOTICE_WRITE:"/notice/write", //写入公告
+    DITI_NOTICE_STOP:"/notice/modify/stop", //公告下架
+    GET_BRAND_LIST:"utils/brand",  //品牌列表
+    USER_DITR_DATA:"/member/modify", //修改客户资料
+    SEARCH_HISTORY:"/member/history"
 }

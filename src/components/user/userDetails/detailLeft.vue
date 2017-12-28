@@ -190,7 +190,7 @@
                         所在地
                     </el-col>
                     <el-col :span="16" class="listRight">
-                        {{currentInfo.address}}
+                        {{currentInfo.area_str}}
                     </el-col>
                 </el-row>
             </li>
@@ -200,7 +200,7 @@
                         故乡
                     </el-col>
                     <el-col :span="16" class="listRight">
-                        {{currentInfo.hometown}}
+                        {{currentInfo.hometown_str}}
                     </el-col>
                 </el-row>
             </li>
@@ -229,7 +229,7 @@
                     <el-col :span="24" class="listLeft module1">
                         备注
                     </el-col>
-                    <el-col :span="24" class="listRight" style="word-wrap:break-word;">
+                    <el-col :span="24" class="listRight" style="word-wrap:break-word;line-height:20px;">
                         {{currentInfo.memo}}
                     </el-col>
                 </el-row>
@@ -272,6 +272,7 @@
     /**details left start**/
 .detailLeft {
   width: 100%;
+  max-height: 1560px;
   .userAvatar {
     width: 88px;
     height: 88px;

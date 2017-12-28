@@ -271,7 +271,7 @@ export function editFlag(json){
         data:json
     })
 }
-//公告发布
+//公告发布 修改公告同用一个IPI 区别在于有无ID
 export function editEditWrite(json){
     return fetch({
         url:path.EDIT_NOTICE_WRITE,
@@ -287,6 +287,31 @@ export function editNoticeStop(json){
         data:json
     })
 }
+//品牌偏好
+export function getBrandList(json){
+    return fetch({
+        url:path.GET_BRAND_LIST,
+        method:"post",
+        data:json
+    })
+}
+//修改客户资料
+export function userEditData(json){
+    return fetch({
+        url:path.USER_DITR_DATA,
+        method:"post",
+        data:json
+    })
+}
+//获得历史记录列表
+export function searchHistory(json){
+    return fetch({
+        url:path.SEARCH_HISTORY,
+        method:"post",
+        data:json
+    })
+}
+
 export default{
     userLogin,
     mainInit,
@@ -317,5 +342,8 @@ export default{
     setShopMore,
     noticeInfo,
     editFlag,
-    editEditWrite
+    editEditWrite,
+    getBrandList,
+    userEditData,
+    searchHistory
 }
