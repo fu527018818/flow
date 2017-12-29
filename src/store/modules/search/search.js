@@ -10,7 +10,7 @@ const getters={
 const actions={
     globalSearchUser({commit},json){
         return new Promise((resolve,reject)=>{
-            statisticsIndent(json).then(res=>{
+            userManager(json).then(res=>{
                 commit('GET_SEARCH_USER',res.data.lists)
                 resolve(res)
             })
@@ -21,7 +21,7 @@ const actions={
     },
     globalSeachIndent({commit},json){
         return new Promise((resolve,reject)=>{
-            userManager(json).then(res=>{
+            statisticsIndent(json).then(res=>{
                 commit('GET_SEARCH_INDENT',res.data.lists)
                 resolve(res)
             })

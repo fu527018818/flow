@@ -7,7 +7,7 @@
                     <div class="searchBox">
                         <div class="search">
                           <div class="f-input">
-                            <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单">
+                            <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true">
                           </div>
                             <span class="searchIcon" @click="searchIndent">
                                 <i class="iconfont icon-serach"></i>
@@ -26,7 +26,7 @@
                         </el-row>
                     </div>
                     <div class="searchSult">
-                        <router-view></router-view>
+                        <router-view @click="searchTirgger"></router-view>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
     import {mapGetters} from 'vuex';
     export default {
         name:"globalSearchUser", //全局搜索
+        searchIput:"搜客户",
         components:{mainNav},
         data(){
             return{
@@ -57,21 +58,43 @@
 
             },
             globalSearchInit(){
-                console.log(this.$route.params.condition)
-                if(this.$route.params.condition=="搜客户"){
-                    this.$store.dispatch('globalSearchUser',{
-                        search:'张三1',
-                        shop_id:this.shop_list_current
-                    }).then(res=>{
-                        if(res.status==200){
-                            this.$router.push({name:"searchUser"})
+                // 判断是否带搜索条件
+                     console.log(123)
+                if(this.$route.params.condition){
+                    console.log(123)
+                    console.log(this.$route.params)
+                    // this.searchIput =this.$route.params.condition
+                        if(this.$route.params.condition=="搜客户"){
+                            console.log(123)
+                            this.$store.dispatch('globalSearchUser',{
+                                shop_id:this.shop_list_current,
+                                search:{
+                                    search:'张三1'
+                                }
+                            }).then(res=>{
+                                if(res.status==200){
+                                    
+                                    this.$router.push({name:"searchUser"})
+                                }
+                            })
                         }
-                    })
-                }
+                }else{
+                    
+               }
+                
+            },
+            searchTirgger(){
+
             }
         },
         created(){
+           console.log(123)
            this.globalSearchInit()
+        },
+        watch:{
+            $route(){
+                this.globalSearchInit();
+            }
         }
     }
 </script>

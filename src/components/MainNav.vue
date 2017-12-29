@@ -153,7 +153,6 @@ export default {
         this.activeIndex = this.$route.path
     },
     globalSearch(){
-      console.log(123)
       this.$router.push({name:'globalSearchUser',params:{search:this.search,condition:this.searchHint}})
     },
     handleSelect(key, keyPath) {

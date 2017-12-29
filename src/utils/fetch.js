@@ -3,6 +3,7 @@ import config from '../api/config';
 import store from '../store/index';
 import JsEncrypt from 'jsencrypt/bin/jsencrypt';
 import CryptoJS from 'crypto-js';
+import { MessageBox } from 'element-ui';
 const service = axios.create(config);
 // RSA公钥
 var publicKey = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDcaVfbycoF4yfXfSY6x6dOijO8
@@ -12,7 +13,7 @@ ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
   var data = config.data;
-  console.log(data)
+ console.log(data)
   function  official(){
         var checkUrl = config.url;
         var obj = {} 
@@ -40,7 +41,6 @@ service.interceptors.request.use(config => {
                 obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
                 obj.id= ls.get('userId');
                 obj.token = store.getters.token||ls.get('token');
-            
               }
           }
           //排序算法a-z;
@@ -87,6 +87,19 @@ service.interceptors.request.use(config => {
                 })
               var data = JSON.parse(str.toString(CryptoJS.enc.Utf8));
               store.commit('SET_TOKEN',data.token)
+            
+              if(data.status=="401"){
+                this.$confirm('用户已在其他地方登录, 请退出登录?', '提示', {
+                  confirmButtonText: '确定',
+                  // cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                    store.commit('REMOVE_TOKEN');
+                }).catch(() => {
+                       
+                });
+                return false
+              }
               response.data = data;
         }
       console.log('返回前数据对象response: %o',response)

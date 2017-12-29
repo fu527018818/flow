@@ -62,12 +62,6 @@
                 >
                 </el-table-column>
                 <el-table-column
-                prop="manager"
-                label="所属人"
-                width="80"
-                >
-                </el-table-column>
-                <el-table-column
                 prop="total_consumption"
                 label="累计消费"
                 :sortable="'custom'"
