@@ -6,7 +6,7 @@
                  <div class="contentBox_child">
                     <div class="content">
                         <!-- 消息提示 -->
-                        <main-notice></main-notice>
+                        <main-notice @viewMore="viewMore"></main-notice>
                         <!-- 搜索 -->
                         <main-date-search @mainInit="mainInit"></main-date-search>
                         <!-- 首页第一张图表 -->
@@ -25,7 +25,7 @@
                </div>
             </div>
             <!-- 提示公告 -->
-            <dialog-notice></dialog-notice>
+            <dialog-notice ref="cut_notice"></dialog-notice>
         </div>
 </template>
 
@@ -57,6 +57,9 @@ export default {
                 })
                     //调用子组建中实时更新的图表，在切换门店时
                 this.$refs.cut_shop_init.realTime()
+           },
+           viewMore(){
+               this.$refs.cut_notice.showNotice();
            }
         },
       

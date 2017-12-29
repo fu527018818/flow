@@ -42,6 +42,9 @@
          methods: {
             handleClose(done) {
                     done();
+            },
+            showNotice(){
+                this.dialogVisible= true;
             }
       },
       created(){

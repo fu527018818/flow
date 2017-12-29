@@ -2,7 +2,7 @@
     <div>
         <div class="searchResult">
             <div class="searchResult">
-                共找到20个结果
+                共找到{{userSearch.search_count}}个结果
             </div>
             <!-- 表单条件筛选 stat-->
                         <el-collapse-transition>
@@ -97,7 +97,7 @@
                                     <div class="conditionTit">
                                         筛选条件：
                                     </div>
-                                </el-col> 
+                                </el-col>
                                 <!-- 标签 -->
                                 <el-col :span="15">  
                                         <div class="conditionTag">
@@ -155,6 +155,11 @@
                             </el-row>
                             <div>
                         </div>
+                        <div class="manageTable">
+                            <div class="tableBox">
+                                <search-user-table></search-user-table>
+                            </div>
+                        </div>
                 </div>
         </div>
     </div>
@@ -162,10 +167,13 @@
 
 <script>
     import getDate from '../../assets/js/dateSelect';
+    import searchUserTable from '../../components/search/searchUserTable.vue'
+    import {mapState,mapGetters} from 'vuex'
     const  total_consumptionValue = ['0','1-999','1000-1999','2000-4999','5000-10000','10000']
     const  consumption_sequenceValue = ['0','1','2-4','5-10','>10']
     export default {
         name:"searchUser", //搜客户
+        components:{searchUserTable},
         data(){
             return{
                 searchFuzzy:"",
@@ -178,7 +186,7 @@
                 limit:"10",
                 search:{
                     gender:'',
-                    date:"本月",
+                    date:"今天",
                     last_visit:[],
                     total_consumption:[], //累计消费
                     consumption_sequence:[], //消费次数
@@ -190,6 +198,14 @@
                 total_consumptionValue :total_consumptionValue,
                 consumption_sequenceValue:consumption_sequenceValue
             }
+        },
+        computed:{
+            ...mapState({
+                userSearch:state=>state.search.userSearch
+            }),
+            ...mapGetters([
+                'shop_list_current'
+            ])
         },
         methods:{
              radioCheckDate(val){
@@ -274,10 +290,40 @@
                 }
             },
             submitBtn(){
-
+                this.searchUserInit(true)
             },
             showColse(){
                 this.isFold = !this.isFold;
+            },
+            searchUserInit(val){
+                var data = {
+                    shop_id:this.shop_list_current,
+                    search:{
+                        search:''||this.$route.query.search,
+                        gender:this.search.gender,
+                        last_visit:this.search.last_visit,
+                        total_consumption:this.search.total_consumption,
+                        consumption_sequence:this.search.consumption_sequence,
+                        is_member:this.search.is_member
+                    }
+                }
+                if(val){
+                    delete data.search.search
+                    console.log(this.$route)
+                }
+                this.$store.dispatch('globalSearchUser',data).then(res=>{
+                    if(res.status==200){
+                        console.log(res)
+                    }
+                })
+            }
+        },
+         created(){
+              this.searchUserInit() 
+        },
+        watch:{
+            $route(){
+                this.searchUserInit();
             }
         }
     }
@@ -291,7 +337,6 @@
     }
        .manageSearch{
         background-color: #ffffff;
-        line-height: 77px;
          &  .conditionTit{
         font-family: MicrosoftYaHeiLight;
         font-size: 14px;
@@ -349,10 +394,16 @@
     .el-date-editor.el-range-editor.el-input__inner.el-date-editor--daterange{
         margin-left: 40px;
         position:relative;
-        top:-2px;
+        top:0px;
     }
     .el-checkbox-group{
         display: inline-block!important;
         margin-left: 30px!important;
+    }
+    .manageTable{
+        width: 100%;
+        height: 500px;
+        background-color: #ffffff;
+        margin-top: 6px;
     }
 </style>

@@ -13,7 +13,7 @@
             </marquee>
         </el-col>
         <el-col :span="4">
-            <div class="grid-content bg-purple neticeMore">
+            <div class="grid-content bg-purple neticeMore" @click="viewMore">
                 查看更多
             <i class="iconfont icon-more"></i>
             </div>
@@ -46,6 +46,11 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
                    
                 }
             })
+        },
+        methods:{
+            viewMore(){
+                this.$emit('viewMore')
+            }
         },
         created(){
            

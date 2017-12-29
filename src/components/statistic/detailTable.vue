@@ -30,7 +30,6 @@
                 label="收银员"
                 >
               </el-table-column>
-                </el-table-column>
                 <el-table-column
                 prop="order_datetime"
                 label="时间"

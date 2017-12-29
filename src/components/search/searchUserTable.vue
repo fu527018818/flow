@@ -1,11 +1,11 @@
 <template>
-    <div v-if="lists">
+    <div v-if="userSearch.lists">
          <el-table
-                :data="lists"
+                :data="userSearch.lists"
                 border
                 style="width: 100%;text-align:center;"
                 ref = "userTable"
-                height="500"
+                height="300"
                 :default-sort = "{prop:'date', order: 'descending'}"
                 @sort-change="sortChange"
                 @row-click="rowClick"
@@ -14,7 +14,6 @@
             <el-table-column
                 prop="userTrait"
                 label="客户特征"
-                width="230"
                 >
                 <template slot-scope="scope">
                     <el-tag
@@ -46,19 +45,18 @@
             <el-table-column
                 prop="real_name"
                 label="客户"
-                width="80">
+       >
             </el-table-column>
                 <el-table-column
                 prop="gender"
                 label="性别"
-                width="70"
                 :formatter="formatGender"
                 >
                 </el-table-column>
                 <el-table-column
                 prop="last_visit"
                 label="上次到店"
-                width="150"
+    
                 :sortable="'custom'"
                 >
                 </el-table-column>
@@ -66,36 +64,31 @@
                 prop="total_consumption"
                 label="累计消费"
                 :sortable="'custom'"
-                width="107">
+                >
                 </el-table-column>
                 <el-table-column
                 prop="consumption_sequence"
                 label="消费次数"
-                width="107"
                 :sortable="'custom'"
             >
             </el-table-column>
                 <el-table-column
                 prop="visit_count"
                 label="到店次数"
-                width="107"
                 :sortable="'custom'"
            >
             </el-table-column>
              <el-table-column
                 prop="is_menber"
                 label="会员"
-                width="107"
                 :formatter="formatMenber">
             </el-table-column>
         </el-table>
     </div>
 </template>
-
 <script>
-    import {mapState} from 'vuex';
+  import {mapState} from 'vuex';
     export default {
-        props:['lists'],
         data()  {
             return {
             formatter(row, column){
@@ -109,6 +102,13 @@
             },
         }
     },
+    computed:{
+        ...mapState({
+            userSearch:state=>state.search.userSearch
+        })
+    },
+    created(){
+    },
     methods:{
         sortChange(column,prop,order){
             console.log(column)
@@ -116,9 +116,14 @@
         rowClick(row,event,column){
             this.$router.push({name:"userDetailsInfo",params:{id:row.id}})
         },
-         tableHeade(){
+        tableHeade(){
               return 'headerTr'
-           }
+    }
+    },
+    watch:{
+       userSearch:function(val){
+           console.log(val)
+       } 
     }
 }
 </script>

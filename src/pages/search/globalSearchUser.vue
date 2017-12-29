@@ -7,7 +7,7 @@
                     <div class="searchBox">
                         <div class="search">
                           <div class="f-input">
-                            <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true">
+                            <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true"  :placeholder="search_current">
                           </div>
                             <span class="searchIcon" @click="searchIndent">
                                 <i class="iconfont icon-serach"></i>
@@ -29,6 +29,7 @@
                         <router-view @click="searchTirgger"></router-view>
                     </div>
                 </div>
+                <div class="contentFooter"></div>
             </div>
         </div>
     </div>
@@ -38,13 +39,14 @@
     import mainNav from '../../components/MainNav';
     import {userManager,statisticsIndent}from '../../api/global';
     import {mapGetters} from 'vuex';
+    import  searchUserTable from '../../components/search/searchUserTable.vue';
     export default {
         name:"globalSearchUser", //全局搜索
-        searchIput:"搜客户",
-        components:{mainNav},
+        components:{mainNav,searchUserTable},
         data(){
             return{
-                searchOrder:""
+                searchOrder:"",
+                search_current:"搜客户",
             }
         },
         computed:{
@@ -53,48 +55,31 @@
             ])
         },
         methods:{
-            //格式化日期格式
+            
             searchIndent(){
-
-            },
-            globalSearchInit(){
-                // 判断是否带搜索条件
-                     console.log(123)
-                if(this.$route.params.condition){
-                    console.log(123)
-                    console.log(this.$route.params)
-                    // this.searchIput =this.$route.params.condition
-                        if(this.$route.params.condition=="搜客户"){
-                            console.log(123)
-                            this.$store.dispatch('globalSearchUser',{
-                                shop_id:this.shop_list_current,
-                                search:{
-                                    search:'张三1'
-                                }
-                            }).then(res=>{
-                                if(res.status==200){
-                                    
-                                    this.$router.push({name:"searchUser"})
-                                }
-                            })
-                        }
-                }else{
-                    
+               if(this.$route.name=="searchUser"){
+                   this.globalSearchInit()
                }
-                
+           
+            },//格式化日期格式
+            globalSearchInit(){
+                this.$store.dispatch('globalSearchUser',{
+                    shop_id:this.shop_list_current,
+                    search:{
+                        search:this.searchOrder
+                    }
+                }).then(res=>{
+                })
             },
             searchTirgger(){
 
             }
         },
         created(){
-           console.log(123)
-           this.globalSearchInit()
+          
         },
         watch:{
-            $route(){
-                this.globalSearchInit();
-            }
+           
         }
     }
 </script>
@@ -182,7 +167,6 @@
            }
         }
         .searchSult{
-            height: 700px;
             background-color: #ffffff;
             clear: both;
             padding: 0 30px;

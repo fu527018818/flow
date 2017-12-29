@@ -7,6 +7,7 @@
             style="width: 100%;text-align:center;"
             ref = "userTable"
             height="500"
+            :header-row-class-name="tableHeade"
             :default-sort = "{prop:'date', order: 'descending'}"
             >
                 <el-table-column
@@ -36,8 +37,9 @@
                 >
               </el-table-column>
               <el-table-column
-                prop="sale"
+                prop="discount"
                 label="折扣"
+                :formatter="formaDiscount"
                 >
               </el-table-column>
               <el-table-column
@@ -68,6 +70,14 @@
             return{
 
             }
+        },
+        methods:{
+            formaDiscount(row){
+                return  row.discount + '折'
+            },
+             tableHeade(){
+             return 'headerTr'
+         }
         },
         created(){
             console.log(this.lists)

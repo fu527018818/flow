@@ -69,7 +69,7 @@
                           {{userInfo.real_name}}
                         <img id="userAvatar" :src="userInfo.avatar" alt="头像">
                     </template>
-                    <el-menu-item index="dssd">修改资料</el-menu-item>
+                    <el-menu-item index="/editPersonal">修改资料</el-menu-item>
                     <el-menu-item index="3-2">我的相册</el-menu-item>
                     <el-menu-item index="3-3">我的门店</el-menu-item>
                     <el-menu-item index="/userHelp">
@@ -153,7 +153,15 @@ export default {
         this.activeIndex = this.$route.path
     },
     globalSearch(){
-      this.$router.push({name:'globalSearchUser',params:{search:this.search,condition:this.searchHint}})
+      if(this.searchHint=="搜订单"){
+
+      }else{
+        var  condition = this.search;
+        this.search="";
+        this.$router.push({name:'searchUser',query:{search:condition}})
+        
+      }
+      
     },
     handleSelect(key, keyPath) {
       // 搜索关闭时菜单指向当前路由
@@ -171,7 +179,9 @@ export default {
          this.search=""
          return 
       }
-     this.$router.push({name:'globalSearchUser',params:{search:this.search,condition:this.searchHint}})
+        var  condition = this.search;
+        this.search="";
+     this.$router.push({name:'searchUser',query:{search:condition}})
   },
     querySearch(queryString, cb) {
       var restaurants = this.restaurants;
@@ -214,6 +224,10 @@ export default {
         case "/userHelp":
             this.activeIndex = "/userHelp";
             this.$router.push({name:"helpSoftware"}); 
+        break;
+        case "/editPersonal":
+            this.activeIndex = "/editPersonal";
+            this.$router.push({name:"editPersonal"}); 
         break;
         case "/shopSetChild":
             this.activeIndex = "/shopSetChild";

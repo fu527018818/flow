@@ -149,12 +149,12 @@ export default {
       changPages(){
           this.isPages = !this.isPages;
       },
-      handleSizeChange(val){
-          console.log(val)
-      },
-      handleCurrentChange(val){
-          console.log(val)
-      },
+    //   handleSizeChange(val){
+    //       console.log(val)
+    //   },
+    //   handleCurrentChange(val){
+    //       console.log(val)
+    //   },
     indentInit(val){
        statisticsIndent({
               shop_id:this.shop,

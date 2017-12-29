@@ -39,6 +39,8 @@ import shopSet from '../pages/sets/set.vue';
 import setNotice from '../pages/sets/setNotice.vue';
 import editNotice from '../pages/sets/editNotice.vue';
 import globalSearchUser from '../pages/search/globalSearchUser.vue';
+import editInfo from '../pages/modifiedData/editInfo.vue';
+import newsNotice from '../pages/news/newsNotice.vue'
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -229,14 +231,23 @@ export const constantRouterMap = [
     component: editNotice
   },
   {
-    path: "/globalSearchUser/:search/:condition",
+    path: "/globalSearchUser",
     name: "globalSearchUser",
     component: globalSearchUser,
     children:[
-      { path: "/search/user", name: "searchUser", component: _import('components/search/searchUser') },
+      { path: "/search/user", name:"searchUser", component: _import('components/search/searchUser') },
       { path: "/search/order", name: "searchOrder", component: _import('components/search/searchOrder') }
     ]
-  }
+  },
+  {
+    path: "/editInfo",
+    name: "editInfo",
+    component: editInfo,
+    children:[
+      { path: "/editInfo/editPersonal", name:"editPersonal", component: _import('components/modifiedData/editPersonal') },
+      { path: "/editInfo/editPassword", name:"editPassword", component: _import('components/modifiedData/editPassword') }
+    ]
+  },
 ]
 const router = new Router({
   scrollBehavior(to, from, savedPosition) {
