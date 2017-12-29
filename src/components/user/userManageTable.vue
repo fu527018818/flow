@@ -102,29 +102,6 @@
         props:['lists'],
         data()  {
             return {
-                tableData: [{
-                    id:'1',
-                    userTrait:['活跃','会员','5星','老客'], //必须按顺序
-                    name: '王小虎',
-                    gender:'1',
-                    last_visit:'2017-11-24 15:24:49',
-                    manager:"张三",
-                    visit_count:10,
-                    total_consumption:"1234",
-                    consumption_sequence:"123",
-                    is_menber:"1"
-                    },{
-                    id:'2',
-                    userTrait:['活跃','会员','5星','老客'], //必须按顺序
-                    name: '王小虎',
-                    gender:'1',
-                    last_visit:'2017-11-24 15:24:49',
-                    manager:"张三",
-                    visit_count:10,
-                    total_consumption:"1234",
-                    consumption_sequence:"123",
-                    is_menber:"1"
-                    }],
             formatter(row, column){
                         return row.address;
                     },

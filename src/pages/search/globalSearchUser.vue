@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-         <main-nav :indexMenu="'/main'"></main-nav>
+         <main-nav :indexMenu="'main'"></main-nav>
          <div class="contentBox"  v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
@@ -20,13 +20,13 @@
                                 <!-- <div class="tit">门店设置</div> -->
                             </el-col>
                             <el-col :span="21" class="titCutRight">
-                                <router-link :to="{name:'shopSetChild'}">搜客户</router-link>
-                                <router-link :to="{name:'moreInfo'}">搜订单</router-link>
+                                <router-link :to="{name:'searchUser'}">搜客户</router-link>
+                                <router-link :to="{name:'searchOrder'}">搜订单</router-link>
                             </el-col>
                         </el-row>
                     </div>
                     <div class="searchSult">
-                        <div>12323</div>
+                        <router-view></router-view>
                     </div>
                 </div>
             </div>
@@ -36,6 +36,8 @@
 
 <script>
     import mainNav from '../../components/MainNav';
+    import {userManager,statisticsIndent}from '../../api/global';
+    import {mapGetters} from 'vuex';
     export default {
         name:"globalSearchUser", //全局搜索
         components:{mainNav},
@@ -44,10 +46,32 @@
                 searchOrder:""
             }
         },
+        computed:{
+            ...mapGetters([
+                'shop_list_current'
+            ])
+        },
         methods:{
+            //格式化日期格式
             searchIndent(){
 
+            },
+            globalSearchInit(){
+                console.log(this.$route.params.condition)
+                if(this.$route.params.condition=="搜客户"){
+                    this.$store.dispatch('globalSearchUser',{
+                        search:'张三1',
+                        shop_id:this.shop_list_current
+                    }).then(res=>{
+                        if(res.status==200){
+                            this.$router.push({name:"searchUser"})
+                        }
+                    })
+                }
             }
+        },
+        created(){
+           this.globalSearchInit()
         }
     }
 </script>
@@ -135,9 +159,9 @@
            }
         }
         .searchSult{
-            width:100%;
             height: 700px;
             background-color: #ffffff;
             clear: both;
+            padding: 0 30px;
         }
 </style>

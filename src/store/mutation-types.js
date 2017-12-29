@@ -15,3 +15,5 @@ export const SET_NOTICE_TITLE = "SET_NOTICE_TITLE" //设置公共轮播值
 export const SET_USER_CURRENT_INFO = "SET_USER_CURRENT_INFO" //当前用户的信息
 export const GET_SET_SHOPINFO = "GET_SET_SHOPINFO" //得到门店信息
 export const GET_NOTICE_ALLLIST="GET_NOTICE_ALLLIST" //得到全部公告列表
+export const GET_SEARCH_USER="GET_SEARCH_USER"   //搜索页面得到搜索用户
+export const GET_SEARCH_INDENT = "GET_SEARCH_INDENT"   //获取订单列表 

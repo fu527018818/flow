@@ -1,24 +1,10 @@
 <template>
-    <div class="app">
-        <main-nav :indexMenu="'/userManage'"></main-nav>
-        <div class="contentBox" v-slim-scroll>
-            <div class="contentBox_child">
-                <div class="content">
-                    <div class="searchTop">
-                        <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
-                             <div slot="tit" class="tit">
-                                用户管理
-                            </div>
-                            <div class="search" slot="searchCon">
-                                <div class="f-input">
-                                        <input type="text" v-model="searchFuzzy"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜客户...">
-                                </div>
-                                <span class="searchIcon" @click="searchIndent">
-                                    <i class="iconfont icon-serach"></i>
-                                </span>
-                            </div>
-                       </search-page>  
-                        <!-- 表单条件筛选 stat-->
+    <div>
+        <div class="searchResult">
+            <div class="searchResult">
+                共找到20个结果
+            </div>
+            <!-- 表单条件筛选 stat-->
                         <el-collapse-transition>
                             <div class="searchCondition" v-show="isFold">
                                 <el-row class="searchList">
@@ -131,7 +117,6 @@
                                             >
                                                 <span>上次到店：{{search.date}}</span>    
                                             </el-tag>
-                                            
                                             <el-tag
                                             type="info" 
                                             closable 
@@ -169,36 +154,20 @@
                                 </el-col> 
                             </el-row>
                             <div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="manageTable">
-                        <div class="tableBox">
-                            <user-manage-table :lists="lists"></user-manage-table>
-                        </div> 
-                    </div>
                 </div>
-                 <div class="contentFooter"></div>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import getDate from '../assets/js/dateSelect';
-    import MainNav from '../components/MainNav';
-    import userManageTable from '../components/user/userManageTable.vue';
-    import searchPage from '../components/statistic/searchPage';
-    import {userManager} from '../api/global';
-    import {mapGetters} from 'vuex';
-    import formatBg from '../assets/js/formatterbg';
-    const  total_consumptionValue = ['0','1-999','1000-1999','2000-4999','5000-10000','>10000']
+    import getDate from '../../assets/js/dateSelect';
+    const  total_consumptionValue = ['0','1-999','1000-1999','2000-4999','5000-10000','10000']
     const  consumption_sequenceValue = ['0','1','2-4','5-10','>10']
     export default {
-        name:"userDetails",
-        components:{MainNav,userManageTable,searchPage},
+        name:"searchUser", //搜客户
         data(){
-            return {
+            return{
                 searchFuzzy:"",
                 pageDate:"",
                 lists:"",
@@ -211,7 +180,6 @@
                     gender:'',
                     date:"本月",
                     last_visit:[],
-                    service_user:"", //所属人
                     total_consumption:[], //累计消费
                     consumption_sequence:[], //消费次数
                     is_member:"",
@@ -223,88 +191,8 @@
                 consumption_sequenceValue:consumption_sequenceValue
             }
         },
-        computed:{
-          ...mapGetters([
-              'shop_list_current'
-          ])
-        },
-        created(){
-                this.radioCheckDate('本月')
-                this.userManagerInit();
-        },
-         methods: {
-            showColse(){
-                    this.isFold = !this.isFold;
-            },// 多选表单简单交互
-            closeSearch(){
-                var search = this.search;
-                for(var key in search){
-                    if(search[key]=="last_visit"||search[key]=="total_consumption"||search[key]=="consumption_sequence"){
-                            search[key] = [];
-                    }else{
-                        search[key]= '';
-                    }
-                }
-            },
-            userManagerInit(){
-                 userManager({
-                      search:{
-                          user_type:"", //来自哪个页面
-                          gender:this.search.gender,
-                          consumption_sequence:this.search.consumption_sequence,
-                          last_visit:this.search.last_visit,
-                          manager:this.search.service_user,
-                          total_consumption:this.search.total_consumption,  //累计消费
-                          is_member:this.search.is_member,
-                          search:""   //模糊搜索
-                      },
-                      shop_id:this.shop_list_current,
-                      page:this.page,
-                      limit:this.limit
-                 })
-                 .then(res=>{
-                     if(res.status==200){
-                        var data = res.data
-                        this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.total_count)
-                        this.lists = data.lists;
-                     }
-                   
-                 })
-            },
-            submitBtn(){
-                 this.userManagerInit();
-            },
-            changePagesSearch(val){
-                 this.limit = val.limit;
-                 this.page = val.current;
-                 this.userManagerInit();
-            },
-            searchIndent(){
-                 this.userManagerInit();
-            },
-            handleClose(tag,val){
-                switch(val){
-                    case 'search.gender':
-                        this.search.gender = "";
-                    break;
-                    case'search.date':
-                        this.search.date = "";
-                    break;
-                    case 'search.service_user':
-                        this.search.service_user="";
-                    break;
-                    case 'search.total_consumption':
-                      this.search.total_consumption=[]
-                    break;
-                    case 'search.consumption_sequence':
-                        this.search.consumption_sequence=[]
-                    break;
-                    case 'search.is_user':
-                        this.search.is_user = []
-                    break;
-                }
-            }, //日期单选操作
-            radioCheckDate(val){
+        methods:{
+             radioCheckDate(val){
                  switch (val){
                      case '今天':
                            this.formatShowDate(getDate.getToday())
@@ -329,13 +217,34 @@
                      break;
                  }
             },
-            //格式化日期格式
             formatShowDate(obj){
                 this.search.last_visit = [];
                 for(var key in obj){
                     this.search.last_visit.push(obj[key])
                 }
-            }, //多选 时间控制
+            },
+             handleClose(tag,val){
+                switch(val){
+                    case 'search.gender':
+                        this.search.gender = "";
+                    break;
+                    case'search.date':
+                        this.search.date = "";
+                    break;
+                    case 'search.service_user':
+                        this.search.service_user="";
+                    break;
+                    case 'search.total_consumption':
+                      this.search.total_consumption=[]
+                    break;
+                    case 'search.consumption_sequence':
+                        this.search.consumption_sequence=[]
+                    break;
+                    case 'search.is_user':
+                        this.search.is_user = []
+                    break;
+                }
+            },
              handleCheckAllChange(val) {
                     this.search.total_consumption = val ? total_consumptionValue:[];
                     this.isIndeterminate = false;
@@ -353,37 +262,37 @@
                     let checkedCount = value.length;
                     this.checkAllNum = checkedCount === this.consumption_sequenceValue.length;
                     this.isIndeterminate_1 = checkedCount > 0 && checkedCount < this.consumption_sequenceValue.length;
+            },
+            closeSearch(){
+                var search = this.search;
+                for(var key in search){
+                    if(search[key]=="last_visit"||search[key]=="total_consumption"||search[key]=="consumption_sequence"){
+                            search[key] = [];
+                    }else{
+                        search[key]= '';
+                    }
+                }
+            },
+            submitBtn(){
+
+            },
+            showColse(){
+                this.isFold = !this.isFold;
             }
-        },
-        watch:{
-           search:{
-                handler:function (newValue,oldValue){
-                    // console.log(newValue)
-                    // console.log(oldValue)
-                },
-                deep:true
-           }
         }
     }
 </script>
 
 <style scoped lang="scss">
-   .tit{
-            font-size: 18px;
-            font-weight: normal;
-            font-stretch: normal;
-            letter-spacing: 1px;
-            color: #4d4d4d;
-            padding-left: 30px;
-        }
-    .searchTop{
-        width: 1024px;
+    .searchResult{
+	font-size: 12px;
+    color: #808080;
+    line-height: 30px;
     }
-    .manageSearch{
+       .manageSearch{
         background-color: #ffffff;
         line-height: 77px;
          &  .conditionTit{
-        padding-left: 30px;
         font-family: MicrosoftYaHeiLight;
         font-size: 14px;
         font-weight: normal;
@@ -418,7 +327,6 @@
         height: 262px;
         background-color: #ffffff;
         transition: all 1.5s inherit;
-        padding: 0 30px;
         box-sizing: border-box!important;
        & .searchList{
         height: 45px;
@@ -447,54 +355,4 @@
         display: inline-block!important;
         margin-left: 30px!important;
     }
-    // table start
-    .manageTable{
-        width: 100%;
-        height: 800px;
-        background-color: #ffffff;
-        margin-top: 6px;
-        & > .tableBox{
-            padding: 30px;
-        }
-    }
-    // table end
-
-     .search{
-            width: 250px;
-            height: 30px;
-            position: relative;
-            display: inline-block;
-            & input{
-                  vertical-align:middle;
-                  display: table-cell;
-                  border:0;
-                  height:30px;
-                  padding: 0;
-                  width: 196px;
-                  box-sizing: border-box;
-                  background-color: #ffffff;
-                  border: 1px solid #dcdfe6;
-                  -webkit-appearance:none;
-                  text-indent: 10px;
-            }
-           & .searchIcon{
-               cursor: pointer;
-               width:54px;
-               height: 30px;
-               display:inline-block;
-               background-color: #4198ff;
-               position: absolute;
-               right: 0;
-               top:0;
-               & .icon-serach{
-                 color: #ffffff;
-                 position: absolute;
-                 top: 50%;
-                 left: 50%;
-                 font-size: 20px;
-                 transform: translate(-50%,-50%);
-                 line-height: 0;
-               }
-           }
-        }
 </style>

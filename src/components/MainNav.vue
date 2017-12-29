@@ -86,12 +86,11 @@
                 <i class="iconfont icon-serach" id="searchContentBtn" @click="globalSearch"></i>
                     <el-autocomplete
                       class="inline-input searchContent"
-                      v-model="state1"
+                      v-model="search"
                       :fetch-suggestions="querySearch"
-                      placeholder="请输入要查询的内容"
+                      :placeholder="searchHint"
                       :select-when-unmatched="true"
                       @select="handleSelectSearch"
-                      @blur="globalSearch"
                     >
                     </el-autocomplete>
                 <i class="iconfont icon-close" id="closeSearchBtn" @click="closeSearchBtn"></i>
@@ -110,12 +109,13 @@ export default {
   name: "MainNav",
   data() {
     return {
+      searchHint:"请输入查询内容",
       menuCollapse: false,
       activeIndex: "/main",
       isMenu: true,
       isSearch: false,
-      restaurants: [{ value: "搜订单",id:'123'},{ value: "搜客户"}],
-      state1: ""
+      restaurants: [{ value: "搜订单"},{ value: "搜客户"}],
+      search: ""
     };
   },
    computed:{
@@ -154,19 +154,27 @@ export default {
     },
     globalSearch(){
       console.log(123)
+      this.$router.push({name:'globalSearchUser',params:{search:this.search,condition:this.searchHint}})
     },
     handleSelect(key, keyPath) {
       // 搜索关闭时菜单指向当前路由
        this.menuType(key);
     },
     // 搜索选择
-    handleSelectSearch(item) {
-       if(item.value=="搜客户"){
-         this.$router.push({name:'globalSearchUser'})
-       }
-    },
+    handleSelectSearch(item){
+      if(item.value=="搜客户"){
+        this.searchHint="搜客户"
+        this.search=""
+        return
+      }
+      else if(item.value=="搜订单"){
+         this.searchHint="搜订单"
+         this.search=""
+         return 
+      }
+     this.$router.push({name:'globalSearchUser',params:{search:this.search,condition:this.searchHint}})
+  },
     querySearch(queryString, cb) {
-      console.log(this.restaurants)
       var restaurants = this.restaurants;
       var results = queryString
         ? restaurants.filter(this.createFilter(queryString))

@@ -229,9 +229,13 @@ export const constantRouterMap = [
     component: editNotice
   },
   {
-    path: "/globalSearchUser",
+    path: "/globalSearchUser/:search/:condition",
     name: "globalSearchUser",
-    component: globalSearchUser
+    component: globalSearchUser,
+    children:[
+      { path: "/search/user", name: "searchUser", component: _import('components/search/searchUser') },
+      { path: "/search/order", name: "searchOrder", component: _import('components/search/searchOrder') }
+    ]
   }
 ]
 const router = new Router({

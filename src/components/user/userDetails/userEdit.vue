@@ -357,8 +357,22 @@
                 this.getDistrict(this.ruleForm.hometown2,'home');
             }, //用户进入编辑初始化
             userEditInit(){
-                this.defArea = this.currentInfo.area.split(',');
-                this.defAreahometown = this.currentInfo.hometown.split(',');
+
+              
+                if(this.currentInfo.area){
+                     this.defArea = this.currentInfo.area.split(',');
+                     
+                }else{
+
+                    this.defArea = ['', '', '']
+                }
+                if(this.currentInfo.defAreahometown){
+                   
+                    this.defAreahometown = this.currentInfo.hometown.split(',');
+                }else{
+                    this.defAreahometown=['', '', '']
+                }
+               
                 this.getProvince();
                 this.getCity(this.defArea[0],'area');
                 this.getDistrict(this.defArea[1],'area');
