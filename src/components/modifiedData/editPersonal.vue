@@ -1,11 +1,11 @@
 <template>
       <transition name="fade" mode="in-out">
         <div class="formBox">
-            <el-form  ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="100px">
-                 <el-form-item label="姓名" prop="shop_area" class="wh_380">
-                                <el-input v-model="ruleForm.shop_area"></el-input>
+            <el-form   ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="100px">
+                 <el-form-item label="姓名" prop="field_name" class="wh_380">
+                                <el-input v-model="ruleForm.field_name"></el-input>
                  </el-form-item>
-                 <el-form-item label="姓名" prop="shop_area" class="wh_380">
+                 <el-form-item label="头像" prop="shop_area" class="wh_380">
                       <el-upload
                         class="avatar-uploader"
                         action="http://appdev.ly.ai/mine/avatar/upload"
@@ -14,28 +14,28 @@
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload"
+                        formenctype="multipart/form-data"
                         >
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>      
                  </el-form-item>
-                 <el-form-item label="特殊资源">
+                 <el-form-item label="性别">
                     <el-radio-group v-model="ruleForm.shop_area">
                     <el-radio label="男"></el-radio>
                     <el-radio label="女"></el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="手机号" prop="shop_area" class="wh_380">
-                                <el-input v-model="ruleForm.shop_area"></el-input>
+                <el-form-item label="手机号" prop="phone" class="wh_380">
+                                <el-input v-model="ruleForm.phone"></el-input>
                  </el-form-item>
-                 <el-form-item label="邮箱" prop="shop_area" class="wh_380">
-                                <el-input v-model="ruleForm.shop_area"></el-input>
+                 <el-form-item label="邮箱" prop="email" class="wh_380">
+                                <el-input v-model="ruleForm.email"></el-input>
                  </el-form-item>
                 <el-form-item class="submitbtn">
                     <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 </el-form-item>
-            </el-form>
-           
+            </el-form>  
         </div>
     </transition>
 </template>
@@ -47,10 +47,14 @@
             return{
                 imageUrl:'',
                 ruleForm:{
-                    shop_area:""
+                    field_name:"",
+                    email:""
                 },
                 rules:{
-
+                  email:[
+                       { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                       { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+                  ]  
                 }
             }
         },
@@ -62,7 +66,6 @@
             this.imageUrl = URL.createObjectURL(file.raw);
         },
         beforeAvatarUpload(file) {
-            console.log(file)
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
             if (!isJPG) {

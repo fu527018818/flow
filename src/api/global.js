@@ -303,7 +303,7 @@ export function userEditData(json){
         data:json
     })
 }
-//获得历史记录列表
+//获得搜索历史记录列表
 export function searchHistory(json){
     return fetch({
         url:path.SEARCH_HISTORY,
@@ -311,7 +311,22 @@ export function searchHistory(json){
         data:json
     })
 }
-
+//修改密码
+export function modifyPassword(json){
+    return fetch({
+        url:path.MODIFY_PSSWORD,
+        method:"post",
+        data:json
+    })
+}
+//消息列表
+export function messageList(json){
+    return fetch({
+        url:path.MESSAGELIST,
+        method:"post",
+        data:json
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -345,5 +360,7 @@ export default{
     editEditWrite,
     getBrandList,
     userEditData,
-    searchHistory
+    searchHistory,
+    modifyPassword,
+    messageList
 }

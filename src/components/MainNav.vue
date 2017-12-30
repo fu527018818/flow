@@ -52,7 +52,7 @@
                 :router="false"
               >
               <el-menu-item index="serach"><i class="iconfont icon-serach"></i></el-menu-item>
-              <el-menu-item index="/message">
+              <el-menu-item index="/messageList">
                 <el-badge :value="1233" class="item">
                   <i class="iconfont icon-message"></i>
                 </el-badge>
@@ -232,6 +232,10 @@ export default {
         case "/shopSetChild":
             this.activeIndex = "/shopSetChild";
             this.$router.push({name:"shopSetChild"}); 
+        break;
+         case "/messageList":
+            this.activeIndex = "/messageList";
+            this.$router.push({name:"messageList"}); 
         break;
          case "/newNotice":
             this.activeIndex = "/newNotice";

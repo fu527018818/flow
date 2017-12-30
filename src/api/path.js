@@ -39,5 +39,7 @@ export default {
     DITI_NOTICE_STOP:"/notice/modify/stop", //公告下架
     GET_BRAND_LIST:"utils/brand",  //品牌列表
     USER_DITR_DATA:"/member/modify", //修改客户资料
-    SEARCH_HISTORY:"/member/history"
+    SEARCH_HISTORY:"/member/history", 
+    MODIFY_PSSWORD:'/mine/modify/password', //修改密码;
+    MESSAGELIST:"/notification/lists"
 }

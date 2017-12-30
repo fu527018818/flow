@@ -81,12 +81,12 @@
                 password:md5(userPw)    //后台协议，进行MD5后传给后台
             };
              this.$store.dispatch('userLogin',{url:path.USER_PWD,userJson:userJson}).then(res=>{
+                 console.log(res)
                  this.loading = false;
                  if(res.status=="200"&&res.message=="登录成功"){
                       this.$router.push({name:"main"})
-                 }
-                 else if(res.status=="400"&&res.message=="密码有误"){
-                     this.showTip(res.message);
+                 }else{
+                      this.showTip(res.message);
                  }
              }) 
         },
