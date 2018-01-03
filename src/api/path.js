@@ -41,5 +41,6 @@ export default {
     USER_DITR_DATA:"/member/modify", //修改客户资料
     SEARCH_HISTORY:"/member/history", 
     MODIFY_PSSWORD:'/mine/modify/password', //修改密码;
-    MESSAGELIST:"/notification/lists"
+    MESSAGELIST:"/notification/lists", //消息列表
+    UPLOAD_AVATAR:"/mine/avatar/upload" //上传头像
 }

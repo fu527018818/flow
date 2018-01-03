@@ -62,7 +62,7 @@
                             <el-row>
                                    <el-col :span="12" class="warnLeft">
                                        <div>
-                                          审核通过
+                                         审核通过
                                        </div>
                                    </el-col>
                                     <el-col :span="12" class="warnRight">

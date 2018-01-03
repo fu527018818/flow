@@ -327,6 +327,15 @@ export function messageList(json){
         data:json
     })
 }
+//图片上传
+export function uploadAvatar(json,header){
+    return fetch({
+        url:path.UPLOAD_AVATAR,
+        method:'post',
+        data:json,
+        headers:header
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -362,5 +371,6 @@ export default{
     userEditData,
     searchHistory,
     modifyPassword,
-    messageList
+    messageList,
+    uploadAvatar
 }

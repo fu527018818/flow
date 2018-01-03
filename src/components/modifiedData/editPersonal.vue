@@ -8,17 +8,15 @@
                  <el-form-item label="头像" prop="shop_area" class="wh_380">
                       <el-upload
                         class="avatar-uploader"
-                        action="http://appdev.ly.ai/mine/avatar/upload"
-                        name="avatar"
-                        accept="file"
+                        action="123"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload"
-                        formenctype="multipart/form-data"
+                        accept="image/*"
                         >
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>      
+                    </el-upload>      
                  </el-form-item>
                  <el-form-item label="性别">
                     <el-radio-group v-model="ruleForm.shop_area">
@@ -35,17 +33,25 @@
                 <el-form-item class="submitbtn">
                     <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 </el-form-item>
-            </el-form>  
+            </el-form>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input id="file" type="file" name="avatar"/>
+                <button @click="uploadFile" id="upload" type="button">upload</button>
+            </form>
+            
         </div>
     </transition>
 </template>
 
 <script>
+    import {uploadAvatar} from '../../api/global';
+    import serve from '../../utils/fetch';
     export default {
         name:"editPersonal", //个人资料修改    
         data(){
             return{
                 imageUrl:'',
+                avatar:"",
                 ruleForm:{
                     field_name:"",
                     email:""
@@ -60,25 +66,90 @@
         },
         methods:{
              handleAvatarSuccess(res, file,fileList){
-                 console.log(res)
-                 console.log(file)
-                 console.log(fileList)
+                 console.log(456)
             this.imageUrl = URL.createObjectURL(file.raw);
         },
         beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isJPG) {
-            this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-            this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
+            let fd = new FormData();
+            fd.append('avatar',file);
+            fd.append('client', 'pc');
+            fd.append('version', '1.0');
+            fd.append('id', '13200001111');
+            fd.append('debug', '1');
+            fd.append('client', 'pc');
+            fd.append('token', '1');
+            fd.append('sign', '1');
+            fd.append('params', 'ed03cb7f76da69d161e193cbe8df69f2e19e07ed0bceeeab478ad39b55a48abe524e6e4c8887315263ead1fdb5a8772112046db75d3245c65984bca341bad2f2ec9ecc2e7de8d8f183d68c8866cf5f66');
+            //    $.ajax({
+            // url: 'http://appdev.ly.ai/mine/avatar/upload',
+            // type: 'POST',
+            // cache: false,
+            // data: fd,
+            // contentType: false,
+            // processData: false
+            //     }).done(function(res) {
+            //         console.log(res)
+            //     }).fail(function(res) {});
+            // uploadAvatar(fd,{'Content-Type':'multipart/form-data'}).then(res=>{
+            //     console.log(res)
+            // })
+            let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'  //之前说的以表单传数据的格式来传递fromdata
+            }
+
+        }
+            serve.post('/mine/avatar/upload',fd,config).then(res=>{
+                console.log(res)
+            })
+            //  $.ajax({
+            //         url: 'http://appdev.ly.ai/mine/avatar/upload',
+            //         type: 'POST',
+            //         cache: false,
+            //         data: fd,
+            //         contentType: false,
+            //         processData: false
+            //     }).done(function(res) {
+            //         console.log(res)
+            //     }).fail(function(res) {});
+            // const isJPG = file.type === 'image/jpeg';
+            // const isLt2M = file.size / 1024 / 1024 < 2;
+            // if (!isJPG) {
+            // this.$message.error('上传头像图片只能是 JPG 格式!');
+            // }
+            // if (!isLt2M) {
+            // this.$message.error('上传头像图片大小不能超过 2MB!');
+            // }
+
+            // return isJPG && isLt2M;
+            return true
+        },
+        uploadFile(){
+           var fd = new FormData();
+           console.log($('#file').get(0).files)
+        fd.append('avatar', $('#file').get(0).files[0]);
+        fd.append('client', 'pc');
+        fd.append('version', '1.0');
+        fd.append('id', '13200001111');
+        fd.append('debug', '1');
+        fd.append('client', 'pc');
+        fd.append('token', '1');
+        fd.append('sign', '1');
+        fd.append('params', 'ed03cb7f76da69d161e193cbe8df69f2e19e07ed0bceeeab478ad39b55a48abe524e6e4c8887315263ead1fdb5a8772112046db75d3245c65984bca341bad2f2ec9ecc2e7de8d8f183d68c8866cf5f66');
+        $.ajax({
+            url: 'http://appdev.ly.ai/mine/avatar/upload',
+            type: 'POST',
+            cache: false,
+            data: fd,
+            contentType: false,
+            processData: false
+                }).done(function(res) {
+                    console.log(res)
+                }).fail(function(res) {});
         }
         },
         created(){
-
+           
         }
     }
 </script>

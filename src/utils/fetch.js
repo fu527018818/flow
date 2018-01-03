@@ -13,8 +13,7 @@ ZFfyaGOgXJ7hsqp2dwIDAQAB`;
 // request拦截器
 service.interceptors.request.use(config => {
   var data = config.data;
- console.log(data)
-  function  official(){
+  console.log(data)
         var checkUrl = config.url;
         var obj = {} 
         obj.client= "pc";
@@ -41,6 +40,14 @@ service.interceptors.request.use(config => {
                 obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
                 obj.id= ls.get('userId');
                 obj.token = store.getters.token||ls.get('token');
+                if(config.url=="/mine/avatar/upload"){
+                       for(var key in obj){
+                         data.append(key,obj[key])
+                       }
+                       console.log(data)
+                      //  config.data = data
+            return  config
+  }
               }
           }
           //排序算法a-z;
@@ -57,16 +64,7 @@ service.interceptors.request.use(config => {
             return newObj.slice(0,newObj.length-1); //返回排好序的新对象
         }
         config.data = obj;
-    }
-    // function test(){
-    //   var obj = {} 
-    //   obj.client= "pc";
-    //   obj.version ="1.0";
-    //   obj.params = data;
-    //   config.data = obj; 
-    // }
-    // test();
-      official();
+      console.log(config)
       return config
   }, error => {
     console.log(error);
