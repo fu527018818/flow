@@ -1,9 +1,10 @@
 import axios from 'axios';
 import config from '../api/config';
 import store from '../store/index';
-import JsEncrypt from 'jsencrypt/bin/jsencrypt';
-import CryptoJS from 'crypto-js';
+import JsEncrypt from 'jsencrypt/bin/jsencrypt'; //RSA
+import CryptoJS from 'crypto-js'; //aes
 import { MessageBox } from 'element-ui';
+import {objKeySort,encryptLogin,decode,signSort} from './encryption';
 const service = axios.create(config);
 // RSA公钥
 var publicKey = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDcaVfbycoF4yfXfSY6x6dOijO8
@@ -23,48 +24,19 @@ service.interceptors.request.use(config => {
               var encrypt = new JsEncrypt.JSEncrypt();
               encrypt.setPublicKey(publicKey);
               obj.params  = encrypt.encrypt(JSON.stringify(data));
-             
           }else{
             // 判断登录成功后
               if(!store.getters.token==""||ls.get('token')&&!store.getters.userInfo==""||ls.get('secret')){
                           //优先在vuex里面取值防止localstange被清除  
-                  var keyAccept =  CryptoJS.enc.Utf8.parse( store.getters.secret.accept||ls.get('secret').accept);
-                        //数据加密
-                  function encrypt(){
-                    var str = CryptoJS.AES.encrypt(JSON.stringify(data),keyAccept,{
-                          mode:CryptoJS.mode.ECB
-                      }).toString();
-                      return str
-                  }
-                obj.params = encrypt();
-                obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
+                    //aes加密
+                obj.params = encryptLogin(store.getters.secret.accept||ls.get('secret').accept,data);
+                // obj.sign = CryptoJS.MD5(objKeySort(data)).toString();
+                obj.sign = signSort(data)
                 obj.id= ls.get('userId');
                 obj.token = store.getters.token||ls.get('token');
-                if(config.url=="/mine/avatar/upload"){
-                       for(var key in obj){
-                         data.append(key,obj[key])
-                       }
-                       console.log(data)
-                      //  config.data = data
-            return  config
-  }
               }
           }
-          //排序算法a-z;
-          function objKeySort(arys) { 
-            //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
-            var newkey = Object.keys(arys).sort();
-            var newObj = ''; //创建一个新的对象，用于存放排好序的键值对
-            for(var i = 0; i < newkey.length; i++) {
-              //遍历newkey数组  拼接成 a='12'&b={}& 如果是对象或者数组的时候转换JSON
-              newObj += newkey[i] + '=' +(typeof arys[newkey[i]]=="object"?JSON.stringify(arys[newkey[i]]):arys[newkey[i]]) + '&';
-                // newObj[newkey[i]] = arys[newkey[i]]; 
-                //向新创建的对象中按照排好的顺序依次增加键值对
-            }
-            return newObj.slice(0,newObj.length-1); //返回排好序的新对象
-        }
         config.data = obj;
-      console.log(config)
       return config
   }, error => {
     console.log(error);
@@ -79,17 +51,11 @@ service.interceptors.request.use(config => {
       var checkUrl = response.config.url;
         if(!(checkUrl=="http://appdev.ly.ai/user/login")&&!(checkUrl=="http://appdev.ly.ai/user/check/id")){
                  //aes解密
-                var keyResponse = CryptoJS.enc.Utf8.parse(store.getters.secret.response||ls.get('secret').response);
-                var str =  CryptoJS.AES.decrypt(response.data.data,keyResponse,{
-                    mode: CryptoJS.mode.ECB
-                })
-              var data = JSON.parse(str.toString(CryptoJS.enc.Utf8));
+          var data = decode(store.getters.secret.response||ls.get('secret').response,response.data.data)
               store.commit('SET_TOKEN',data.token)
-            
               if(data.status=="401"){
                 this.$confirm('用户已在其他地方登录, 请退出登录?', '提示', {
                   confirmButtonText: '确定',
-                  // cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
                     store.commit('REMOVE_TOKEN');

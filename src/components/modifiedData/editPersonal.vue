@@ -2,8 +2,8 @@
       <transition name="fade" mode="in-out">
         <div class="formBox">
             <el-form   ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="100px">
-                 <el-form-item label="姓名" prop="field_name" class="wh_380">
-                                <el-input v-model="ruleForm.field_name"></el-input>
+                 <el-form-item label="姓名" prop="real_name" class="wh_380">
+                                <el-input v-model="ruleForm.real_name"></el-input>
                  </el-form-item>
                  <el-form-item label="头像" prop="shop_area" class="wh_380">
                       <el-upload
@@ -18,34 +18,28 @@
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>      
                  </el-form-item>
-                 <el-form-item label="性别">
-                    <el-radio-group v-model="ruleForm.shop_area">
-                    <el-radio label="男"></el-radio>
-                    <el-radio label="女"></el-radio>
+                 <el-form-item label="性别" prop="gender">
+                    <el-radio-group v-model="ruleForm.gender">
+                    <el-radio label="1">男</el-radio>
+                    <el-radio label="0">女</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="手机号" prop="phone" class="wh_380">
-                                <el-input v-model="ruleForm.phone"></el-input>
-                 </el-form-item>
                  <el-form-item label="邮箱" prop="email" class="wh_380">
                                 <el-input v-model="ruleForm.email"></el-input>
                  </el-form-item>
                 <el-form-item class="submitbtn">
                     <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 </el-form-item>
-            </el-form>
-            <form id="uploadForm" enctype="multipart/form-data">
-                <input id="file" type="file" name="avatar"/>
-                <button @click="uploadFile" id="upload" type="button">upload</button>
-            </form>
-            
+            </el-form> 
         </div>
     </transition>
 </template>
 
 <script>
-    import {uploadAvatar} from '../../api/global';
+    import {editPersonal} from '../../api/global';
     import serve from '../../utils/fetch';
+    import {objKeySort,encryptLogin,decode,signSort} from '../../utils/encryption';
+    import {mapGetters} from 'vuex';
     export default {
         name:"editPersonal", //个人资料修改    
         data(){
@@ -53,65 +47,62 @@
                 imageUrl:'',
                 avatar:"",
                 ruleForm:{
-                    field_name:"",
-                    email:""
+                    real_name:"",
+                    email:"",
+                    gender:""
                 },
                 rules:{
                   email:[
                        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
-                  ]  
+                  ],
+                  gender:[
+                      { required: true, message: '请选择性别', trigger: 'change' }
+                  ]
                 }
             }
         },
+        computed:{
+            ...mapGetters([
+                 'token',
+                 'secret',
+                 'shop_list_current',
+                  'userInfo'
+            ])
+        },
         methods:{
              handleAvatarSuccess(res, file,fileList){
-                 console.log(456)
             this.imageUrl = URL.createObjectURL(file.raw);
         },
         beforeAvatarUpload(file) {
-            let fd = new FormData();
-            fd.append('avatar',file);
-            fd.append('client', 'pc');
-            fd.append('version', '1.0');
-            fd.append('id', '13200001111');
-            fd.append('debug', '1');
-            fd.append('client', 'pc');
-            fd.append('token', '1');
-            fd.append('sign', '1');
-            fd.append('params', 'ed03cb7f76da69d161e193cbe8df69f2e19e07ed0bceeeab478ad39b55a48abe524e6e4c8887315263ead1fdb5a8772112046db75d3245c65984bca341bad2f2ec9ecc2e7de8d8f183d68c8866cf5f66');
-            //    $.ajax({
-            // url: 'http://appdev.ly.ai/mine/avatar/upload',
-            // type: 'POST',
-            // cache: false,
-            // data: fd,
-            // contentType: false,
-            // processData: false
-            //     }).done(function(res) {
-            //         console.log(res)
-            //     }).fail(function(res) {});
-            // uploadAvatar(fd,{'Content-Type':'multipart/form-data'}).then(res=>{
-            //     console.log(res)
-            // })
-            let config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'  //之前说的以表单传数据的格式来传递fromdata
-            }
-
-        }
-            serve.post('/mine/avatar/upload',fd,config).then(res=>{
-                console.log(res)
-            })
-            //  $.ajax({
-            //         url: 'http://appdev.ly.ai/mine/avatar/upload',
-            //         type: 'POST',
-            //         cache: false,
-            //         data: fd,
-            //         contentType: false,
-            //         processData: false
-            //     }).done(function(res) {
-            //         console.log(res)
-            //     }).fail(function(res) {});
+             var self = this;
+             let fd = new FormData();
+             fd.append('avatar',file);
+             var obj ={};
+             obj.client= "pc";
+             obj.version ="1.0";
+             obj.params = encryptLogin(this.secret.accept,{});
+             obj.sign = signSort({});
+             obj.id = this.userInfo.id
+             obj.token = this.token;
+             for(var key in obj){
+                 fd.append(key,obj[key]);
+             }
+               $.ajax({
+                url: 'http://appdev.ly.ai/mine/avatar/upload',
+                type: 'POST',
+                cache: false,
+                data: fd,
+                contentType: false,
+                processData: false
+                }).done(function(res) {
+                    if(res.status=="200"){
+                        var data = decode(self.secret.response,res.data);
+                        self.imageUrl= data.url;
+                    }
+                }).fail(function(err) {
+                    console.log(err)
+             });
             // const isJPG = file.type === 'image/jpeg';
             // const isLt2M = file.size / 1024 / 1024 < 2;
             // if (!isJPG) {
@@ -122,34 +113,14 @@
             // }
 
             // return isJPG && isLt2M;
-            return true
+            // return true
         },
-        uploadFile(){
-           var fd = new FormData();
-           console.log($('#file').get(0).files)
-        fd.append('avatar', $('#file').get(0).files[0]);
-        fd.append('client', 'pc');
-        fd.append('version', '1.0');
-        fd.append('id', '13200001111');
-        fd.append('debug', '1');
-        fd.append('client', 'pc');
-        fd.append('token', '1');
-        fd.append('sign', '1');
-        fd.append('params', 'ed03cb7f76da69d161e193cbe8df69f2e19e07ed0bceeeab478ad39b55a48abe524e6e4c8887315263ead1fdb5a8772112046db75d3245c65984bca341bad2f2ec9ecc2e7de8d8f183d68c8866cf5f66');
-        $.ajax({
-            url: 'http://appdev.ly.ai/mine/avatar/upload',
-            type: 'POST',
-            cache: false,
-            data: fd,
-            contentType: false,
-            processData: false
-                }).done(function(res) {
-                    console.log(res)
-                }).fail(function(res) {});
+        onSubmit(formname){
+            
         }
         },
         created(){
-           
+            
         }
     }
 </script>

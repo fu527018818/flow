@@ -327,13 +327,21 @@ export function messageList(json){
         data:json
     })
 }
-//图片上传
+//图片上传  用Ajax单独请求 
 export function uploadAvatar(json,header){
     return fetch({
         url:path.UPLOAD_AVATAR,
         method:'post',
         data:json,
         headers:header
+    })
+}
+//修改个人资料
+export function editPersonal(){
+    return fetch({
+        url:path.EDITPERSONAL,
+        method:'post',
+        data:json,
     })
 }
 export default{
@@ -372,5 +380,6 @@ export default{
     searchHistory,
     modifyPassword,
     messageList,
-    uploadAvatar
+    uploadAvatar,
+    editPersonal
 }

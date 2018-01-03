@@ -42,5 +42,6 @@ export default {
     SEARCH_HISTORY:"/member/history", 
     MODIFY_PSSWORD:'/mine/modify/password', //修改密码;
     MESSAGELIST:"/notification/lists", //消息列表
-    UPLOAD_AVATAR:"/mine/avatar/upload" //上传头像
+    UPLOAD_AVATAR:"/mine/avatar/upload", //上传头像   单独用Ajax请求  editPersonal.vue
+    EDITPERSONAL:"/mine/modify"
 }
