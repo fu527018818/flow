@@ -224,7 +224,7 @@ export default {
           page:val==undefined?'1':val.current,
       })
       .then(res=>{
-           var data = res.data;
+           var data = res.data.data;
            this.def.userIdAll = data.user_lists;
            this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
            this.lists = data.lists

@@ -117,7 +117,7 @@ export default {
               Compare2_week:this.checkedWeek.length == 2?this.checkedWeek[1]:this.checkedWeek[0]
           })
           .then(res=>{
-               var current = format.formatOneOrTwoSpline(res.data.graphic.data1);
+               var current = format.formatOneOrTwoSpline(res.data.data.graphic.data1);
                Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
           })
       }

@@ -116,7 +116,7 @@
               shop_id:this.shop_list_current
            })
            .then(res=>{
-               var data = res.data
+               var data = res.data.data
                this.chart = data.chart;
                //格式化图表并渲染 
                var current_consumption_times =formattBg.formatOneBar(data.graphic.consumption_times);
@@ -144,8 +144,6 @@
                var current_gender_ratio = formattBg.formatPieUser(data.graphic.gender_ratio);
                this.gender_ratio= current_gender_ratio;
                 Highcharts.chart('contain8',userOptionPie(current_gender_ratio.name,current_gender_ratio.format))
-
-                console.log(this.customer_ratio,this.gender_ratio)
            })
          }
         },

@@ -53,7 +53,7 @@
               >
               <el-menu-item index="serach"><i class="iconfont icon-serach"></i></el-menu-item>
               <el-menu-item index="/messageList">
-                <el-badge :value="1233" class="item">
+                <el-badge :value="notifyStatus" class="item">
                   <i class="iconfont icon-message"></i>
                 </el-badge>
               </el-menu-item>
@@ -71,7 +71,7 @@
                     </template>
                     <el-menu-item index="/editPersonal">修改资料</el-menu-item>
                     <el-menu-item index="3-2">我的相册</el-menu-item>
-                    <el-menu-item index="3-3">我的门店</el-menu-item>
+                    <el-menu-item index="/selectShop">我的门店</el-menu-item>
                     <el-menu-item index="/userHelp">
                         设置
                     </el-menu-item>
@@ -101,7 +101,7 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import {mapGetters,mapState} from 'vuex';
 import {searchHistory} from '../api/global';
 export default {
   props: ['indexMenu'],
@@ -122,7 +122,10 @@ export default {
            ...mapGetters([
                'userInfo',
                'shop_list_current'
-           ])
+           ]),
+           ...mapState({
+             notifyStatus:state=>state.notifyStatus
+           })
   },
   created() {
        //登录weksocket
@@ -228,6 +231,10 @@ export default {
         case "/editPersonal":
             this.activeIndex = "/editPersonal";
             this.$router.push({name:"editPersonal"}); 
+        break;
+        case "/selectShop":
+            this.activeIndex = "/selectShop";
+            this.$router.push({name:"selectShop"}); 
         break;
         case "/shopSetChild":
             this.activeIndex = "/shopSetChild";

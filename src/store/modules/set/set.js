@@ -11,8 +11,8 @@ const actions={
     getShopInfo({commit},json){
         return new Promise((resolve,reject)=>{
             getSetShopInfo(json).then(res=>{
-                if(res.status==200){
-                    commit('GET_SET_SHOPINFO',res.data);
+                if(res.data.status==200){
+                    commit('GET_SET_SHOPINFO',res.data.data);
                     resolve(res)
                 }
             })
@@ -24,8 +24,8 @@ const actions={
     getNoticeList({commit},json){
         return new Promise((resolve,reject)=>{
             noticeList(json).then(res=>{
-                if(res.status==200){
-                    commit('GET_NOTICE_ALLLIST',res.data);
+                if(res.data.status==200){
+                    commit('GET_NOTICE_ALLLIST',res.data.data);
                     resolve(res)
                 }
             })

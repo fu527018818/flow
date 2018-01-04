@@ -337,9 +337,33 @@ export function uploadAvatar(json,header){
     })
 }
 //修改个人资料
-export function editPersonal(){
+export function editPersonal(json){
     return fetch({
         url:path.EDITPERSONAL,
+        method:'post',
+        data:json,
+    })
+}
+//获取我的信息
+export function getPersonnalInfo(json){
+    return fetch({
+        url:path.GETPERSONNELINFO,
+        method:'post',
+        data:json,
+    })
+}
+//修改消息通知
+export function  editStaffApply(json){
+    return fetch({
+        url:path.EDITSTAFFAPPLY,
+        method:'post',
+        data:json,
+    })
+}
+//消息状态
+export function  notificationStatus(json){
+    return fetch({
+        url:path.NOTIFICATIONSTATUS,
         method:'post',
         data:json,
     })
@@ -381,5 +405,8 @@ export default{
     modifyPassword,
     messageList,
     uploadAvatar,
-    editPersonal
+    editPersonal,
+    getPersonnalInfo,
+    editStaffApply,
+    // notificationStatus
 }

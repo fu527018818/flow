@@ -2,7 +2,9 @@
      <div class="titCutBox">
         <el-row>
             <el-col :span="8">
-                <slot name="tit"></slot>
+                <div class="">
+                      <slot name="tit"></slot>
+                </div>
             </el-col>
             <el-col :span="16">
             <div class="rightSearch">
@@ -131,7 +133,7 @@
        
       & .pagingBox{
         display: inline-block;
-        margin-left: 20px;
+        // margin-left:px;
         & .pagesNum{
             width: 28px;
             border: 1px solid #dcdfe6;

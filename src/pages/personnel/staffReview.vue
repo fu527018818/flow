@@ -43,7 +43,7 @@
                     page:1
                 })
                 .then(res=>{
-                   this.lists = res.data.lists;
+                   this.lists = res.data.data.lists;
                 })
             },
             changeStatus(){

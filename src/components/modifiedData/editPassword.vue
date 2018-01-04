@@ -82,6 +82,7 @@
                 new_password:md5(this.ruleForm2.pass)
             })
             .then(res=>{
+                console.log(res)
                 var self = this 
                 if(res.status==200){
                      this.$message({

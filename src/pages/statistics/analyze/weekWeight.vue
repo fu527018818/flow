@@ -79,7 +79,7 @@ export default {
              week:this.week
          })
          .then(res=>{
-              var current = formatBg.formatOneOrTwoSpline(res.data.graphic.data1);
+              var current = formatBg.formatOneOrTwoSpline(res.data.data.graphic.data1);
               Highcharts.chart('contain',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series))
          })
       }

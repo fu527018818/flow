@@ -64,19 +64,19 @@
                         <el-row v-if="chart">
                             <el-col :span="12"  class="left">
                                 <div class="list">
-                                    <div>{{chart[0].name}}</div>
-                                    <div>人数：<span class="num">{{chart[0].max_person}}</span>人</div>
-                                    <div>时间：{{chart[0].datetime}}</div>
+                                    <div>{{chart['avg'].name}}</div>
+                                    <div>人数：<span class="num">{{chart['avg'].max_person}}</span>人</div>
+                                    <div>时间：{{chart['avg'].datetime}}</div>
                                 </div>
                             </el-col>
                             <el-col :span="12" class="right">
                                 <div class="list">
-                                    <div>{{chart[1].name}}</div>
+                                    <div>{{chart['avg'].name}}</div>
                                     <div>
-                                       {{chart[1].data[0].date}}：<span class="num"> {{chart[1].data[0].average_person}}</span>人每小时
+                                       {{chart['avg'].data[0].date}}：<span class="num"> {{chart['avg'].data[0].average_person}}</span>人每小时
                                     </div>
                                     <div>
-                                          {{chart[1].data[1].date}}：<span class="num"> {{chart[1].data[1].average_person}}</span>人每小时
+                                          {{chart['avg'].data[1].date}}：<span class="num"> {{chart['avg'].data[1].average_person}}</span>人每小时
                                     </div>
                                 </div>
                             </el-col>
@@ -136,8 +136,11 @@ export default {
               Compare2_date:this.date[1]
           })
           .then(res=>{
-              this.chart = res.data.chart;
-              var current = formatbg.formatOneOrTwoSpline(res.data.graphic.data1);
+              var data = res.data.data
+              this.chart = data.chart;
+              console.log(this.chart)
+              var current = formatbg.formatOneOrTwoSpline(data.graphic.data1);
+              console.log(current)
               Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
           })
       }

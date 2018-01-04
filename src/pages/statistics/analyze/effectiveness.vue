@@ -113,8 +113,8 @@ export default {
               date:val
           })
           .then(res=>{
-              this.chart = res.data.chart;
-               var current = formatbg.formatOneSpline(res.data.graphic.data1)
+              this.chart = res.data.data.chart;
+               var current = formatbg.formatOneSpline(res.data.data.graphic.data1)
                Highcharts.chart('contain',statisticsOneSpline(current.name,current.date,current.line[0],current.y))
           })
       }, //切换店铺

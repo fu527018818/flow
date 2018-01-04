@@ -85,6 +85,7 @@
                  this.loading = false;
                  if(res.status=="200"&&res.message=="登录成功"){
                       this.$router.push({name:"main"})
+                      
                  }else{
                       this.showTip(res.message);
                  }

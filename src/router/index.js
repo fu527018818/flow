@@ -40,8 +40,10 @@ import setNotice from '../pages/sets/setNotice.vue';
 import editNotice from '../pages/sets/editNotice.vue';
 import globalSearchUser from '../pages/search/globalSearchUser.vue';
 import editInfo from '../pages/modifiedData/editInfo.vue';
-import newsNotice from '../pages/news/newsNotice.vue'
-import messageList from '../pages/messageNotification/messageList.vue'
+import newsNotice from '../pages/news/newsNotice.vue';
+import messageList from '../pages/messageNotification/messageList.vue';
+import addShop from '../pages/meShop/addShop.vue';
+import selectShop from '../pages/meShop/selectShop.vue';
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -253,6 +255,16 @@ export const constantRouterMap = [
     path: "/messageList",
     name: "messageList",
     component: messageList
+  },
+  {
+    path: "/shop/selectShop",
+    name: "selectShop",
+    component: selectShop
+  },
+  {
+    path: "/shop/addShop",
+    name: "addShop",
+    component: addShop
   }
 ]
 const router = new Router({

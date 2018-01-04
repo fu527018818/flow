@@ -117,13 +117,13 @@ export default {
                     start_date:val.start,
                     end_date:val.end,
                 }).then(res=>{
-                    this.chart = res.data.chart;
-                    this.graphic = this.fomrtGraphic(res.data.graphic);
+                    this.chart = res.data.data.chart;
+                    this.graphic = this.fomrtGraphic(res.data.data.graphic);
                     // 切换列表 线图
                     this.current_trend = this.graphic[this.cut_trend_chart]
                     this.renderChart(this.current_trend);
                     //圆形图
-                    this.new_old_chart=this.fomrtNewOld(res.data.new_old_chart);
+                    this.new_old_chart=this.fomrtNewOld(res.data.data.new_old_chart);
                     this.circle(this.new_old_chart);
                 })
          },

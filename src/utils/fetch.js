@@ -48,22 +48,22 @@ service.interceptors.request.use(config => {
     response => {
       //登录之后返回数据进行解密
       console.log(response)
+      if(response.data.status=="401"){
+        MessageBox.confirm('用户已在其他地方登录, 请退出登录?', '提示', {
+          confirmButtonText: '确定',
+          type: 'warning'
+        }).then(() => {
+            store.commit('REMOVE_TOKEN');
+        }).catch(() => {
+               
+        });
+        return false
+      }
       var checkUrl = response.config.url;
         if(!(checkUrl=="http://appdev.ly.ai/user/login")&&!(checkUrl=="http://appdev.ly.ai/user/check/id")){
                  //aes解密
-          var data = decode(store.getters.secret.response||ls.get('secret').response,response.data.data)
-              store.commit('SET_TOKEN',data.token)
-              if(data.status=="401"){
-                this.$confirm('用户已在其他地方登录, 请退出登录?', '提示', {
-                  confirmButtonText: '确定',
-                  type: 'warning'
-                }).then(() => {
-                    store.commit('REMOVE_TOKEN');
-                }).catch(() => {
-                       
-                });
-                return false
-              }
+          var data = decode(store.getters.secret.response||ls.get('secret').response,response.data)
+              store.commit('SET_TOKEN',data.data.token)
               response.data = data;
         }
       console.log('返回前数据对象response: %o',response)

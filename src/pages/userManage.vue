@@ -263,8 +263,8 @@
                       limit:this.limit
                  })
                  .then(res=>{
-                     if(res.status==200){
-                        var data = res.data
+                     if(res.data.status==200){
+                        var data = res.data.data
                         this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.total_count)
                         this.lists = data.lists;
                      }

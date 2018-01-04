@@ -186,7 +186,8 @@ export default {
                     start_date:this.unit=="小时"?this.date1:this.date2[0],
                     end_date:this.unit=="小时"?this.date1:this.date2[1]
                 }).then(res=>{
-                   var current = formatterbg.formatOneSpline(res.data.graphic.data1)
+                    var data = res.data.data
+                   var current = formatterbg.formatOneSpline(data.graphic.data1)
                     Highcharts.chart('contain',statisticsOneSpline(current.name,current.date,current.line[0],current.y))
                 })
             }

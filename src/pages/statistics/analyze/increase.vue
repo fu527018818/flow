@@ -100,7 +100,7 @@ export default {
              section:this.date
           })
           .then(res=>{
-               var current = formatBg.formatOneOrTwoSpline(res.data.graphic.data1);
+               var current = formatBg.formatOneOrTwoSpline(res.data.data.graphic.data1);
                Highcharts.chart('contain',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series))
           })
       }, //点击筛选

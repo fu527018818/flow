@@ -11,7 +11,7 @@ const actions={
         return new Promise((resolve,reject)=>{
             userDetail(json).then(res=>{
                 if(res.status ==200){
-                    commit('SET_USER_CURRENT_INFO',res.data)
+                    commit('SET_USER_CURRENT_INFO',res.data.data)
                 }
                 resolve(res)
             })

@@ -3,7 +3,7 @@ export default {
     USER_PWD:"/user/login",
     MAIN_INIT:'/main',
     USER_INIT:'',
-    NOTIFICATION_REALTIME:'notification/realtime',
+    NOTIFICATION_REALTIME:'notification/realtime', //实时更新 MainChart.vue中使用
     NOTICE_LISTS:'/notice/lists', //主页公告列表 -参数Is_publish 1为 只获取发布中的公告     0（管理页） 为全部
     NOTICE_INFO:'/notice/info', //公告详情
     STATISTICS_TURNOVER:"/statistics/turnover",
@@ -43,5 +43,8 @@ export default {
     MODIFY_PSSWORD:'/mine/modify/password', //修改密码;
     MESSAGELIST:"/notification/lists", //消息列表
     UPLOAD_AVATAR:"/mine/avatar/upload", //上传头像   单独用Ajax请求  editPersonal.vue
-    EDITPERSONAL:"/mine/modify"
+    EDITPERSONAL:"/mine/modify/info",   //个人信息修改
+    GETPERSONNELINFO: "/mine/info",  //获取个人信息
+    EDITSTAFFAPPLY:"/staff/modify/apply",//消息列表绑定状态
+    NOTIFICATIONSTATUS:"/notification/status" //消息状态
 }

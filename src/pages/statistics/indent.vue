@@ -166,7 +166,7 @@ export default {
               page:val==undefined?'':val.current
           })
           .then(res=>{
-              var data = res.data;
+              var data = res.data.data;
               this.cashier_deskAll =data.cashier_desk;
               //格式化分页所需数值
               this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);

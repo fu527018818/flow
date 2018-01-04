@@ -50,10 +50,12 @@ export default {
         methods:{
            mainInit(shop_list_current){
                this.$store.dispatch('main_init',{shop_id:shop_list_current}).then(res=>{
-                           var  chartData =  res.data.graphic;
-                           console.log(chartData)
-                           Highcharts.chart('#contain1',options1.addOptions(chartData.data1.name,chartData.data1.data.dateX,chartData.data1.data.y1,chartData.data1.data.y2,chartData.data1.line[0],chartData.data1.line[1]));
-                           Highcharts.chart('#contain2',options1.addOptions(chartData.data2.name,chartData.data2.data.dateX,chartData.data2.data.y1,chartData.data2.data.y2,chartData.data2.line[0],chartData.data2.line[1]));
+                            if(res.data.status=="200"){
+                                   var  chartData =  res.data.data.graphic;
+                                    Highcharts.chart('#contain1',options1.addOptions(chartData.data1.name,chartData.data1.data.dateX,chartData.data1.data.y1,chartData.data1.data.y2,chartData.data1.line[0],chartData.data1.line[1]));
+                                    Highcharts.chart('#contain2',options1.addOptions(chartData.data2.name,chartData.data2.data.dateX,chartData.data2.data.y1,chartData.data2.data.y2,chartData.data2.line[0],chartData.data2.line[1]));
+                            }
+                         
                 })
                     //调用子组建中实时更新的图表，在切换门店时
                 this.$refs.cut_shop_init.realTime()

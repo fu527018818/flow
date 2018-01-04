@@ -37,7 +37,8 @@
                             type:"post",
                             dataType:'json',
                             success:function(res){
-                                var data = res.data;
+                                console.log(res)
+                                var data = res.data.data;
                                 var x = (new Date()).getTime()
                                 series.addPoint([x,data.turnover*1], true, true);
                                 series1.addPoint([x,data.passenger*1], true, true);

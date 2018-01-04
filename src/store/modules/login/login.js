@@ -46,7 +46,7 @@ const actions={
              loginApi.userLogin(userJson.url,userJson.userJson).then(res=>{
                  const data = res.data;
                  if(data.status=="200"){
-                    commit('SET_USER_INFO',data.data.user_info);
+                      commit('SET_USER_INFO',data.data.user_info);
                     //在密码登录返回时对数据进行处理
                     if(typeof data.data.secret=="object"&&!data.data.secret==""&&!data.data.token==""){
                         //登录成功后进行存储

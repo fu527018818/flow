@@ -11,7 +11,7 @@ const actions={
     globalSearchUser({commit},json){
         return new Promise((resolve,reject)=>{
             userManager(json).then(res=>{
-                commit('GET_SEARCH_USER',res.data)
+                commit('GET_SEARCH_USER',res.data.data)
                 resolve(res)
             })
             .catch(err=>{
@@ -22,7 +22,7 @@ const actions={
     globalSeachIndent({commit},json){
         return new Promise((resolve,reject)=>{
             statisticsIndent(json).then(res=>{
-                commit('GET_SEARCH_INDENT',res.data)
+                commit('GET_SEARCH_INDENT',res.data.data)
                 resolve(res)
             })
             .catch(err=>{

@@ -13,9 +13,10 @@ const actions={
         return new Promise((resolve,reject)=>{
             loginApi.mainInit(shop_id).then(
                 res=>{
-                    if(res.status == 200){
-                        res.data.graphic.data1.data= format(res.data.graphic.data1.data);
-                        res.data.graphic.data2.data=format(res.data.graphic.data2.data);
+                    if(res.data.status == 200){
+                        var data = res.data.data
+                        data.graphic.data1.data= format(data.graphic.data1.data);
+                        data.graphic.data2.data=format(data.graphic.data2.data);
                         function format(data){
                             var folw={};
                             folw.dateX = [];
@@ -28,7 +29,7 @@ const actions={
                             }
                             return folw
                         }
-                        commit('SET_MAIN_VAL',res.data)
+                        commit('SET_MAIN_VAL',res.data.data)
                     }
                     resolve(res)
                 }
@@ -40,7 +41,8 @@ const actions={
     notice_list({commit},data){
         return new Promise((resolve,reject)=>{
             loginApi.noticeList(data).then(res=>{
-                commit('SET_NOTICE_TITLE',res.data.lists)
+                console.log(res)
+                commit('SET_NOTICE_TITLE',res.data.data.lists)
                 resolve(res)
             }).catch(err=>{
                 console.log(err)

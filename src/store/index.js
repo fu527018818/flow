@@ -8,10 +8,11 @@ import search from './modules/search/search'
 import websocket from './modules/websocket'
 import * as types from './mutation-types'
 import getDate from '../assets/js/dateSelect'
-
+import {notificationStatus} from '../api/global'
 Vue.use(Vuex);
 const state = {
-    shop_list_current:""
+    shop_list_current:"",
+    notifyStatus:"0"
 }
 const getters={
         token:state=>state.login.token||ls.get('token'),
@@ -31,6 +32,9 @@ const getters={
             ls.set('shop_list_current',shop_id)
         }
          
+    },
+    [types.GET_NOTIFY_STATUS](states,data){
+        states.notifyStatus = data
     }
 }
 const actions ={
@@ -56,6 +60,15 @@ const actions ={
                     resolve(getDate.getMonthDate())
                 break;
             }
+        })
+    },
+    getNotificationStatus({commit},data){
+        return new Promise((resolve,reject)=>{
+            notificationStatus(data)
+            .then(res=>{
+                 commit('GET_NOTIFY_STATUS',res.data.data.count)
+                resolve(res)
+            })
         })
     }
     

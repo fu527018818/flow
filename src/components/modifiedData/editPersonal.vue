@@ -14,14 +14,14 @@
                         :before-upload="beforeAvatarUpload"
                         accept="image/*"
                         >
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>      
                  </el-form-item>
                  <el-form-item label="性别" prop="gender">
                     <el-radio-group v-model="ruleForm.gender">
-                    <el-radio label="1">男</el-radio>
-                    <el-radio label="0">女</el-radio>
+                    <el-radio label="男">男</el-radio>
+                    <el-radio label="女">女</el-radio>
                     </el-radio-group>
                 </el-form-item>
                  <el-form-item label="邮箱" prop="email" class="wh_380">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {editPersonal} from '../../api/global';
+    import {editPersonal,getPersonnalInfo} from '../../api/global';
     import serve from '../../utils/fetch';
     import {objKeySort,encryptLogin,decode,signSort} from '../../utils/encryption';
     import {mapGetters} from 'vuex';
@@ -44,14 +44,16 @@
         name:"editPersonal", //个人资料修改    
         data(){
             return{
-                imageUrl:'',
-                avatar:"",
                 ruleForm:{
                     real_name:"",
                     email:"",
-                    gender:""
+                    gender:"",
+                    avatar:""
                 },
                 rules:{
+                 real_name:[
+                          { required: true, message: '请输入姓名', trigger: 'blur' }
+                 ],
                   email:[
                        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
@@ -67,14 +69,15 @@
                  'token',
                  'secret',
                  'shop_list_current',
-                  'userInfo'
+                 'userInfo'
             ])
         },
         methods:{
              handleAvatarSuccess(res, file,fileList){
-            this.imageUrl = URL.createObjectURL(file.raw);
+            this.avatar = URL.createObjectURL(file.raw);
         },
         beforeAvatarUpload(file) {
+       
              var self = this;
              let fd = new FormData();
              fd.append('avatar',file);
@@ -96,10 +99,11 @@
                 contentType: false,
                 processData: false
                 }).done(function(res) {
-                    if(res.status=="200"){
-                        var data = decode(self.secret.response,res.data);
-                        self.imageUrl= data.url;
-                    }
+                        var data = decode(self.secret.response,res);
+                        if(data.status=="200"){
+                             self.ruleForm.avatar= data.data.url;
+                        }
+                       
                 }).fail(function(err) {
                     console.log(err)
              });
@@ -116,11 +120,46 @@
             // return true
         },
         onSubmit(formname){
-            
+            var self=this;
+            this.$refs[formname].validate((valid) =>{
+                if(valid){
+                  editPersonal(this.ruleForm)
+                  .then(res=>{
+                      if(res.data.status==200){
+                        this.$message({
+                        showClose: true,
+                        message: '修改个人资料成功',
+                        type: 'success'
+                        });
+                        //修改成功后在拉取个人信息API
+                        setTimeout(function(){
+                            self.editPersonalInit();
+                        },2000)
+                      }
+                  })
+                  .catch(err=>{
+                      console.log(err)
+                  })
+                }
+            })
+        },
+        editPersonalInit(){
+             getPersonnalInfo({})
+            .then(res=>{
+                if(res.data.status==200){
+                    for(var key in this.ruleForm){
+                        this.ruleForm[key] = res.data.data[key];
+                        this.$store.commit('SET_USER_INFO',res.data.data);
+                    }
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         }
         },
         created(){
-            
+            this.editPersonalInit();
         }
     }
 </script>

@@ -60,7 +60,12 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
                 //切换店铺
             changeShop(val){
                 this.$store.commit('CUT_SHOP_LIST_CURRENT',val);
+                 this.$store.dispatch('getNotificationStatus',{
+                    shop_id:this.shop_list_current
+                })
                 this.$emit('seachtrigger',{start:this.last_visit[0],end:this.last_visit[1]});
+               
+               
             }, //切换快捷日期
             radioCheckDate(val){
                 var self = this;

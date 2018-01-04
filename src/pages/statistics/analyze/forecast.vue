@@ -136,7 +136,7 @@ export default {
         .then(res=>{
              var chart = null;
              var self = this;
-            this.investment = res.data;
+            this.investment = res.data.data;
             this.formtPie();
             console.log(this.investment)
             Highcharts.chart('contain',forecastOptionPie(Highcharts,this.investment.y1+'%',this.investment.y1,this.investment.y2),function(c){

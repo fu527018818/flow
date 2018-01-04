@@ -177,7 +177,10 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
         methods:{
             changeShop(val){
                 this.$store.dispatch('cut_shop_list_current',val);
-                this.$emit('mainInit',val)
+                this.$emit('mainInit',val);
+                this.$store.dispatch('getNotificationStatus',{
+                    shop_id:this.shop_list_current
+                })
             },
             toStatistics(val){
                 this.$router.push({name:"turnover",params:{val}})

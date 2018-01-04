@@ -21,12 +21,15 @@ export function objKeySort(arys) {
 }
 //解密
 export  function decode(response,data){
+
     var keyResponse = CryptoJS.enc.Utf8.parse(response);
-    var str =  CryptoJS.AES.decrypt(data,keyResponse,{
+    var str =  CryptoJS.AES.decrypt(data.data,keyResponse,{
         mode: CryptoJS.mode.ECB
     })
-    return JSON.parse(str.toString(CryptoJS.enc.Utf8));
+    data.data=JSON.parse(str.toString(CryptoJS.enc.Utf8));
+    return data
   }
+    
   //sign排序
   export function signSort(data){
     return CryptoJS.MD5(objKeySort(data)).toString();

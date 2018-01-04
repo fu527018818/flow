@@ -146,14 +146,14 @@ export default {
                    end_date:val.end
                })
                .then(res=>{
-                    this.chart = res.data.chart;
-                    this.funnel = res.data.s_chart;
-                    this.graphic = this.formatGraphic(res.data.graphic);
+                   var data =res.data.data
+                    this.chart = data.chart;
+                    this.funnel = data.s_chart;
+                    this.graphic = this.formatGraphic(data.graphic);
                     this.current_trend = this.graphic[this.cut_trend_chart]
                     this.renderChart(this.current_trend);
                     // 格式化饼图 柱形 数据
-                    this.graphic2=this.formatGraphic2(res.data.graphic2);
-                    console.log(this.graphic2)
+                    this.graphic2=this.formatGraphic2(data.graphic2);
                     this.renderPieElse(this.graphic2);
                })
             },
