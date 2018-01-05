@@ -64,8 +64,8 @@ export default {
                this.$refs.cut_notice.showNotice();
            }
         },
-      
         created(){
+            
         },
         mounted(){
             this.mainInit(this.$store.getters.shop_list_current||ls.get('shop_list_current'));

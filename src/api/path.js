@@ -46,5 +46,7 @@ export default {
     EDITPERSONAL:"/mine/modify/info",   //个人信息修改
     GETPERSONNELINFO: "/mine/info",  //获取个人信息
     EDITSTAFFAPPLY:"/staff/modify/apply",//消息列表绑定状态
-    NOTIFICATIONSTATUS:"/notification/status" //消息状态
+    NOTIFICATIONSTATUS:"/notification/status", //消息状态
+    GET_BIND_POSITION:"/mine/bind/position",  //获取职员列表
+    SET_BIND_SHOP:"/mine/bind" //绑定门店
 }

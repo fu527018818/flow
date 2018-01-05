@@ -153,14 +153,15 @@
                 getCity({
                     id:""
                 }).then(res=>{
-                   this.provinceAll = res.data.lists
+                    console.log(res)
+                   this.provinceAll = res.data.data.lists
                 })
             },//市
             getCity(id){
                 getCity({
                     id:id
                 }).then(res=>{
-                    this.cityAll=res.data.lists
+                    this.cityAll=res.data.data.lists
                 })
                 .catch(err=>{
                     console.log(err)
@@ -170,7 +171,7 @@
                 getCity({
                     id:id
                 }).then(res=>{
-                    this.districtAll=res.data.lists
+                    this.districtAll=res.data.data.lists
                 })
                 .catch(err=>{
                     console.log(err)

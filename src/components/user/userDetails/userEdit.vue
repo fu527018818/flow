@@ -298,8 +298,8 @@
                 getCity({
                     id:""
                 }).then(res=>{
-                   this.provinceAll = res.data.lists
-                   this.provinceAllhometown =res.data.lists
+                   this.provinceAll = res.data.data.lists
+                   this.provinceAllhometown =res.data.data.lists
                 })
             },//市
             getCity(id,isWho){
@@ -307,10 +307,10 @@
                     id:id
                 }).then(res=>{
                     if(isWho=="area"){
-                          this.cityAll=res.data.lists
+                          this.cityAll=res.data.data.lists
                     }
                     else if(isWho=="home"){
-                        this.cityAllhometown=res.data.lists
+                        this.cityAllhometown=res.data.data.lists
                     }
                   
                 })
@@ -323,10 +323,10 @@
                     id:id
                 }).then(res=>{
                     if(isWho=="area"){
-                        this.districtAll=res.data.lists
+                        this.districtAll=res.data.data.lists
                     }
                      else if(isWho=="home"){
-                        this.districtAllhometown=res.data.lists
+                        this.districtAllhometown=res.data.data.lists
                     }
                     
                 })
@@ -431,7 +431,7 @@
                      this.ruleForm.area = this.ruleForm.area1+','+this.ruleForm.area2+','+this.ruleForm.area3
                      this.ruleForm.hometown = this.ruleForm.hometown1+','+this.ruleForm.hometown2+','+this.ruleForm.hometown3
                       userEditData(this.ruleForm).then(res=>{
-                          if(res.status ==200){
+                          if(res.data.status ==200){
                               this.$emit('parentInit')
                               this.$router.push({name:"userDetailsInfo"});
                           }

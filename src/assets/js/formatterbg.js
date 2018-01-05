@@ -95,7 +95,6 @@ export default{
      return data
   },//格式化快捷时间
   getClockerDate(val){
-      console.log(val)
     switch (val){
         case '今天':
             return  getDate.getToday()

@@ -44,6 +44,7 @@ import newsNotice from '../pages/news/newsNotice.vue';
 import messageList from '../pages/messageNotification/messageList.vue';
 import addShop from '../pages/meShop/addShop.vue';
 import selectShop from '../pages/meShop/selectShop.vue';
+import NotifyRealList from '../pages/notifyRealList/notifyRealList.vue';
 Vue.use(Router)
 /* 异步加载组件模块 */
 const _import = require('./asynLoader');
@@ -265,6 +266,11 @@ export const constantRouterMap = [
     path: "/shop/addShop",
     name: "addShop",
     component: addShop
+  },
+  {
+    path: "/notifyReal/list",
+    name: "NotifyRealList",
+    component: NotifyRealList
   }
 ]
 const router = new Router({

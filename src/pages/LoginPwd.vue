@@ -107,7 +107,7 @@
                 }
         },
         created(){
-         
+            this.$socket.disconnect()
         },
         beforeCreate(){
            

@@ -13,12 +13,12 @@
                         </div>
                         <div>{{userInfo.real_name}}</div>
                         <div>
-                             <el-select v-model="value"  id="selectShop" placeholder="请选择">
+                             <el-select v-model="list_current"  @change="changeShop"  id="selectShop" placeholder="请选择">
                                 <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                v-for="item in shop_list"
+                                :key="item.id"
+                                :label="item.shop_name"
+                                :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
@@ -40,35 +40,26 @@
         components:{},
         data(){
             return{
-                options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+                list_current:""
             }
         },
         computed:{
             ...mapGetters([
                 'userInfo',
-                'shop_list'
+                'shop_list',
+                'shop_list_current'
             ])
         },
         methods:{
             goBack(){
                 this.$router.go(-1)
+            },
+            changeShop(val){
+                  this.$store.dispatch('cut_shop_list_current',val);
             }
+        },
+        created(){
+           this.list_current = this.shop_list_current 
         }
     }
 </script>
@@ -148,6 +139,9 @@
                 letter-spacing: 0px;
                 color: #4198ff;
                 padding-bottom: 80px;
+                & > a{
+                        color: #4198ff;
+                }
             }
         }
     }

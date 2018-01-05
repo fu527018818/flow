@@ -368,6 +368,22 @@ export function  notificationStatus(json){
         data:json,
     })
 }
+//获取职员列表（添加门店）
+export function officeBindPosition(json){
+    return fetch({
+        url:path.GET_BIND_POSITION,
+        method:'post',
+        data:json,
+    })
+}
+//绑定门店
+export function setBindShop(json){
+    return fetch({
+        url:path.SET_BIND_SHOP,
+        method:'post',
+        data:json,
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -408,5 +424,7 @@ export default{
     editPersonal,
     getPersonnalInfo,
     editStaffApply,
-    // notificationStatus
+    notificationStatus,
+    officeBindPosition,
+    setBindShop
 }

@@ -8,7 +8,7 @@ const state = {
 }
 const mutations={
     [types.SET_TOKEN](state,token){
-        if(token.length > 0 && typeof token =="string"){
+        if(token&&typeof token =="string"){
             state.token = token;
             ls.set('token',token);
         }else{

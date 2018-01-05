@@ -1,6 +1,5 @@
 import * as types from '../mutation-types'
 const state = {
-   connect:false,
    newMessage:''
 }
 // 登录socket login 在 MainNav组件中

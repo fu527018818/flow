@@ -2,7 +2,7 @@
     <div class="app">
          <div class="contentBox"  v-slim-scroll>
             <div class="contentBox_child">
-                    <div>选择门店</div>
+                    <div>添加门店</div>
                     <div>请选择你所在的门店信息</div>
                     <div class="selectBox">
                         <div @click="goBack">
@@ -13,20 +13,20 @@
                         </div>
                         <div>{{userInfo.real_name}}</div>
                         <div>
-                             <el-select v-model="value"  id="selectShop" placeholder="请选择">
+                            <el-input @blur="getOffice" v-model="shopId" placeholder="请输入店铺编号"></el-input>
+                        </div>
+                        <div>
+                             <el-select v-model="value" @focus="checkOffice"  id="selectShop" placeholder="请选择">
                                 <el-option
                                 v-for="item in options"
                                 :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                :label="item.name"
+                                :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
                         <div>
-                            <el-input v-model="input" placeholder="请输入店铺编号"></el-input>
-                        </div>
-                        <div>
-                             <el-button type="primary">申请</el-button>
+                             <el-button type="primary" @click="applyShop">申请</el-button>
                         </div>
                     </div>
             </div>
@@ -36,29 +36,15 @@
 
 <script>
     import {mapState,mapGetters} from 'vuex';
+    import {officeBindPosition,setBindShop} from '../../api/global';
     export default {
         name:"selectShop", //选择门店
         components:{},
         data(){
             return{
-                input:"",
-                options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+                 shopId:"",
+                 options: [],
+                 value: ''
             }
         },
         computed:{
@@ -70,6 +56,54 @@
         methods:{
             goBack(){
                 this.$router.go(-1)
+            },
+            getOffice(){
+                this.options = [];
+                this.value = "";
+                if(this.shopId){
+                    officeBindPosition({
+                        shop_id:this.shopId
+                     })
+                     .then(res=>{
+                         if(res.data.status=="200"){
+                             this.options = res.data.data.lists
+                         }
+                         else if(res.data.status == "400"){
+                                      this.$message.error(res.data.message);
+                                      this.shopId = "";
+                                      this.options =[];
+                         }
+                     })
+
+                }else{
+                    return
+                }
+                
+            },
+            checkOffice(){
+                if(!this.options.length>0){
+                    this.$message.error('请先输入店铺编号');
+                }
+            },
+            applyShop(){
+                if(this.value&&this.shopId&&this.options){
+                    setBindShop({
+                        shop_id:this.shopId,
+                        position_id:this.value
+                    })
+                    .then(res=>{
+                        if(res.data.status=="200"){
+                            this.$message({
+                            message: '申请门店成功',
+                            type: 'success'
+                            });
+                        }else{
+                            this.$message.error(res.data.message); 
+                        }
+                    })
+                }else{
+                 this.$message.error('请先输入店铺编号');
+                }
             }
         }
     }
@@ -138,13 +172,15 @@
                     text-align: center;
                     margin-top: 12px;
             }
+         
             & > div:nth-child(4){
-                    text-align: center;
-                    padding: 40px 0 12px 0;
-            }
-            & > div:nth-child(5){
                    width: 300px;
                    margin: 0 auto;
+                padding: 40px 0 12px 0;
+            }
+            & > div:nth-child(5){
+                    text-align: center;
+                   
             }
              & > div:nth-child(6){
                  margin-top: 20px;

@@ -34,7 +34,7 @@ const getters={
          
     },
     [types.GET_NOTIFY_STATUS](states,data){
-        states.notifyStatus = data
+        states.notifyStatus = data*1
     }
 }
 const actions ={
@@ -66,7 +66,7 @@ const actions ={
         return new Promise((resolve,reject)=>{
             notificationStatus(data)
             .then(res=>{
-                 commit('GET_NOTIFY_STATUS',res.data.data.count)
+                commit('GET_NOTIFY_STATUS',res.data.data.count)
                 resolve(res)
             })
         })

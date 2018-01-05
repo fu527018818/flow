@@ -19,28 +19,34 @@
                 <template slot-scope="scope">
                     <el-tag
                       disabled
-                      :type="scope.row.userTrait[0]=='活跃'?'primary':'info'"
+                      :type="scope.row.is_active=='1'?'primary':'info'"
                     >
-                     {{scope.row.userTrait[0]}}
+                     活跃
                     </el-tag>
                     <el-tag
                       disabled
-                      :type="scope.row.userTrait[1]=='会员'?'danger':'info'"
+                      :type="scope.row.is_member=='1'?'danger':'info'"
                     >
-                     {{scope.row.userTrait[1]}}
+                     会员
                     </el-tag>
                     <el-tag
                       disabled
-                      :type="scope.row.userTrait[2]=='5星'||'4星'||'3星'||'2星'||'1星'?'warning':'info'"
+                      :type="scope.row.level=='0'?'info':'warning'"
                     >
-                     {{scope.row.userTrait[2]}}
+                     {{scope.row.level+'星'}}
                     </el-tag>
                     <el-tag
                       disabled
-                      :type="scope.row.userTrait[3]=='新客'||'老客'?'success':'info'"
+                      :type="scope.row.is_new_guest=='1'?'success':'info'"
                     >
-                     {{scope.row.userTrait[3]}}
+                     新客
                     </el-tag>
+                    <!-- <el-tag
+                      disabled
+                      :type="scope.row.is_new_guest=='1'?'success':'info'"
+                    >
+                     {{scope.row.guest_type=="0"?'访客':(scope.row.guest_type=="1"?'老客':'回头客')}}
+                    </el-tag> -->
                 </template>
             </el-table-column>
             <el-table-column

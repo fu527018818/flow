@@ -41,7 +41,6 @@ const actions={
     notice_list({commit},data){
         return new Promise((resolve,reject)=>{
             loginApi.noticeList(data).then(res=>{
-                console.log(res)
                 commit('SET_NOTICE_TITLE',res.data.data.lists)
                 resolve(res)
             }).catch(err=>{

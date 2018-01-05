@@ -53,7 +53,7 @@
               >
               <el-menu-item index="serach"><i class="iconfont icon-serach"></i></el-menu-item>
               <el-menu-item index="/messageList">
-                <el-badge :value="notifyStatus" class="item">
+                <el-badge :value="notifyStatus*1" class="item">
                   <i class="iconfont icon-message"></i>
                 </el-badge>
               </el-menu-item>
@@ -129,7 +129,8 @@ export default {
   },
   created() {
        //登录weksocket
-      //  this.$socket.emit('login',this.userInfo.user_id)
+       this.$socket.connect();
+       this.$socket.emit('login',this.userInfo.user_id)
        this.menuType(this.indexMenu);
   },
   mounted(){

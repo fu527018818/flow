@@ -88,7 +88,7 @@ export default {
       
   },
   created() {
-      
+      this.$socket.emit('login','不接收信息')
   },
   beforeCreate(){
   
