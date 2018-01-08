@@ -68,7 +68,7 @@
                     enabled: false
                 },
                 title: {
-                    text: '营业额走势图',
+                    text: '营业额vs客流量走势图',
                     align:"left",
                     x:30,
                     y:30,

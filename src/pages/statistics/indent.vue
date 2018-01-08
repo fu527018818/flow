@@ -70,13 +70,16 @@
                             <el-tag 
                                 type="info"
                                 :disable-transitions="false"
+                                
                                 >
                                 时间：<span >{{date[0]+ '/'+date[1]}}</span>    
                             </el-tag>
                             <el-tag 
                                 type="info"
                                 :disable-transitions="false"
-                                v-if="shopTag"
+                                v-if="shopTag.length>0"
+                                closable
+                                 @close="handleClose('shopTag')"
                                 >
                                 门店：<span v-for="item in shopTag" :key="item">{{item}}</span>    
                             </el-tag>
@@ -84,8 +87,10 @@
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="cashier_desk.length>0"
+                                 closable
+                                 @close="handleClose('cashier_desk')"
                                 >
-                                收银台：<span v-for="item in cashier_desk" :key="item">{{item}}</span>    
+                                收银台：<span v-for="item in cashier_desk" :key="item">{{item+'/'}}</span>    
                             </el-tag>
                         </div>
                    </search-condition>
@@ -119,8 +124,8 @@ export default {
             date:[],
             clockerCurrent:'今天',
             shop:[],
-            cashier_deskAll:'',  //收银员列表
-            cashier_desk:[], //已选收银员
+            cashier_deskAll:'',  //收银台列表
+            cashier_desk:[], //已选收银台
             shopTag:'',
             pageDate:"", //后台分页数据
             lists:'', //数据列表
@@ -149,12 +154,17 @@ export default {
       changPages(){
           this.isPages = !this.isPages;
       },
-    //   handleSizeChange(val){
-    //       console.log(val)
-    //   },
-    //   handleCurrentChange(val){
-    //       console.log(val)
-    //   },
+    handleClose(val){
+        console.log(val)
+        switch(val){
+            case 'shopTag':
+                this.shop=[]
+            break;
+            case 'cashier_desk':
+             this.cashier_desk=[]
+            break;
+        }
+    },
     indentInit(val){
        statisticsIndent({
               shop_id:this.shop,
@@ -177,7 +187,18 @@ export default {
           this.indentInit(val)
       }, //搜索条件
       changeCondition(val){
-           this.indentInit();
+          //子组件点击搜索时
+          if(val=="search"){
+            this.indentInit();
+          }//清空
+          else if(val=="close"){
+              this.date=[]
+              this.cashier_desk=[]
+              this.shop=[]
+              this.changeDate('今天');
+              this.clockerCurrent='今天';
+          }
+      
       }, //门店
       changeShop(val){
           let checkCount = val.length;
@@ -193,7 +214,6 @@ export default {
            this.moneyIndeterminate = false;
       }, //收银台
       changeMoney(val){
-          console.log(val)
           let checkCount = val.length;
           this.isMoneyAll = checkCount ===this.cashier_deskAll.length;
           this.moneyIndeterminate = checkCount > 0 && checkCount < this.cashier_deskAll.length;

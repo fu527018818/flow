@@ -18,7 +18,7 @@
                 </a>
                 <form>
                     <div class="userIpt">
-                        <input id="userPw" type="text" placeholder="密码" autocomplete="off">
+                        <input id="userPw" type="password" placeholder="密码" autocomplete="off">
                     </div>
                     <div class="error_tit" style=" visibility: hidden;">
                         密码错误请重试
@@ -69,10 +69,11 @@
                  this.loading = true;
               //错误提示
                var userPw =  $('#userPw').val().trim();
-               var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
-              if(!pwdReg.test(userPw)){
+               function check(str) { var cnt = 0; if (/[a-zA-Z]+/.test(str)) cnt++;  if (/[0-9]+/.test(str)) cnt++; if (/_+/.test(str)) cnt++; if (cnt < 2) return false; return /^\w{6,20}$/.test(str); }
+               
+              if(!check(userPw)){
                   this.loading = false;
-                  this.showTip('8到16位数字与字母组合')
+                  this.showTip('密码为6到20位数字与字母组合或下划线')
                   return false
               }
             //用户登录

@@ -30,6 +30,7 @@ export default {
     newMessage:function(val){
       var self = this;
       val = JSON.parse(val)
+      console.log(val)
       if(val&&this.shop_list_current == val.shop_id){
         this.$notify({
           title: '',

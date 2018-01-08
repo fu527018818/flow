@@ -61,6 +61,7 @@ export default {
             }
         },
     getTodayHDS(){
+        
         var getCurrentDate = new Date(nowYear, nowMonth, nowDay);
         nowHour = nowHour<10?'0'+nowHour:nowHour;
         nowMinute= nowMinute<10?'0'+nowMinute:nowMinute;
@@ -73,7 +74,7 @@ export default {
         var getYesterdayDate = this.formatDate(getYesterdayDate);
         return {
             start:getYesterdayDate,
-            end:this.getToday().start
+            end:getYesterdayDate
         }
    },
    getWeekDate(){
@@ -116,13 +117,15 @@ export default {
    },
    getLastMonthDate(){
         //获得上月开始时间
-    var getLastMonthStartDate = new Date(nowYear, lastMonth, 1);
+    var formatLastYear =  lastMonth==11?nowYear-1:nowYear
+    var getLastMonthStartDate = new Date(formatLastYear, lastMonth, 1);
     var getLastMonthStartDate = this.formatDate(getLastMonthStartDate);
 
     //获得上月结束时间
-    var getLastMonthEndDate = new Date(nowYear, lastMonth,this.getMonthDays(lastMonth));
+    var getLastMonthEndDate = new Date(formatLastYear, lastMonth,this.getMonthDays(lastMonth));
     var getLastMonthEndDate = this.formatDate(getLastMonthEndDate);
-    
+    console.log(getLastMonthStartDate)
+    console.log(getLastMonthEndDate)
     return {
         start:getLastMonthStartDate,
         end:getLastMonthEndDate

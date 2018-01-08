@@ -41,7 +41,7 @@
         },
         methods:{
             submitBtn(){
-                this.$emit('changeCondition')
+                this.$emit('changeCondition','search')
             },
             closeSearch(){
                 this.$emit('changeCondition','close')

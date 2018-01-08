@@ -135,10 +135,10 @@
                                             <el-tag
                                             type="info" 
                                             closable 
-                                            v-if="!search.is_user==''&&search.is_user.length > 0"
-                                            @close="handleClose(search.is_user,'search.is_user')"
+                                            v-if="!search.is_member==''&&search.is_member.length > 0"
+                                            @close="handleClose(search.is_member,'search.is_member')"
                                             >
-                                                <span>会员：{{search.is_user==1?'是':'否'}}</span>    
+                                                <span>会员：{{search.is_member==1?'是':'否'}}</span>    
                                             </el-tag>
                                             <el-tag 
                                             type="info" 
@@ -299,7 +299,7 @@
                     case 'search.consumption_sequence':
                         this.search.consumption_sequence=[]
                     break;
-                    case 'search.is_user':
+                    case 'search.is_member':
                         this.search.is_user = []
                     break;
                 }
@@ -325,7 +325,7 @@
                            this.formatShowDate(getDate.getLastMonthDate())
                      break;
                      case '近七天':
-                           this.formatShowDate(getDate.getToday())
+                           this.formatShowDate(getDate.getRecentDate())
                      break;
                  }
             },

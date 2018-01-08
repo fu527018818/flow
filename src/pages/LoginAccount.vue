@@ -56,17 +56,13 @@ export default {
     //用户登录
      this.$store.dispatch('userLogin',{'url':path.USER_ACC,userJson:{id:$userId}}).then(data=>{
          this.loading = false;
-         console.log(data)
          if(data.status=="200"&&!data.status==""){
                 ls.set('userId',$userId)
                this.$router.push({name:'loginPwd'})
+         }else{
+             this.showTip(data.message);
          }
-         else if(data.status=="400"&&dats.status==""){
-             this.showTip("账号错误");
-         }
-         else if(data.status=="401"&&data.status==""){
-             this.showTip("该用户被禁止登录");
-         }
+         
       });
    
       

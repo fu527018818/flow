@@ -18,6 +18,7 @@
                  <el-table-column
                 prop="real_name"
                 label="申请人"
+                width="80"
                 >
               </el-table-column>
               <el-table-column
@@ -44,15 +45,33 @@
               
               <el-table-column
                   label="审核"
+                  width="180"
                 >
                 <template slot-scope="scope">
-                    <el-button
-                        size="mini"
-                        :disabled="scope.row.status=='1'?true:false"
-                        :type="scope.row.status=='1'? '':'primary'"
-                        @click="handleEdit(scope.$index, scope.row)">
-                        {{scope.row.status=='1'?'已通过':'通过'}}
-                    </el-button>
+                    <div v-if="scope.row.status=='2'">
+                        <el-button
+                            size="mini"
+                   
+                            type="primary"
+                            @click="handleEdit(scope.$index, scope.row,'1')">
+                            通过
+                        </el-button>
+                                          <!-- :disabled="scope.row.status=='1'?true:false" -->
+                        <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleEdit(scope.$index, scope.row,'0')">
+                            禁用
+                        </el-button>
+                    </div>
+                    <div v-else>
+                        <el-button
+                            size="mini"
+                            disabled
+                            @click="handleEdit(scope.$index, scope.row)">
+                            {{scope.row.status=='1'?'已通过':'禁用'}}
+                        </el-button>
+                    </div>
                 </template>
               </el-table-column>
             </el-table>
@@ -74,16 +93,23 @@
             tableHeade(){
               return 'headerTr'
            },
-            handleEdit(index,row){
+            handleEdit(index,row,status){
                personnelModifyApply({
                    user_id:row.id,
                    shop_id:row.shop_id,
-                   apply:row.status =="1"?'':'1'
+                   apply:status
                })
                .then(res=>{
-                     if(res.status =="200"){
+                     if(res.data.status =="200"){
                        this.$emit('changeStatus');
                    }
+                   else if(res.data.status=="400"){
+                      this.$message({
+                        message:res.data.message,
+                        type: 'warning'
+                        });
+                   }
+                   
                })
             },
             formatGender(row,column){

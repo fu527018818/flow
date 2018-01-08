@@ -43,7 +43,7 @@
                     </el-tag>
                     <el-tag
                       disabled
-                      :type="scope.row.is_new_guest=='1'?'success':'info'"
+                      :type="scope.row.is_new_guest=='1'?'primary':'info'"
                     >
                      {{scope.row.guest_type=="0"?'访客':(scope.row.guest_type=="1"?'老客':'回头客')}}
                     </el-tag>

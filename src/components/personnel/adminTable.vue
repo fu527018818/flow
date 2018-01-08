@@ -76,7 +76,6 @@
                  user_id:row.id
              }).then(res=>{
                 // 修改状态成功后重新调用父组件初始化
-                console.log(res)
                if(res.status =="200"){
                   this.$emit('changeStatus');
                }

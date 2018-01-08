@@ -24,6 +24,7 @@
               <el-table-column
                 prop="order_price"
                 label="订单金额"
+                :formatter="formaMoney"
                 >
               </el-table-column>
               <el-table-column
@@ -77,6 +78,9 @@
             },
              tableHeade(){
              return 'headerTr'
+         },
+         formaMoney(row){
+             return '￥'+row.order_price
          }
         },
         created(){

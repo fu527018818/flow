@@ -35,7 +35,6 @@
                 label="金额"
                 >
               </el-table-column>
-                </el-table-column>
                 <el-table-column
                 prop="reason"
                 label="支出事由"
