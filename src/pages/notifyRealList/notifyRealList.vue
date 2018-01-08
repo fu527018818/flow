@@ -13,19 +13,14 @@
                      </div>
                  </el-col>
              </el-row>
-             <el-row :gutter="6" class="notifyUserList">
-                 <el-col :span="4">
+             <el-row :gutter="6" class="notifyUserList" v-if="newGuest">
+                 <el-col class="listBox" :span="4" v-for="(item,index) in newGuest" :key="index">
                      <div class="list">
-                         <img src="http://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515152272244&di=1bf614d2f305fa656f3c3e433016d526&imgtype=0&src=http%3A%2F%2Fwww.xueui.cn%2Fwp-content%2Fuploads%2F2014%2F04%2Fnotification-psd-42.jpg" alt="">
+                         <img :src="item.avatar" alt="人物头像">
                          <div class="des">
-                             李安-男-34岁
+                             {{item.real_name +'-'+(item.gender=="1"?"男":"女")+'-'+item.age+'岁'}}
                          </div>
                     </div>
-                 </el-col>
-                 <el-col :span="4">
-                     <div class="list">
-                         122
-                     </div>
                  </el-col>
              </el-row>
              <div class="notifyDot">
@@ -38,13 +33,40 @@
 </template>
 
 <script>
+    import {getNewguest}from '../../api/global';
+    import {mapGetters} from 'vuex';
     export default {
         name:"notifyRealList", //实时推送用户列表
+        data(){
+            return{
+              newGuest:""
+            }
+        },
+        computed:{
+            ...mapGetters([
+                'shop_list_current'
+            ])
+        },
         methods:{
             goto(){
                 this.$router.go(-1)
+            },
+            newGuestInit(){
+                getNewguest({
+                    shop_id:this.shop_list_current
+                })
+                .then(res=>{
+                    var data = res.data
+                    if(data.status=="200"){
+                         this.newGuest = data.data.lists
+                    }
+                })
             }
+        },
+        created(){
+            this.newGuestInit()
         }
+
     }
 </script>
 
@@ -77,6 +99,9 @@
         }
     }
     .notifyUserList{
+        & .listBox{
+            margin-bottom: 20px;
+        }
         & .list{
             height:191px;
             border: solid 1px #d3dde0;

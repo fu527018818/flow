@@ -26,9 +26,7 @@ export default {
       //  this.$socket.emit('login',this.userInfo.user_id)
   },
   watch:{
-    $route:function(to){
-      console.log(to)
-    },
+    //实时推送
     newMessage:function(val){
       var self = this;
       val = JSON.parse(val)

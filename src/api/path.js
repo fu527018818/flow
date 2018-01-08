@@ -48,5 +48,6 @@ export default {
     EDITSTAFFAPPLY:"/staff/modify/apply",//消息列表绑定状态
     NOTIFICATIONSTATUS:"/notification/status", //消息状态
     GET_BIND_POSITION:"/mine/bind/position",  //获取职员列表
-    SET_BIND_SHOP:"/mine/bind" //绑定门店
+    SET_BIND_SHOP:"/mine/bind", //绑定门店
+    GET_NEW_GUEST:"/guest/lists" //获得最新客户
 }

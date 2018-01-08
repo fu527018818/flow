@@ -384,6 +384,14 @@ export function setBindShop(json){
         data:json,
     })
 }
+//最新到店客户
+export function getNewguest(json){
+    return fetch({
+        url:path.GET_NEW_GUEST,
+        method:'post',
+        data:json,
+    })
+}
 export default{
     userLogin,
     mainInit,
@@ -426,5 +434,6 @@ export default{
     editStaffApply,
     notificationStatus,
     officeBindPosition,
-    setBindShop
+    setBindShop,
+    getNewguest
 }

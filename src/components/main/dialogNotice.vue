@@ -58,7 +58,7 @@
             }
       },
       created(){
-          this.$store.dispatch('notice_list',{shop_id:ls.get('shop_list_current'),Is_publish:1})
+          this.$store.dispatch('notice_list',{shop_id:ls.get('shop_list_current'),is_publish:1})
       }
     }
 </script>
