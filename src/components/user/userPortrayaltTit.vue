@@ -212,6 +212,7 @@
     padding: 0 13px;
     & .grid-content.bg-purple{
         border: solid 1px #d3dde0;
+        box-shadow: 0px 1px 6px 0px #d3dde0;
         height: 128px;
         position: relative;
         & > div:nth-child(1){

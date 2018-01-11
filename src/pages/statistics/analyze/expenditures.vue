@@ -4,7 +4,10 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                     <search-page :tit="{tit:'支出明细'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                     <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                        <div class="tit" slot="tit">
+                            支出明细
+                        </div>
                        <div class="search" slot="searchCon">
                         <div class="f-input">
                                 <input type="text" v-model="search"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜客户...">
@@ -100,6 +103,8 @@
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="type.length>0"
+                                closable
+                                 @close="handleClose(type,'type')"
                                 >
                                 录入方式：<span v-for="item in type" :key="item">{{item+'/'}}</span>    
                             </el-tag>
@@ -107,8 +112,10 @@
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="user_id_tag.length>0"
+                                closable
+                                 @close="handleClose(user_id_tag,'user_id_tag')"
                                 >
-                                录入方式：<span  v-for="item in user_id_tag" :key="item">{{item+'/'}}</span>    
+                                录入人：<span  v-for="item in user_id_tag" :key="item">{{item+'/'}}</span>    
                             </el-tag>
                          </div>
                     </search-condition>
@@ -138,8 +145,8 @@ export default {
          clocker:['今天','昨天','本周','上周','上月','本月'],
          date1:[],
          date2:[], //录入时间
-         date1Current:'本月',
-         date2Current:'本月',
+         date1Current:'今天',
+         date2Current:'今天',
          type:[],
          user_id:[],
          user_id_tag:"",
@@ -175,6 +182,12 @@ export default {
       },
       changeCondition(val){
           if(val=="close"){
+            this.changeDate('今天');
+            this.changeDate2('今天');
+            this.date1Current="今天"
+            this.date2Current="今天"
+            this.user_id = [];
+            this.type= [];
               return false;
           }
           this.expendituresInit();
@@ -231,11 +244,21 @@ export default {
                this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
                this.lists = data.lists
          })
+   },
+   handleClose(tag,ele){
+       switch(ele){
+           case 'type':
+                this.type= [];
+           break;
+           case 'user_id_tag':
+                this.user_id = [];
+           break;
+       }
    }
   },
   created(){
-      this.changeDate('本月');
-      this.changeDate2('本月');
+      this.changeDate('今天');
+      this.changeDate2('今天');
       this.expendituresInit();
   },
   watch:{
@@ -259,4 +282,12 @@ export default {
 
 <style scoped lang="scss">
       @import '../../../assets/css/searchlist.scss';
+      .tit{
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 1px;
+            color: #4d4d4d;
+            padding-left: 30px;
+        }
 </style>

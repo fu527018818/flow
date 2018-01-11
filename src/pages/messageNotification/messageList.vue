@@ -171,7 +171,8 @@
                 editStaffApply({
                     shop_id:ele.shop_id,
                     user_id:ele.user_id,
-                    apply:index
+                    apply:index,
+                    id:ele.id
                 })
                 .then(res=>{
                     if(res.data.status=="400"){

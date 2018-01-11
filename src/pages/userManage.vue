@@ -125,9 +125,7 @@
                                             </el-tag>
                                             <el-tag 
                                             type="info"
-                                            closable 
                                             v-if="!search.date==''&&search.date.length > 0"
-                                            class=""
                                             >
                                                 <span>上次到店：{{search.date}}</span>    
                                             </el-tag>
@@ -158,7 +156,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -199,6 +197,7 @@
         components:{MainNav,userManageTable,searchPage},
         data(){
             return {
+                 statusFold:'收起',
                 searchFuzzy:"",
                 pageDate:"",
                 lists:"",
@@ -209,7 +208,7 @@
                 limit:"10",
                 search:{
                     gender:'',
-                    date:"本月",
+                    date:"今天",
                     last_visit:[],
                     service_user:"", //所属人
                     total_consumption:[], //累计消费
@@ -229,18 +228,27 @@
           ])
         },
         created(){
-                this.radioCheckDate('本月')
+                this.radioCheckDate('今天')
                 this.userManagerInit();
         },
          methods: {
             showColse(){
                     this.isFold = !this.isFold;
+                    if(this.isFold==true){
+                        this.statusFold="收起"
+                    }else{
+                        this.statusFold="展开"
+                    }
             },// 多选表单简单交互
             closeSearch(){
                 var search = this.search;
                 for(var key in search){
-                    if(search[key]=="last_visit"||search[key]=="total_consumption"||search[key]=="consumption_sequence"){
+                      console.log(search[key])
+                    if(key=="last_visit"||key=="total_consumption"||key=="consumption_sequence"){
                             search[key] = [];
+                    }
+                    else if(key=="date"){
+                        search[key]="今天"
                     }else{
                         search[key]= '';
                     }

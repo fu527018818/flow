@@ -4,7 +4,10 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                   <search-page :tit="{tit:'订单详情'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                   <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                       <div slot="tit" class="tit">
+                             订单详情
+                       </div>
                        <div class="search" slot="searchCon">
                         <div class="f-input">
                                 <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单...">
@@ -186,14 +189,17 @@ export default {
 
           })
           .then(res=>{
-              var data = res.data; 
-              //收银台
-              this.cashier_deskAll =data.cashier_desk;
-              //收银员
-              this.cashierAll = data.cashier;
-              //格式化分页所需数值
-              this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
-              this.lists = data.lists
+              if(res.data.status =="200"){
+                    var data = res.data.data; 
+                    //收银台
+                    this.cashier_deskAll =data.cashier_desk;
+                    //收银员
+                    this.cashierAll = data.cashier;
+                    //格式化分页所需数值
+                    this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
+                    this.lists = data.lists
+              }
+              
           })
       }, //searchPage分页组件传过来的值
       changePagesSearch(val){
@@ -291,6 +297,14 @@ watch:{ //监听店铺ID变化，转化成店铺名字
 </script>
 
 <style scoped lang="scss">
+ .tit{
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 1px;
+            color: #4d4d4d;
+            padding-left: 30px;
+        }
   .search{
             width: 250px;
             height: 30px;

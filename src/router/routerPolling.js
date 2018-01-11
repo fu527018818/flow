@@ -7,7 +7,6 @@ import NProgress from 'nprogress'
 NProgress.configure({ easing: 'ease', speed: 300, minimum: 0.1, showSpinner: false });
 // 路由配置 start
 router.beforeEach((to, from, next) => {
-  console.log(`路由到${to.path}`)
   NProgress.start();
   var token = ls.get('token');
   var userInfo = ls.get('userInfo');

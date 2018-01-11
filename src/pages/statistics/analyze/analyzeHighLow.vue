@@ -45,7 +45,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -80,6 +80,7 @@ export default {
   name: "analyzeHighLow", //客流高低峰值分析
   data(){
       return {
+           statusFold:'收起',
           isFold:true,
         checkedWeek: ['星期一'],
         weeks: weekOptions
@@ -100,6 +101,11 @@ export default {
   methods:{
       showColse(){
           this.isFold = !this.isFold;
+           if(this.isFold==true){
+                        this.statusFold="收起"
+            }else{
+                this.statusFold="展开"
+            }
       },
       seachtrigger(){
            this.flowPeakInit();
@@ -108,7 +114,7 @@ export default {
            this.flowPeakInit();
       },
       closeSearch(){
-
+          this.checkedWeek = ['星期一']
       },
       flowPeakInit(){
           statisticsFlowPeak({

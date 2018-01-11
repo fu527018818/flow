@@ -78,6 +78,7 @@
                                             <el-tag 
                                                 type="info"
                                                 :disable-transitions="false"
+                                                
                                                 >
                                                 <span>粒度：{{unit}}</span>    
                                             </el-tag>
@@ -91,7 +92,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -126,6 +127,7 @@ export default {
         components:{MainNav,searchDate},
         data (){
             return {
+                statusFold:'收起',
                 isFold:"true",
                 type:"营业额",
                 isHour:true,//粒度是否为小时
@@ -164,13 +166,20 @@ export default {
                     }
                 }
             }, //切换门店 
-            
             showColse(){
                     this.isFold = !this.isFold;
+                    if(this.isFold==true){
+                        this.statusFold="收起"
+                    }else{
+                        this.statusFold="展开"
+                    }
             },
           //清空
             closeSearch(){
-
+                this.unit="小时"
+                this.date1 = getDate.getToday().start;
+                this.type="营业额"
+                this.isHour = true;
             }, //筛选时
              submitBtn(){
                 this.searchInit()

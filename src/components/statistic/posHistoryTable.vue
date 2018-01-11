@@ -6,7 +6,7 @@
             border
             style="width: 100%"
             ref = "userTable"
-            max-height="300"
+            max-height="500"
             :header-row-class-name="tableHeade"
             :default-sort = "{prop:'date', order: 'descending'}"
             >
@@ -18,6 +18,7 @@
                  <el-table-column
                 prop="add_time"
                 label="录入时间"
+                width="160"
                 >
               </el-table-column>
               <el-table-column
@@ -44,6 +45,7 @@
               <el-table-column
                 prop="input_time"
                 label="成交时间"
+                width="160"
                 >
               </el-table-column>
               <el-table-column

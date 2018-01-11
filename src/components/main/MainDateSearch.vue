@@ -88,7 +88,7 @@
                     </div>
                 </el-col>
                 <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="toStatistics('passengerFlow')">
                         <div>{{chart.passenger.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -104,7 +104,7 @@
                     </div>
                 </el-col>
                 <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="toStatistics('statisticsIndent')">
                         <div>{{chart.volume.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -120,7 +120,7 @@
                     </div>
                 </el-col>
                 <el-col :span="6">
-                    <div class="grid-content bg-purple">
+                    <div class="grid-content bg-purple" @click="toStatistics('statisticsRefer')">
                         <div>{{chart.volume_rate.name}}</div>
                         <div>
                             <el-row :gutter="0" class="numList">
@@ -183,7 +183,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
                 })
             },
             toStatistics(val){
-                this.$router.push({name:"turnover",params:{val}})
+                this.$router.push({name:val,params:{val}})
             }
         },
         created (){

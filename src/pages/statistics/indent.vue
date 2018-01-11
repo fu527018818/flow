@@ -70,9 +70,8 @@
                             <el-tag 
                                 type="info"
                                 :disable-transitions="false"
-                                
                                 >
-                                时间：<span >{{date[0]+ '/'+date[1]}}</span>    
+                                时间：<span >{{clockerCurrent}}</span>    
                             </el-tag>
                             <el-tag 
                                 type="info"
@@ -83,7 +82,7 @@
                                 >
                                 门店：<span v-for="item in shopTag" :key="item">{{item}}</span>    
                             </el-tag>
-                            <el-tag 
+                            <el-tag
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="cashier_desk.length>0"
@@ -155,7 +154,6 @@ export default {
           this.isPages = !this.isPages;
       },
     handleClose(val){
-        console.log(val)
         switch(val){
             case 'shopTag':
                 this.shop=[]

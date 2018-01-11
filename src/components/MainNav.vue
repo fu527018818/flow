@@ -129,8 +129,8 @@ export default {
   },
   created() {
        //登录weksocket
-       this.$socket.connect();
-       this.$socket.emit('login',this.userInfo.user_id)
+      //  this.$socket.connect();
+      //  this.$socket.emit('login',this.userInfo.user_id)
        this.menuType(this.indexMenu);
   },
   mounted(){

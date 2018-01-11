@@ -1,18 +1,18 @@
 <template>
      <div class="titCutBox">
         <el-row>
-            <el-col :span="8">
+            <el-col :span="6">
                 <div class="">
                       <slot name="tit"></slot>
                 </div>
             </el-col>
-            <el-col :span="16">
+            <el-col :span="18">
             <div class="rightSearch">
                     <slot name="searchCon"></slot>
                     <div class="pagingBox">
                         <el-button @click="searchPages.current--&& goto()" :disabled="searchPages.current==1?true:false" size="mini" plain icon="el-icon-arrow-left"></el-button>
                             <input type="text" class="pagesNum" v-model="searchPages.current" v-on:blur="goto('goto')"  @keyup.enter="goto('goto')">
-                        <el-button  @click="searchPages.current++&& goto()" :disabled ="searchPages.current==pageDate.tolPage?true:false" size="mini" plain> <i class="el-icon-arrow-right el-icon--right"></i></el-button>
+                        <el-button  @click="searchPages.current++&& goto()" :disabled ="searchPages.current==pageDate.tolPage?true:(pageDate.tolPage==0?true:false)" size="mini" plain> <i class="el-icon-arrow-right el-icon--right"></i></el-button>
                         <a @click="changPages"  class="tolPages">共<span>{{pageDate.tolPage}}</span>页</a>
 
                         <div v-if="isPages" class="changPageBox">

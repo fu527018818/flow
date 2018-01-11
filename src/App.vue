@@ -16,7 +16,8 @@ export default {
   computed:{
     ...mapGetters([
       'userInfo',
-      'shop_list_current'
+      'shop_list_current',
+      'token'
     ]),
     ...mapState({
       newMessage:state=>state.websocket.newMessage
@@ -30,7 +31,6 @@ export default {
     newMessage:function(val){
       var self = this;
       val = JSON.parse(val)
-      console.log(val)
       if(val&&this.shop_list_current == val.shop_id){
         this.$notify({
           title: '',
@@ -43,6 +43,16 @@ export default {
           }
         });
       }
+    },//token失效时退出登录
+    token:function(val){
+        if(val==undefined){
+          this.$alert('用户已在其他地方登录, 请退出重新登录?', '提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+               this.$router.push({path:'/'})
+          }
+        });
+        }
     }
   }
 }

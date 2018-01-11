@@ -15,12 +15,10 @@
                                     </el-col>
                                     <el-col :span="22" id="changSeparator">
                                            <el-date-picker
-                                             value-format="yyyy-MM-dd"
+                                            value-format="yyyy-MM-dd"
                                             v-model="date"
                                             type="daterange"
-                                            range-separator="对比"
-                                            start-placeholder="开始日期"
-                                            end-placeholder="结束日期">
+                                            range-separator="对比">
                                             </el-date-picker>  
                                     </el-col>
                             </el-row>
@@ -49,7 +47,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -64,9 +62,9 @@
                         <el-row v-if="chart">
                             <el-col :span="12"  class="left">
                                 <div class="list">
-                                    <div>{{chart['avg'].name}}</div>
-                                    <div>人数：<span class="num">{{chart['avg'].max_person}}</span>人</div>
-                                    <div>时间：{{chart['avg'].datetime}}</div>
+                                    <div>{{chart['max'].name}}</div>
+                                    <div>人数：<span class="num">{{chart['max'].max_person}}</span>人</div>
+                                    <div>时间：{{chart['max'].datetime}}</div>
                                 </div>
                             </el-col>
                             <el-col :span="12" class="right">
@@ -106,6 +104,7 @@ export default {
   name: "flowRetention", //客流滞留分析
   data(){
       return {
+           statusFold:'收起',
           isFold:true,
           date:[],
           chart:""
@@ -128,6 +127,11 @@ export default {
       },
       showColse(){
           this.isFold = !this.isFold;
+           if(this.isFold==true){
+                        this.statusFold="收起"
+            }else{
+                this.statusFold="展开"
+            }
       },
       retentionInit(){
           statisticsRetention({
@@ -138,16 +142,14 @@ export default {
           .then(res=>{
               var data = res.data.data
               this.chart = data.chart;
-              console.log(this.chart)
               var current = formatbg.formatOneOrTwoSpline(data.graphic.data1);
-              console.log(current)
               Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
           })
       }
 
   },
   created(){
-       var date = getDate.getYesterdayDate()
+       var date = getDate.getYesterdayDate();
         for(var key in date){
             this.date.push(date[key])
         }

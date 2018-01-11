@@ -47,16 +47,17 @@ service.interceptors.request.use(config => {
   service.interceptors.response.use(
     response => {
       //登录之后返回数据进行解密
-      console.log(response)
       if(response.data.status=="401"){
-        MessageBox.confirm('用户已在其他地方登录, 请退出登录?', '提示', {
-          confirmButtonText: '确定',
-          type: 'warning'
-        }).then(() => {
-            store.commit('REMOVE_TOKEN');
-        }).catch(() => {
-               
-        });
+         //app.vue监听token做路由跳转
+          store.commit('REMOVE_TOKEN');
+          // MessageBox.confirm('用户已在其他地方登录, 请退出登录?', '提示', {
+          //   confirmButtonText: '确定',
+          //   type: 'warning'
+          // }).then(() => {
+         
+          // }).catch(() => {
+                 
+          // });
         return false
       }
       var checkUrl = response.config.url;

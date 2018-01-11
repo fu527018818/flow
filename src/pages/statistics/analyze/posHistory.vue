@@ -4,7 +4,10 @@
         <div class="contentBox" v-slim-scroll>
             <div class="contentBox_child">
                 <div class="content">
-                      <search-page :tit="{tit:'Pos数据'}" :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                      <search-page :pageDate="pageDate"  @changePagesSearch="changePagesSearch">
+                        <div slot="tit" class="tit">
+                            Pos数据
+                        </div>
                        <div class="search" slot="searchCon">
                         <div class="f-input">
                                 <input type="text" v-model="searchOrder"  @keyup.enter="searchIndent" v-on:blur="searchIndent"  validateevent="true" placeholder="搜订单...">
@@ -88,25 +91,29 @@
                                 type="info"
                                 :disable-transitions="false"
                                 >
-                                录入时间：<span >{{date1[0]+ '/'+date2[1]}}</span>    
+                                录入时间：<span >{{date1Current}}</span>    
                             </el-tag>
                              <el-tag 
                                 type="info"
                                 :disable-transitions="false"
                                 >
-                                成交时间：<span >{{date2[0]+ '/'+date2[1]}}</span>    
+                                成交时间：<span >{{date2Current}}</span>    
                             </el-tag>
                             <el-tag 
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="type.length>0"
+                                closable 
+                                 @close="handleClose(type,'type')"
                                 >
-                                录入方式：<span v-for="item in type" :key="item">{{item}}</span>    
+                                录入方式：<span v-for="item in type" :key="item">{{item+'/'}}</span>    
                             </el-tag>
                              <el-tag 
                                 type="info"
                                 :disable-transitions="false"
                                 v-if="user_id_tag.length > 0"
+                                 closable 
+                                 @close="handleClose(user_id_tag,'user_id_tag')"
                                 >
                                 录入方式：<span  v-for="item in user_id_tag" :key="item">{{item+'/'}}</span>    
                             </el-tag>
@@ -137,8 +144,8 @@ export default {
           clocker:['今天','昨天','本周','上周','上月','本月'],
           date1:[],  
           date2:[],  
-          date1Current:'', 
-          date2Current:'',
+          date1Current:'今天', 
+          date2Current:'今天',
           type:[],
           user_id:[],//录入人
           user_id_tag:"", //标签
@@ -174,6 +181,12 @@ export default {
       },
       changeCondition(val){
           if(val=='close'){
+            this.changeDate('今天');
+            this.changeDate1('今天');
+            this.date1Current="今天"
+            this.date2Current="今天"
+            this.user_id = [];
+            this.type= [];
             return false;
           }
          this.posInit()
@@ -229,11 +242,22 @@ export default {
            this.pageDate = formatBg.formatPageDate(data.limit,data.page,data.search_count);
            this.lists = data.lists
       })
+   },
+   handleClose(tag,ele){
+       switch(ele){
+           case 'type':
+                this.type= [];
+           break;
+           case 'user_id_tag':
+                this.user_id = [];
+           break;
+       }
    }
   },
+  
   created(){
-     this.changeDate('本月');
-     this.changeDate1('本月');
+     this.changeDate('今天');
+     this.changeDate1('今天');
      this.posInit()
   },
   watch:{
@@ -250,7 +274,6 @@ export default {
                }
         })
         this.user_id_tag = arr;
-        console.log(this.user_id_tag)
      } 
   }
 };
@@ -258,4 +281,12 @@ export default {
 
 <style scoped lang="scss">
     @import '../../../assets/css/searchlist.scss';
+    .tit{
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 1px;
+            color: #4d4d4d;
+            padding-left: 30px;
+        }
 </style>

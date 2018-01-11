@@ -13,6 +13,7 @@
             <el-table-column
                 prop="request_time"
                 label="申请时间"
+                width="160"
                  >
              </el-table-column>
                  <el-table-column
@@ -30,6 +31,7 @@
                 prop="gender"
                 label="性别"
                 :formatter="formatGender"
+                width="50"
                 >
               </el-table-column>
                 <el-table-column
@@ -97,7 +99,8 @@
                personnelModifyApply({
                    user_id:row.id,
                    shop_id:row.shop_id,
-                   apply:status
+                   apply:status,
+                   id:row.id
                })
                .then(res=>{
                      if(res.data.status =="200"){

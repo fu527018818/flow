@@ -17,7 +17,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="searchBtn">
-                            <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                            <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                             <el-button type="primary" @click="submitBtn">
                                 筛选
                             </el-button>
@@ -36,6 +36,7 @@
     export default {
         data(){
             return {
+                 statusFold:'收起',
                 isFold:true,
             }
         },
@@ -48,6 +49,11 @@
             },
             showColse(){
                 this.isFold = !this.isFold;
+                if(this.isFold==true){
+                        this.statusFold="收起"
+                    }else{
+                        this.statusFold="展开"
+                    }
             }
         }
     }
