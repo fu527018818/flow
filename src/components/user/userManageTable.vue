@@ -117,7 +117,7 @@
                 return row.is_menber=="1"?'是':'否';
             },
              formatMoney(row,column){
-            return '￥'+ row.consumption_sequence
+            return '￥'+ row.total_consumption
         }
         }
     },

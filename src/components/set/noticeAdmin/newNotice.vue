@@ -29,6 +29,7 @@
               </el-table-column>
                <el-table-column
                   label="置顶"
+                  width="80"
                 >
                 <template slot-scope="scope">
                     <el-button
@@ -42,26 +43,30 @@
               <el-table-column
                 prop="publish_time"
                 label="发布时间"
+                width="160"
                 >
               </el-table-column>
               <el-table-column
                 prop="stop_time"
                 label="下架时间"
+                width="160"
                 >
               </el-table-column>
               <el-table-column
                 prop="content"
                 label="公告内容"
+                :formatter="formaContent"
                 >
               </el-table-column>
               <el-table-column
                   label="详细信息"
+                  width="120"
                 >
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
                         type="primary"
-                        @click="handleEdit(scope.$index, scope.row)">
+                        @click="viewDetails(scope.$index, scope.row)">
                         {{'详细信息'}}
                     </el-button>
                 </template>
@@ -116,6 +121,9 @@
          },
          addNotice(){
              this.$router.push({name:'editNotice',params:{status:'add'}});
+         },
+         viewDetails(index,row){
+             this.$router.push({name:'editNotice',params:{curren:row,status:'edit'}});
          },
          editorNotice(){
               var selected= this.$refs.noticeTable.selection
@@ -181,6 +189,14 @@
                         return       
                     });
             }
+         },
+         formaContent(row,column){
+            if(row.content.length>10){
+                return row.content.slice(0,10) + '...'
+            }else{
+                return row.content
+            }
+             
          }
         },
         created(){

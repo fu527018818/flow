@@ -243,16 +243,17 @@
             closeSearch(){
                 var search = this.search;
                 for(var key in search){
-                      console.log(search[key])
                     if(key=="last_visit"||key=="total_consumption"||key=="consumption_sequence"){
                             search[key] = [];
                     }
                     else if(key=="date"){
                         search[key]="今天"
+                       
                     }else{
                         search[key]= '';
                     }
                 }
+                 this.radioCheckDate('今天')
             },
             userManagerInit(){
                  userManager({

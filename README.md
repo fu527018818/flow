@@ -1,6 +1,6 @@
 # flow
 
-> 店流宝
+> 店流宝 兼容主流浏览器，ie>10
 
 ## Build Setup
 

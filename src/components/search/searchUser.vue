@@ -120,10 +120,10 @@
                                             <el-tag
                                             type="info" 
                                             closable 
-                                            v-if="!search.is_user==''&&search.is_user.length > 0"
-                                            @close="handleClose(search.is_user,'search.is_user')"
+                                            v-if="!search.is_member==''&&search.is_member.length > 0"
+                                            @close="handleClose(search.is_member,'search.is_member')"
                                             >
-                                                <span>会员：{{search.is_user==1?'是':'否'}}</span>    
+                                                <span>会员：{{search.is_member==1?'是':'否'}}</span> 
                                             </el-tag>
                                             <el-tag 
                                             type="info" 
@@ -143,7 +143,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <div class="searchBtn">
-                                        <div @click="showColse">展开<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
+                                        <div @click="showColse">{{statusFold}}<i class="el-icon--right" v-bind:class="[isFold?'el-icon-arrow-up':'el-icon-arrow-down']"></i></div>
                                         <el-button type="primary" @click="submitBtn">
                                             筛选
                                         </el-button>
@@ -176,6 +176,7 @@
         components:{searchUserTable},
         data(){
             return{
+                statusFold:'收起',
                 searchFuzzy:"",
                 pageDate:"",
                 lists:"",
@@ -280,20 +281,31 @@
                     this.isIndeterminate_1 = checkedCount > 0 && checkedCount < this.consumption_sequenceValue.length;
             },
             closeSearch(){
-                var search = this.search;
+                 var search = this.search;
                 for(var key in search){
-                    if(search[key]=="last_visit"||search[key]=="total_consumption"||search[key]=="consumption_sequence"){
+                      console.log(search[key])
+                    if(key=="last_visit"||key=="total_consumption"||key=="consumption_sequence"){
                             search[key] = [];
+                    }
+                    else if(key=="date"){
+                        search[key]="今天"
+                     
                     }else{
                         search[key]= '';
                     }
                 }
+                this.radioCheckDate('今天')
             },
             submitBtn(){
                 this.searchUserInit(true)
             },
             showColse(){
                 this.isFold = !this.isFold;
+                if(this.isFold==true){
+                        this.statusFold="收起"
+                    }else{
+                        this.statusFold="展开"
+                    }
             },
             searchUserInit(val){
                 var data = {
@@ -319,6 +331,7 @@
             }
         },
          created(){
+              this.radioCheckDate('今天')
               this.searchUserInit() 
         },
         watch:{
@@ -405,5 +418,6 @@
         height: 500px;
         background-color: #ffffff;
         margin-top: 6px;
+        padding-bottom: 100px;
     }
 </style>

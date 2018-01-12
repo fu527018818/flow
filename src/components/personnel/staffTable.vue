@@ -63,7 +63,7 @@
                             size="mini"
                             type="danger"
                             @click="handleEdit(scope.$index, scope.row,'0')">
-                            禁用
+                            不通过
                         </el-button>
                     </div>
                     <div v-else>
@@ -71,7 +71,7 @@
                             size="mini"
                             disabled
                             @click="handleEdit(scope.$index, scope.row)">
-                            {{scope.row.status=='1'?'已通过':'禁用'}}
+                            {{scope.row.status=='1'?'已通过':'不通过'}}
                         </el-button>
                     </div>
                 </template>

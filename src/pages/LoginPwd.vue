@@ -14,11 +14,20 @@
                     <img src="../assets/img/callback.png" alt="返回" @click="goBack">
                 </div>
                 <a id="userHead" class="userHead" href="javascript:void(0);">
-                            <img :src="userimg" alt="">
+                    <img :src="userimg" alt="用户头像">
                 </a>
                 <form>
-                    <div class="userIpt">
-                        <input id="userPw" type="password" placeholder="密码" autocomplete="off">
+                    <div class="userIpt" v-if="isHidePw">
+                        <input id="userPw" class="userPw" type="password" placeholder="密码" autocomplete="off">
+                        <div class="isShowBox" @click="isShowPw">
+                            <img src="../assets/img/show_pw.png" alt="显示密码">
+                        </div>
+                    </div>
+                    <div class="userIpt" v-else>
+                        <input id="userPw" class="userPw" type="text" placeholder="密码" autocomplete="off">
+                        <div class="isShowBox" @click="isShowPw">
+                            <img src="../assets/img/hide_pw.png" alt="显示密码">
+                        </div>
                     </div>
                     <div class="error_tit" style=" visibility: hidden;">
                         密码错误请重试
@@ -42,7 +51,8 @@
         name:"loginPwd",
         data (){
             return{
-                loading:false
+                loading:false,
+                isHidePw:true
             }
         },
         computed:{
@@ -105,6 +115,9 @@
                             lineHeight:"inherit" 
                         })
                     }, 3000)
+                },
+                isShowPw(){
+                    this.isHidePw = !this.isHidePw;
                 }
         },
         created(){
@@ -123,4 +136,18 @@
          background-color: #3e475a;
          margin: 0 auto 60px;
     }
+    .userPw{
+        padding-right:48px;
+        position: relative;
+    }
+    .isShowBox{
+        cursor: pointer;
+        display: inline-block;
+        height: 40px;
+        width: 48px;
+        position: absolute;
+        top:0;
+        right: 0;
+    }
+    
 </style>

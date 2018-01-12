@@ -51,9 +51,16 @@
                     </div>
                  </div>
                  </div>
+                 
                 <div class="contentFooter"></div>
             </div>
-        </div> 
+        </div>
+        <!-- 点击查看大图 -->
+        <!-- <div class="shadow">
+            <div class="">
+                <img src="http://libface.gz.bcebos.com/309c230f9c3c//2018//01//10/7121c3d3a4047a3f_1515573255.52.jpg" alt="">
+            </div>
+        </div> -->
     </div>
 </template>
 
@@ -183,5 +190,13 @@ export default {
 }
 .el-button.el-button--primary{
     padding: 12px 60px!important;
+}
+.shadow{
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,.7);
+    position:absolute;
+    top: 0;
+    z-index: 2;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="detailLeft" v-if="currentInfo">
         <div class="userAvatar">
-            <img :src="currentInfo.avatar" alt="客户头像">
+            <img :src="currentInfo.avatar" alt="客户头像" @click="showAvatar(currentInfo.avatar)">
             <img class="isMember" src="../../../assets/img/user/is_menber.png" alt="">
         </div>
         <div class="userName">
@@ -263,6 +263,9 @@
         methods:{
            lookIphone(){
                 this.isIphone = false;
+           },
+           showAvatar(val){
+              console.log(val)
            }
         }
     }
@@ -282,10 +285,11 @@
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 1;
-    & > img {
+    &  img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
+      cursor: pointer;
     }
     & > .isMember {
       width: 16px;

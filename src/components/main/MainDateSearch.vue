@@ -177,7 +177,10 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
         methods:{
             changeShop(val){
                 this.$store.dispatch('cut_shop_list_current',val);
-                this.$emit('mainInit',val);
+                //切换门店时公告切换
+                this.$store.dispatch('notice_list',{shop_id:this.shop_list_current,is_publish:1})
+                // this.$emit('mainInit',val);
+                //消息状态
                 this.$store.dispatch('getNotificationStatus',{
                     shop_id:this.shop_list_current
                 })

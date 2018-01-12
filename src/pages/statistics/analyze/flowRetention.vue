@@ -15,6 +15,7 @@
                                     </el-col>
                                     <el-col :span="22" id="changSeparator">
                                            <el-date-picker
+                                           @change="changeConditionDate"
                                             value-format="yyyy-MM-dd"
                                             v-model="date"
                                             type="daterange"
@@ -38,7 +39,6 @@
                                                 type="info"
                                                 :disable-transitions="false"
                                                 v-if="date"
-                                               
                                                 >
                                                时间：<span v-for="item in date" :key="item">{{item + ' '}}</span>    
                                             </el-tag>
@@ -122,8 +122,11 @@ export default {
       submitBtn(){
            this.retentionInit();
       },
+      changeConditionDate(){
+          this.retentionInit();
+      },
       closeSearch(){
-
+          this.changeDate()
       },
       showColse(){
           this.isFold = !this.isFold;
@@ -145,14 +148,19 @@ export default {
               var current = formatbg.formatOneOrTwoSpline(data.graphic.data1);
               Highcharts.chart('container',statisticsOneOrTwoSpline(Highcharts,current.name,current.date,current.series));
           })
+      },
+      changeDate(){
+        this.date = [];
+        var date1 = getDate.getYesterdayDate();
+        for(var key in date1){
+            this.date.push(date1[key])
+        }
       }
 
   },
   created(){
-       var date = getDate.getYesterdayDate();
-        for(var key in date){
-            this.date.push(date[key])
-        }
+      
+       this.changeDate()
        this.retentionInit();
   }
 

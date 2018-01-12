@@ -45,8 +45,11 @@ export default {
       }
     },//token失效时退出登录
     token:function(val){
+        if(this.$route.path=="/loginpwd"){
+          return false;
+        }
         if(val==undefined){
-          this.$alert('用户已在其他地方登录, 请退出重新登录?', '提示', {
+          this.$alert('账号状态已变更，请重新登陆!!!', '提示', {
           confirmButtonText: '确定',
           callback: action => {
                this.$router.push({path:'/'})

@@ -2,6 +2,9 @@
     <transition name="fade" mode="in-out">
         <div class="formBox">
             <el-form  ref="ruleForm"  :rules="rules" :model="ruleForm" label-width="80px">
+                <el-form-item label="门店ID" prop="id" class="wh_380">
+                                <el-input v-model="ruleForm.id" disabled></el-input>
+                 </el-form-item>
                  <el-form-item label="门店名称" prop="shop_name" class="wh_380">
                                 <el-input v-model="ruleForm.shop_name"></el-input>
                  </el-form-item>
@@ -71,7 +74,8 @@
                   area2:"",
                   area3:"",
                   address:"",
-                  introduction:""
+                  introduction:"",
+                  id:""
               },
             provinceAll:"",
             cityAll:"",

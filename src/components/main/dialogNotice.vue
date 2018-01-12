@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+    import {mapState,mapGetters} from 'vuex';
     export default {
         data(){
             return{
@@ -47,7 +47,10 @@
     computed:{
         ...mapState({
             notice_title:state=>state.main.notice_title
-        })
+        }),
+        ...mapGetters([
+            'shop_list_current'
+        ])
     },
     methods: {
             handleClose(done) {
@@ -58,7 +61,7 @@
             }
       },
       created(){
-          this.$store.dispatch('notice_list',{shop_id:ls.get('shop_list_current'),is_publish:1})
+          this.$store.dispatch('notice_list',{shop_id:this.shop_list_current,is_publish:1})
       }
     }
 </script>
